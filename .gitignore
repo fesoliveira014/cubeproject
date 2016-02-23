@@ -1,0 +1,13 @@
+*.exe
+*.opensdf
+*.suo
+*.sdf
+Debug/
+x64/
+CubeProject/Debug/
+CubeProject/x64/
+*.sln
+*.sdf
+*.suo
+*.vspx
+*.psess
