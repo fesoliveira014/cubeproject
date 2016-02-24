@@ -2,8 +2,8 @@
 *.opensdf
 *.suo
 *.sdf
-Debug/
-x64/
+./Debug/
+./x64/
 CubeProject/Debug/
 CubeProject/x64/
 *.sln
