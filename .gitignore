@@ -6,9 +6,12 @@
 ./x64/
 CubeProject/Debug/
 CubeProject/x64/
+Common/SFML
 *.sln
 *.vspx
 *.psess
 *.ilk
 *.pdb
+*.dgml
+*.bsc
 log.txt

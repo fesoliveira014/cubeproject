@@ -35,6 +35,16 @@ namespace tactical
 			glm::vec3 m_dim;
 
 		};
+
+		inline void AABB::SetMin(const glm::vec3 min)
+		{
+			m_min = min;
+		}
+
+		inline void AABB::SetMax(const glm::vec3 max)
+		{
+			m_max = max;
+		}
 	}
 }
 
