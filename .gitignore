@@ -6,7 +6,6 @@
 ./x64/
 CubeProject/Debug/
 CubeProject/x64/
-Common/SFML
 *.sln
 *.vspx
 *.psess
