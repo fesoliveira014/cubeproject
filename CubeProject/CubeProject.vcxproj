@@ -66,8 +66,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\Common\SOIL\include;..\Common\glm\include;..\Common\SDL2-2.0.4\include;..\Common\glew-1.12.0\include;..\Common\assimp\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Common\SOIL\lib;..\Common\glfw-3.1.bin.WIN64\lib-vc2013;..\Common\glew-1.12.0\lib\Release\Win32;..\Common\assimp\lib64</LibraryPath>
+    <IncludePath>..\Common\SOIL\include;..\Common\glm\include;..\Common\SFML\include;..\Common\glew-1.12.0\include;..\Common\assimp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Common\SOIL\lib;..\Common\glfw-3.1.bin.WIN64\lib-vc2013;..\Common\glew-1.12.0\lib\Release\Win32;..\Common\assimp\lib64;..\Common\SFML\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>..\Common\SOIL\include;..\Common\glm\include;..\Common\SFML\include;..\Common\glew-1.12.0\include;..\Common\assimp\include;$(IncludePath)</IncludePath>
@@ -79,6 +79,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Common\SOIL\include;..\Common\glm\include;..\Common\SDL2-2.0.4\include;..\Common\glew-1.12.0\include;..\Common\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -92,12 +93,16 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Common\SOIL\include;..\Common\glm\include;..\Common\SFML\include;..\Common\glew-1.12.0\include;..\Common\assimp\include;$(IncludePath)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SFML_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SOIL.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Common\SOIL\lib;..\Common\SFML\lib;..\Common\glew-1.12.0\lib\Release\x64;..\Common\assimp\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

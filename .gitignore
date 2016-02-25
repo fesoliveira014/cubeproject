@@ -7,8 +7,8 @@
 CubeProject/Debug/
 CubeProject/x64/
 *.sln
-*.sdf
-*.suo
 *.vspx
 *.psess
+*.ilk
+*.pdb
 log.txt

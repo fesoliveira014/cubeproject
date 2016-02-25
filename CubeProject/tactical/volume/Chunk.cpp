@@ -14,6 +14,9 @@ namespace tactical
 
 			m_boudingBox = math::AABB(m_position, 
 				glm::vec3(m_position.x + m_size, m_position.y + m_size, m_position.z + m_size));
+
+			for (int i = 0; i < 6; i++)
+				m_neighbors[i] = nullptr;
 		}
 
 		Chunk::~Chunk()
@@ -186,6 +189,16 @@ namespace tactical
 			m_voxels.SetCapacity(size);
 		}
 
+		int Chunk::GetNumOfNeighbors()
+		{
+			int ret = 0;
+			for (int i = 0; i < 6; i++) {
+				if (m_neighbors[i] != nullptr)
+					ret++;
+			}
+
+			return ret;
+		}
 
 	}
 }

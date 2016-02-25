@@ -1,0 +1,86 @@
+<00:58:37> - Session Initiated.
+
+<00:58:46> - [INFO]: Initializing systems...
+<00:59:11> - [INFO]: Camera position: vec3(0.000000, 0.000000, -15.000000)
+<00:59:12> - [INFO]: Camera position: vec3(0.000000, 0.000000, -15.000000)
+<00:59:13> - [INFO]: Camera position: vec3(0.000000, 0.000000, -15.000000)
+<00:59:14> - [INFO]: Camera position: vec3(18.295336, 43.000324, -31.890930)
+<00:59:15> - [INFO]: Camera position: vec3(-1.240681, 60.614120, -36.230251)
+<00:59:16> - [INFO]: Camera position: vec3(-26.296721, 60.614120, -15.026552)
+<00:59:17> - [INFO]: Camera position: vec3(-40.882053, 60.614120, 14.643274)
+<00:59:18> - [INFO]: Camera position: vec3(8.522876, 89.230309, 17.113588)
+<00:59:19> - [INFO]: Camera position: vec3(7.069496, 90.120636, 22.399174)
+<00:59:20> - [INFO]: Camera position: vec3(-11.943779, 62.490879, 88.890892)
+<00:59:21> - [INFO]: Camera position: vec3(-9.126164, 62.490879, 150.886826)
+<00:59:22> - [INFO]: Camera position: vec3(7.283949, 62.490879, 159.368210)
+<00:59:23> - [INFO]: Camera position: vec3(2.786269, 94.103683, 149.428787)
+<00:59:24> - [INFO]: Camera position: vec3(3.401295, 86.163597, 133.170441)
+<00:59:25> - [INFO]: Camera position: vec3(9.530364, 86.163597, 141.585464)
+<00:59:26> - [INFO]: Camera position: vec3(-6.475468, 86.163597, 123.196091)
+<00:59:27> - [INFO]: Camera position: vec3(-5.513707, 86.163597, 125.692917)
+<00:59:28> - [INFO]: Camera position: vec3(11.285244, 86.163597, 157.900467)
+<00:59:29> - [INFO]: Camera position: vec3(7.773194, 86.163597, 157.109451)
+<00:59:30> - [INFO]: Camera position: vec3(1.098923, 86.163597, 150.418777)
+<00:59:31> - [INFO]: Camera position: vec3(-1.267083, 86.163597, 148.046951)
+<00:59:32> - [INFO]: Camera position: vec3(-1.267083, 86.163597, 148.046951)
+<00:59:33> - [INFO]: Camera position: vec3(-15.534136, 86.163597, 124.513565)
+<00:59:34> - [INFO]: Camera position: vec3(-43.577538, 86.163597, 43.521423)
+<00:59:35> - [INFO]: Camera position: vec3(-42.683414, 86.163597, 95.477020)
+<00:59:36> - [INFO]: Camera position: vec3(-3.406804, 86.163597, 164.383057)
+<00:59:37> - [INFO]: Camera position: vec3(76.600098, 74.755920, 194.323441)
+<00:59:38> - [INFO]: Camera position: vec3(136.375092, 104.271271, 95.804558)
+<00:59:39> - [INFO]: Camera position: vec3(112.181015, 101.879715, 19.314859)
+<00:59:40> - [INFO]: Camera position: vec3(20.007963, 134.784622, 19.253004)
+<00:59:41> - [INFO]: Camera position: vec3(-31.496265, 127.304977, 79.887146)
+<00:59:42> - [INFO]: Camera position: vec3(33.875179, 67.134254, 147.553574)
+<00:59:43> - [INFO]: Camera position: vec3(-6.408924, 66.783440, 118.632401)
+<00:59:44> - [INFO]: Camera position: vec3(6.924922, 36.055153, 130.587692)
+<00:59:45> - [INFO]: Camera position: vec3(-27.678272, 70.317314, 142.090790)
+<00:59:46> - [INFO]: Camera position: vec3(-13.229731, 49.788887, 132.325607)
+<00:59:47> - [INFO]: Camera position: vec3(-13.229731, 49.788887, 132.325607)
+<00:59:47> - [INFO]: Finalizing systems...
+
+<00:59:47> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<01:00:35> - Session Initiated.
+
+<01:00:36> - [INFO]: Initializing systems...
+<01:00:37> - [INFO]: Camera position: vec3(13.899931, 9.699995, -15.000000)
+<01:00:38> - [INFO]: Camera position: vec3(-32.510113, 28.318949, -4.978481)
+<01:00:39> - [INFO]: Camera position: vec3(-31.710020, 30.268108, -6.711548)
+<01:00:40> - [INFO]: Camera position: vec3(-22.649811, 30.268108, -19.578943)
+<01:00:41> - [INFO]: Camera position: vec3(-30.786369, 49.262943, 36.027321)
+<01:00:42> - [INFO]: Camera position: vec3(11.596115, 47.389259, 38.759571)
+<01:00:43> - [INFO]: Camera position: vec3(0.758645, 26.518049, 10.258612)
+<01:00:44> - [INFO]: Camera position: vec3(7.214065, 34.407490, -1.275594)
+<01:00:45> - [INFO]: Camera position: vec3(-13.335824, 23.886433, 3.511622)
+<01:00:46> - [INFO]: Camera position: vec3(-6.644037, 21.869717, -4.076169)
+<01:00:47> - [INFO]: Camera position: vec3(-1.404947, 17.916698, 1.909225)
+<01:00:48> - [INFO]: Camera position: vec3(-3.694811, 17.916698, 4.489737)
+<01:00:49> - [INFO]: Camera position: vec3(-3.728220, 17.916698, 4.116230)
+<01:00:50> - [INFO]: Camera position: vec3(-22.119156, 28.173721, -14.710849)
+<01:00:51> - [INFO]: Camera position: vec3(-34.178844, 34.805199, -19.946596)
+<01:00:52> - [INFO]: Camera position: vec3(-37.956219, 34.805199, -13.432822)
+<01:00:53> - [INFO]: Camera position: vec3(-44.400703, 56.451733, -5.346782)
+<01:00:54> - [INFO]: Camera position: vec3(-48.787983, 52.587574, -17.832664)
+<01:00:55> - [INFO]: Camera position: vec3(-49.265667, 50.976044, 15.255339)
+<01:00:56> - [INFO]: Camera position: vec3(-59.537342, 55.098492, 35.073418)
+<01:00:57> - [INFO]: Camera position: vec3(-45.655724, 48.861935, 21.217869)
+<01:00:58> - [INFO]: Camera position: vec3(-46.433022, 48.861935, 24.924055)
+<01:00:59> - [INFO]: Camera position: vec3(-42.623573, 48.861935, 4.350135)
+<01:01:00> - [INFO]: Camera position: vec3(23.812832, 48.861935, -34.541580)
+<01:01:01> - [INFO]: Camera position: vec3(65.236130, 48.861935, 26.462814)
+<01:01:02> - [INFO]: Camera position: vec3(-6.837391, 48.861935, 48.737511)
+<01:01:03> - [INFO]: Camera position: vec3(-34.420963, 48.861935, 36.368771)
+<01:01:04> - [INFO]: Finalizing systems...
+
+<01:01:04> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------

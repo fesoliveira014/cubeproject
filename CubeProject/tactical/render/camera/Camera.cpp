@@ -54,9 +54,9 @@ namespace tactical
 			m_eventHandler = windowHandler.GetEventHandler();
 		}
 
-		/*Ray Camera::CastPickingRay(float viewportX, float viewportY)
+		math::Ray Camera::CastPickingRay(float viewportX, float viewportY)
 		{
-			return Ray();
-		}*/
+			
+		}
 	}
 }

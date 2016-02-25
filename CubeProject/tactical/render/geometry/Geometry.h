@@ -21,7 +21,7 @@ namespace tactical
 					vertices[i].m_normal = glm::vec3(0.0f);
 				}
 
-				for (int i = 0; i < indices.size() / 3; ++i) {
+				for (uint i = 0; i < indices.size() / 3; ++i) {
 					uint cornerA = indices[i * 3];
 					uint cornerB = indices[i * 3 + 1];
 					uint cornerC = indices[i * 3 + 2];

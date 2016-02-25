@@ -8,8 +8,8 @@ int main(int argc, char* argv[])
 	tactical::utils::Logger *logger = tactical::utils::Logger::GetInstance();
 	logger->SetConsoleLogging(true);
 
-	tactical::window::Window window(800, 600, "Game window");
-	tactical::volume::Chunk chunk(glm::vec3(0.0f, 0.0f, 0.0f), 128, 32);
+	tactical::window::Window window(1600, 900, "Game window");
+	tactical::volume::Chunk chunk(glm::vec3(0.0f, 0.0f, 0.0f), 16, 16);
 
 	tactical::math::PerlinNoise2D noise(0.5, 1.0 / 64.0, 4, 10, 0);
 	tactical::math::SimplexNoise simplex(0.5, 8, 1);

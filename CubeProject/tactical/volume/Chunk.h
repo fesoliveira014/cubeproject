@@ -23,6 +23,9 @@ namespace tactical
 {
 	namespace volume
 	{
+		// Chunks are containers for volumes that are renderable.
+		// It is here that the geometry for the chunk is generated based on the
+		// active voxels, taking in consideration differents types of blocks.
 		class Chunk : public render::IRenderable3D
 		{
 		public:
@@ -31,12 +34,17 @@ namespace tactical
 
 			void Draw(render::Shader& shader) override;
 
+			// Checks if chunk is full
 			bool IsSolid(const glm::vec3& position);
+
+			// Checks if chunk has been modified (dirty)
 			bool IsModified();
 
+			// Methods to fill and empty the chunk
 			void Fill();
 			void Empty();
 
+			// Setters and getters
 			void SetVoxel(const glm::vec3& position, byte type);
 			byte GetVoxel(const glm::vec3& position);
 
@@ -49,8 +57,26 @@ namespace tactical
 			inline void SetMaxHeight(int maxHeight) { m_maxHeight = maxHeight; }
 			inline int GetMaxHeight() const { return m_maxHeight; }
 
+			// Iterators
 			inline VolumeIterator begin() { return m_voxels.begin(); }
 			inline VolumeIterator end() { return m_voxels.end(); }
+
+			// neighborhood
+			Chunk* NeighborGetTop()    { return m_neighbors[0]; }
+			Chunk* NeighborGetBottom() { return m_neighbors[1]; }
+			Chunk* NeighborGetRight()  { return m_neighbors[2]; }
+			Chunk* NeighborGetLeft()   { return m_neighbors[3]; }
+			Chunk* NeighborGetFront()  { return m_neighbors[4]; }
+			Chunk* NeighborGetBack()   { return m_neighbors[5]; }
+
+			void NeighborSetTop(Chunk* chunk)    { m_neighbors[0] = chunk; }
+			void NeighborSetBottom(Chunk* chunk) { m_neighbors[1] = chunk; }
+			void NeighborSetRight(Chunk* chunk)  { m_neighbors[2] = chunk; }
+			void NeighborSetLeft(Chunk* chunk)   { m_neighbors[3] = chunk; }
+			void NeighborSetFront(Chunk* chunk)  { m_neighbors[4] = chunk; }
+			void NeighborSetBack(Chunk* chunk)	 { m_neighbors[5] = chunk; }
+
+			int GetNumOfNeighbors();
 
 		protected:
 			Chunk(); // can't create an undefined chunk
@@ -70,6 +96,8 @@ namespace tactical
 
 			render::Mesh<render::Vertex3f3f> m_mesh;
 			math::AABB m_boudingBox;
+
+			Chunk* m_neighbors[6]; // 0 - top, 1 - bottom, 2 - right, 3 - left, 4 - front, 5 - back
 		};
 	}
 }

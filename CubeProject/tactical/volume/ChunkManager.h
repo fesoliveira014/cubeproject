@@ -13,16 +13,15 @@ namespace tactical
 
 	class render::Shader;
 
-	using ChunkMap = std::unordered_map<glm::vec3, Chunk,
-			std::hash<glm::vec3>, std::equal_to<glm::vec3>> ;
-	using ChunkIterator = std::unordered_map<glm::vec3, Chunk,
-			std::hash<glm::vec3>, std::equal_to<glm::vec3>>::iterator;
+	using ChunkMap = std::unordered_map<glm::ivec3, Chunk*,
+			std::hash<glm::ivec3>, std::equal_to<glm::ivec3>> ;
+	using ChunkIterator = std::unordered_map<glm::ivec3, Chunk*,
+			std::hash<glm::ivec3>, std::equal_to<glm::ivec3>>::iterator;
 
 	class ChunkManager
 	{
 	public:
 		ChunkManager();
-		ChunkManager(int chunkSize);
 		~ChunkManager();
 
 		void FillChunks();
@@ -44,6 +43,8 @@ namespace tactical
 		inline ChunkIterator begin() { return m_chunks.begin(); }
 		inline ChunkIterator end() { return m_chunks.end(); }
 	private:
+		void CreateChunk(const glm::vec3& pos);
+
 		ChunkMap m_chunks;
 
 		int m_numChunks;
@@ -51,6 +52,7 @@ namespace tactical
 		glm::vec3 m_currentChunk;
 
 		math::PerlinNoise2D m_noise;
+
 	};
 }
 
