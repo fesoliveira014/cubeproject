@@ -11,6 +11,7 @@
 #include "../render/geometry/Geometry.h"
 
 #include "../math/AABB.h"
+#include "../math/Ray.h"
 
 /*
 Chunks are blocks of voxels representing a cubic region of the world. Each chunk is rendered indepen-
@@ -56,6 +57,8 @@ namespace tactical
 
 			inline void SetMaxHeight(int maxHeight) { m_maxHeight = maxHeight; }
 			inline int GetMaxHeight() const { return m_maxHeight; }
+
+			void PickVoxel(math::Ray& ray);
 
 			// Iterators
 			inline VolumeIterator begin() { return m_voxels.begin(); }

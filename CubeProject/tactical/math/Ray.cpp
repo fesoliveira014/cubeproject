@@ -90,15 +90,22 @@ namespace tactical
 						}
 					}
 				}
-			}
-
-			
+			}	
 		}
 
+		
 		/**
 			Intersection of a ray and a aligned-axis bounding box.
 
-			Implemented using the method described on "Fast Ray/Axis-Aligned Bounding Box			Overlap Tests using Ray Slopes", by Martin Eisemann et al.			Avoids division by zero in some cases and accelerate intersection calculations			by precalculating many characteristics of the ray.			@params box The aligned-axis bouding box.			@see AABB			@return True if there is an intersection and false otherwise.
+			Implemented using the method described on "Fast Ray/Axis-Aligned Bounding Box
+			Overlap Tests using Ray Slopes", by Martin Eisemann et al.
+
+			Avoids division by zero in some cases and accelerate intersection calculations
+			by precalculating many characteristics of the ray.
+
+			@params box The aligned-axis bouding box.
+			@see AABB
+			@return True if there is an intersection and false otherwise.
 		*/
 
 		bool Ray::Intersects(AABB& box)

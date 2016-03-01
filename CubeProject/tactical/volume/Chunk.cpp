@@ -153,6 +153,13 @@ namespace tactical
 			m_voxels.Updated();
 		}
 
+		void Chunk::PickVoxel(math::Ray& ray)
+		{
+			if (ray.Intersects(m_boudingBox)) {
+
+			}
+		}
+
 		bool Chunk::IsSolid(const glm::vec3& position)
 		{
 			return m_voxels.IsFull();

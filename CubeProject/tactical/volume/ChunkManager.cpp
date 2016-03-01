@@ -11,6 +11,13 @@ namespace tactical
 		m_noise = math::PerlinNoise2D(0.5, 1.0 / 64.0, 4, 10, 0);
 	}
 
+	ChunkManager::~ChunkManager()
+	{
+		for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+			delete iter->second;
+		}
+	}
+
 	void ChunkManager::FillChunks()
 	{
 		

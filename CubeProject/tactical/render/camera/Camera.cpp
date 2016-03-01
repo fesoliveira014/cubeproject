@@ -54,9 +54,23 @@ namespace tactical
 			m_eventHandler = windowHandler.GetEventHandler();
 		}
 
-		/*math::Ray Camera::CastPickingRay(float viewportX, float viewportY)
+		math::Ray Camera::CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport)
 		{
-			
-		}*/
+			float x = (2.0f * mouse.x) / viewport.x - 1.0f;
+			float y = 1.0f - (2.0f * mouse.y) / viewport.y;
+			float z = -1.0f;
+
+			glm::vec3 normalized(x, y, z);
+			glm::vec4 clip(normalized, 1.0f);
+
+			glm::vec4 eye = glm::inverse(m_projection) * clip;
+			eye = glm::vec4(eye.x, eye.y, -1.0f, 0.0f);
+
+			glm::vec3 world = glm::vec3(glm::inverse(m_view) * eye);
+			world = glm::normalize(world);
+
+			math::Ray ray(origin, world);
+			return std::move(ray);
+		}
 	}
 }
