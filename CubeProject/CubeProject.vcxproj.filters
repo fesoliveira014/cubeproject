@@ -189,5 +189,8 @@
   <ItemGroup>
     <None Include="shaders\vertex.glsl" />
     <None Include="shaders\frag.glsl" />
+    <None Include="shaders\normal_geom.glsl" />
+    <None Include="shaders\normal_vertex.glsl" />
+    <None Include="shaders\normal_frag.glsl" />
   </ItemGroup>
 </Project>

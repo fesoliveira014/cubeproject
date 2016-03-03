@@ -151,6 +151,7 @@ namespace tactical
 			m_mesh.vao->AddBuffer(new render::Buffer(m_mesh.vertices.data(), (GLsizei)m_mesh.vertices.size() * sizeof(render::Vertex3f3f), attributes));
 
 			m_voxels.Updated();
+			delete mask;
 		}
 
 		void Chunk::PickVoxel(math::Ray& ray)

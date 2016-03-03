@@ -169,3 +169,1388 @@
 
 
 ---------------------------------------
+<00:19:09> - Session Initiated.
+
+<00:19:10> - [INFO]: Initializing systems...
+<00:19:11> - [INFO]: Camera position: vec3(0.000000, 0.000000, -15.000000)
+<00:19:12> - [INFO]: Camera position: vec3(0.000000, 0.000000, -15.000000)
+<00:19:13> - [INFO]: Camera position: vec3(0.000000, 0.000000, -15.000000)
+<00:19:14> - [INFO]: Camera position: vec3(0.000000, 0.000000, -15.000000)
+<00:19:15> - [INFO]: Camera position: vec3(17.049883, 11.774963, -15.000000)
+<00:19:16> - [INFO]: Camera position: vec3(48.302944, 15.444195, 1.726479)
+<00:19:17> - [INFO]: Camera position: vec3(39.424774, 31.185173, 30.619728)
+<00:19:18> - [INFO]: Camera position: vec3(-8.811567, 35.670830, 28.748220)
+<00:19:19> - [INFO]: Camera position: vec3(-15.127211, 36.091640, 15.963543)
+<00:19:20> - [INFO]: Camera position: vec3(-23.826382, 40.876698, 8.810049)
+<00:19:21> - [INFO]: Camera position: vec3(-20.956808, 39.360115, 18.116507)
+<00:19:22> - [INFO]: Camera position: vec3(-20.956808, 39.360115, 18.116507)
+<00:19:23> - [INFO]: Camera position: vec3(-20.956808, 39.360115, 18.116507)
+<00:19:24> - [INFO]: Camera position: vec3(-20.956808, 39.360115, 18.116507)
+<00:19:25> - [INFO]: Camera position: vec3(-24.911089, 44.033169, 27.591343)
+<00:19:26> - [INFO]: Camera position: vec3(-16.614491, 44.033169, 41.029255)
+<00:19:27> - [INFO]: Camera position: vec3(-14.964876, 30.358002, 7.886971)
+<00:19:28> - [INFO]: Camera position: vec3(21.534132, 30.358002, -9.913523)
+<00:19:29> - [INFO]: Camera position: vec3(2.892072, 30.358002, -10.360309)
+<00:19:30> - [INFO]: Camera position: vec3(-22.812719, 30.358002, 11.233955)
+<00:19:31> - [INFO]: Camera position: vec3(-0.667454, -2.521415, -32.005608)
+<00:19:32> - [INFO]: Camera position: vec3(-4.530686, 0.456276, -12.304344)
+<00:19:33> - [INFO]: Camera position: vec3(-7.223034, -9.482950, 22.972292)
+<00:19:34> - [INFO]: Camera position: vec3(-7.223034, -9.482950, 22.972292)
+<00:19:35> - [INFO]: Camera position: vec3(-9.433521, 25.556000, 25.124407)
+<00:19:36> - [INFO]: Camera position: vec3(-9.433521, 25.556000, 25.124407)
+<00:19:37> - [INFO]: Camera position: vec3(-9.433521, 25.556000, 25.124407)
+<00:19:38> - [INFO]: Camera position: vec3(-9.433521, 25.556000, 25.124407)
+<00:19:39> - [INFO]: Camera position: vec3(-9.433521, 25.556000, 25.124407)
+<00:19:40> - [INFO]: Camera position: vec3(-9.433521, 25.556000, 25.124407)
+<00:19:41> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:42> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:43> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:44> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:45> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:46> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:47> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:48> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:49> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:50> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:51> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:52> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:53> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:54> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:55> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:56> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:57> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:58> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:19:59> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:20:00> - [INFO]: Camera position: vec3(-6.104147, 30.253942, 21.748508)
+<00:20:01> - [INFO]: Finalizing systems...
+
+<00:20:01> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<00:21:39> - Session Initiated.
+
+<00:21:40> - [INFO]: Initializing systems...
+<00:21:41> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:21:42> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:21:43> - [INFO]: Camera position: vec3(-16.115849, 30.000000, -11.863914)
+<00:21:44> - [INFO]: Camera position: vec3(-23.624443, 30.000000, 18.425272)
+<00:21:45> - [INFO]: Camera position: vec3(-18.357080, 30.000000, 37.636295)
+<00:21:46> - [INFO]: Camera position: vec3(-11.528635, 26.241364, 29.044926)
+<00:21:47> - [INFO]: Camera position: vec3(-11.528635, 26.241364, 29.044926)
+<00:21:48> - [INFO]: Camera position: vec3(-11.528635, 26.241364, 29.044926)
+<00:21:49> - [INFO]: Camera position: vec3(-11.528635, 26.241364, 29.044926)
+<00:21:50> - [INFO]: Camera position: vec3(-21.202227, 26.241364, 8.830245)
+<00:21:51> - [INFO]: Camera position: vec3(0.344142, 26.241364, -36.033913)
+<00:21:52> - [INFO]: Camera position: vec3(19.925024, 1.946043, -17.323311)
+<00:21:53> - [INFO]: Camera position: vec3(9.546812, -7.210964, 2.750970)
+<00:21:54> - [INFO]: Camera position: vec3(1.855052, -28.534136, -5.505689)
+<00:21:55> - [INFO]: Camera position: vec3(-14.993449, 13.361516, -16.503010)
+<00:21:56> - [INFO]: Camera position: vec3(-19.750309, 33.672710, 21.982122)
+<00:21:57> - [INFO]: Camera position: vec3(-11.377310, 33.672710, 31.439760)
+<00:21:58> - [INFO]: Camera position: vec3(-11.377310, 33.672710, 31.439760)
+<00:21:59> - [INFO]: Camera position: vec3(-11.377310, 33.672710, 31.439760)
+<00:22:00> - [INFO]: Camera position: vec3(-11.377310, 33.672710, 31.439760)
+<00:22:01> - [INFO]: Camera position: vec3(-11.377310, 33.672710, 31.439760)
+<00:22:02> - [INFO]: Camera position: vec3(-11.377310, 33.672710, 31.439760)
+<00:22:03> - [INFO]: Camera position: vec3(-11.377310, 33.672710, 31.439760)
+<00:22:04> - [INFO]: Camera position: vec3(-21.309042, 33.672710, 7.047293)
+<00:22:05> - [INFO]: Camera position: vec3(-19.318613, 33.672710, -18.879080)
+<00:22:06> - [INFO]: Camera position: vec3(-7.429897, 22.580519, -11.759497)
+<00:22:07> - [INFO]: Camera position: vec3(36.264839, 22.580519, -27.416258)
+<00:22:08> - [INFO]: Camera position: vec3(8.728808, 19.859663, -19.072771)
+<00:22:09> - [INFO]: Camera position: vec3(-6.424409, 46.819355, 30.728573)
+<00:22:10> - [INFO]: Camera position: vec3(-3.837852, 38.374744, 29.090843)
+<00:22:11> - [INFO]: Camera position: vec3(2.461462, 38.374744, 30.069866)
+<00:22:12> - [INFO]: Camera position: vec3(-12.346581, 38.374744, 27.277836)
+<00:22:13> - [INFO]: Camera position: vec3(-12.346581, 38.374744, 27.277836)
+<00:22:14> - [INFO]: Camera position: vec3(-15.425749, 38.374744, 24.065411)
+<00:22:15> - [INFO]: Camera position: vec3(-15.425749, 38.374744, 24.065411)
+<00:22:16> - [INFO]: Camera position: vec3(-15.425749, 38.374744, 24.065411)
+<00:22:17> - [INFO]: Camera position: vec3(-15.425749, 38.374744, 24.065411)
+<00:22:18> - [INFO]: Finalizing systems...
+
+<00:22:18> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<00:31:43> - Session Initiated.
+
+<00:31:44> - [ERROR]: Error compiling shader of type 36313
+<00:31:44> - [ERROR]: Error log: 
+0(23) : error C1011: cannot index a non-array value
+
+<00:31:44> - [ERROR]: Failed to compile shader file shaders/geom.glsl.
+<00:31:44> - [INFO]: Initializing systems...
+<00:31:45> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:31:46> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:31:47> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:31:48> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:31:49> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:31:50> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:31:51> - [INFO]: Camera position: vec3(-29.300001, 30.000000, 18.525000)
+<00:31:52> - [INFO]: Camera position: vec3(-29.300001, 30.000000, 18.525000)
+<00:31:53> - [INFO]: Camera position: vec3(-24.097797, 30.000000, -16.837046)
+<00:31:54> - [INFO]: Finalizing systems...
+
+<00:31:54> - There were 0 warnings and 3 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<00:35:57> - Session Initiated.
+
+<00:35:58> - [ERROR]: Error compiling shader of type 36313
+<00:35:58> - [ERROR]: Error log: 
+0(34) : error C1010: expression left of ."position" is not a struct
+0(35) : error C1010: expression left of ."normal" is not a struct
+0(36) : error C1010: expression left of ."color" is not a struct
+
+<00:35:58> - [ERROR]: Failed to compile shader file shaders/geom.glsl.
+<00:35:58> - [INFO]: Initializing systems...
+<00:35:59> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:00> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:01> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:02> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:03> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:04> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:05> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:42> - Session Initiated.
+
+<00:36:43> - [INFO]: Initializing systems...
+<00:36:44> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:45> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:46> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:36:47> - [INFO]: Camera position: vec3(-27.842859, 26.486618, 41.972397)
+<00:36:48> - [INFO]: Camera position: vec3(-10.253765, 26.381464, 37.089718)
+<00:36:49> - [INFO]: Camera position: vec3(-10.253765, 26.381464, 37.089718)
+<00:36:50> - [INFO]: Finalizing systems...
+
+<00:36:50> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<00:40:00> - Session Initiated.
+
+<00:40:01> - [INFO]: Initializing systems...
+<00:40:02> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:40:03> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:40:04> - [INFO]: Camera position: vec3(14.646292, 22.562563, 30.445175)
+<00:40:05> - [INFO]: Camera position: vec3(4.294577, 13.377842, 17.945644)
+<00:40:06> - [INFO]: Camera position: vec3(-2.987024, 21.715599, 11.437759)
+<00:40:07> - [INFO]: Camera position: vec3(-15.788784, 21.715599, -8.336245)
+<00:40:08> - [INFO]: Camera position: vec3(15.037984, 21.715599, -24.247719)
+<00:40:09> - [INFO]: Camera position: vec3(-20.592068, 21.715599, -3.923989)
+<00:40:10> - [INFO]: Camera position: vec3(-21.936226, 21.715599, 24.205835)
+<00:40:11> - [INFO]: Camera position: vec3(-24.206062, 21.715599, 3.093681)
+<00:40:12> - [INFO]: Camera position: vec3(1.589652, 21.715599, -25.874855)
+<00:40:13> - [INFO]: Camera position: vec3(-10.329683, 21.715599, -20.622999)
+<00:40:14> - [INFO]: Camera position: vec3(-10.329683, 21.715599, -20.622999)
+<00:40:15> - [INFO]: Camera position: vec3(-10.329683, 21.715599, -20.622999)
+<00:40:16> - [INFO]: Camera position: vec3(-15.232520, 21.715599, -17.619787)
+<00:40:17> - [INFO]: Camera position: vec3(-27.568506, 21.715599, 32.866455)
+<00:40:18> - [INFO]: Camera position: vec3(-17.381033, 37.591057, 36.009422)
+<00:40:19> - [INFO]: Camera position: vec3(2.606174, 22.193247, 19.872726)
+<00:40:20> - [INFO]: Camera position: vec3(15.828271, 22.193247, 31.606607)
+<00:40:21> - [INFO]: Camera position: vec3(21.726315, 22.193247, 33.610634)
+<00:40:22> - [INFO]: Camera position: vec3(13.833398, 18.823404, 28.544470)
+<00:40:23> - [INFO]: Camera position: vec3(-5.389509, 13.194661, 13.274610)
+<00:40:24> - [INFO]: Camera position: vec3(-2.901978, 12.715357, 12.340589)
+<00:40:25> - [INFO]: Camera position: vec3(1.232350, 28.163111, 10.710043)
+<00:40:26> - [INFO]: Camera position: vec3(10.902678, 28.163111, 27.716625)
+<00:40:27> - [INFO]: Camera position: vec3(10.902678, 28.163111, 27.716625)
+<00:40:28> - [INFO]: Camera position: vec3(10.902678, 28.163111, 27.716625)
+<00:40:29> - [INFO]: Camera position: vec3(-18.525511, 28.163111, 6.540130)
+<00:40:30> - [INFO]: Camera position: vec3(-17.403780, 28.163111, 3.892964)
+<00:40:31> - [INFO]: Camera position: vec3(-17.355009, 28.163111, 3.777869)
+<00:40:32> - [INFO]: Finalizing systems...
+
+<00:40:32> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<00:41:15> - Session Initiated.
+
+<00:41:16> - [ERROR]: Error compiling shader of type 36313
+<00:41:16> - [ERROR]: Error log: 
+0(26) : error C1010: expression left of ."position" is not a struct
+0(27) : error C1010: expression left of ."normal" is not a struct
+0(28) : error C1010: expression left of ."color" is not a struct
+
+<00:41:16> - [ERROR]: Failed to compile shader file shaders/geom.glsl.
+<00:41:16> - [INFO]: Initializing systems...
+<00:41:17> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:41:18> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:41:19> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:41:20> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:41:55> - Session Initiated.
+
+<00:41:56> - [ERROR]: Invalid shader program: Link info
+---------
+error: Block "DATA" mismatch between shader stages
+
+<00:41:56> - [ERROR]: Uniform 'projection' not found in the program.
+<00:41:56> - [ERROR]: Uniform 'view' not found in the program.
+<00:41:56> - [ERROR]: Uniform 'model' not found in the program.
+<00:41:56> - [ERROR]: Uniform 'light_pos' not found in the program.
+<00:41:56> - [ERROR]: Uniform 'light_color' not found in the program.
+<00:41:56> - [INFO]: Initializing systems...
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:56> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:57> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:58> - [WARNING]: OpenGL error: 1282
+<00:41:59> - [WARNING]: OpenGL error: 1282
+<00:41:59> - [INFO]: Finalizing systems...
+
+<00:41:59> - There were 570 warnings and 6 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<00:51:54> - Session Initiated.
+
+<00:51:54> - [ERROR]: Error compiling shader of type 36313
+<00:51:54> - [ERROR]: Error log: 
+0(34) : error C1010: expression left of ."lenght" is not a struct
+
+<00:51:54> - [ERROR]: Failed to compile shader file shaders/geom.glsl.
+<00:51:54> - [INFO]: Initializing systems...
+<00:51:55> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:51:56> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:51:57> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:52:04> - Session Initiated.
+
+<00:52:05> - [INFO]: Initializing systems...
+<00:52:06> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:52:07> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:52:08> - [INFO]: Camera position: vec3(-10.148798, 30.000000, 12.816472)
+<00:52:09> - [INFO]: Camera position: vec3(-16.193964, 30.000000, -10.552810)
+<00:52:10> - [INFO]: Camera position: vec3(-22.712111, 30.000000, -3.849427)
+<00:52:11> - [INFO]: Camera position: vec3(-22.712111, 30.000000, -3.849427)
+<00:52:12> - [INFO]: Camera position: vec3(-13.423704, 22.767639, 1.665380)
+<00:52:13> - [INFO]: Camera position: vec3(-7.431729, 33.174988, 5.222938)
+<00:52:14> - [INFO]: Camera position: vec3(-13.189814, 33.174988, 19.710503)
+<00:52:15> - [INFO]: Camera position: vec3(-13.189814, 33.174988, 19.710503)
+<00:52:16> - [INFO]: Camera position: vec3(-12.255945, 33.174988, 5.541101)
+<00:52:17> - [INFO]: Finalizing systems...
+
+<00:52:17> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<00:59:36> - Session Initiated.
+
+<00:59:36> - [INFO]: Initializing systems...
+<00:59:37> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:59:38> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<00:59:39> - [INFO]: Camera position: vec3(-13.798942, 25.593018, 0.021566)
+<00:59:40> - [INFO]: Camera position: vec3(-3.372013, 19.100822, 5.888688)
+<00:59:41> - [INFO]: Camera position: vec3(-6.425158, 21.409599, 20.822891)
+<00:59:42> - [INFO]: Camera position: vec3(6.011930, 15.910706, 18.072750)
+<00:59:43> - [INFO]: Camera position: vec3(4.233927, 15.910706, 10.349921)
+<00:59:44> - [INFO]: Camera position: vec3(6.612367, 15.910706, 3.033829)
+<00:59:45> - [INFO]: Camera position: vec3(5.551294, 13.350385, 14.169067)
+<00:59:46> - [INFO]: Camera position: vec3(-7.144034, 33.745846, 14.797669)
+<00:59:47> - [INFO]: Camera position: vec3(-10.422168, 36.000359, 29.227072)
+<00:59:48> - [INFO]: Camera position: vec3(10.421606, 27.507263, 36.388905)
+<00:59:49> - [INFO]: Camera position: vec3(-5.939292, 27.507263, 29.488581)
+<00:59:50> - [INFO]: Camera position: vec3(-17.884228, 27.507263, -1.810360)
+<00:59:51> - [INFO]: Camera position: vec3(-17.884228, 27.507263, -1.810360)
+<00:59:52> - [INFO]: Camera position: vec3(-16.231617, 27.507263, 34.006363)
+<00:59:53> - [INFO]: Camera position: vec3(-3.436321, 21.354542, 22.224556)
+<00:59:54> - [INFO]: Camera position: vec3(-7.793786, 21.354542, 7.106014)
+<00:59:55> - [INFO]: Camera position: vec3(-7.793786, 21.354542, 7.106014)
+<00:59:56> - [INFO]: Camera position: vec3(-7.793786, 21.354542, 7.106014)
+<00:59:57> - [INFO]: Camera position: vec3(-7.539171, 21.354542, 13.325765)
+<00:59:58> - [INFO]: Camera position: vec3(-7.126470, 21.354542, 20.914501)
+<01:00:00> - [INFO]: Camera position: vec3(-7.126470, 21.354542, 20.914501)
+<01:00:01> - [INFO]: Camera position: vec3(-7.269362, 21.354542, 14.895063)
+<01:00:02> - [INFO]: Camera position: vec3(-5.515666, 20.623371, 14.899095)
+<01:00:03> - [INFO]: Camera position: vec3(2.063370, 17.561451, 14.811160)
+<01:00:04> - [INFO]: Camera position: vec3(16.349113, 29.015728, 18.803083)
+<01:00:05> - [INFO]: Camera position: vec3(3.805529, 34.671375, 41.118649)
+<01:00:06> - [INFO]: Camera position: vec3(22.630888, 34.671375, 42.740112)
+<01:00:07> - [INFO]: Camera position: vec3(14.167171, 19.037285, 18.827637)
+<01:00:08> - [INFO]: Camera position: vec3(9.031286, 19.037285, 22.072500)
+<01:00:09> - [INFO]: Camera position: vec3(12.445591, 19.037285, 20.190228)
+<01:00:10> - [INFO]: Camera position: vec3(17.432707, 19.037285, 12.287777)
+<01:00:11> - [INFO]: Camera position: vec3(17.432707, 19.037285, 12.287777)
+<01:00:12> - [INFO]: Camera position: vec3(17.432707, 19.037285, 12.287777)
+<01:00:13> - [INFO]: Camera position: vec3(17.432707, 19.037285, 12.287777)
+<01:00:14> - [INFO]: Camera position: vec3(17.432707, 19.037285, 12.287777)
+<01:00:15> - [INFO]: Camera position: vec3(14.549994, 19.037285, 30.155226)
+<01:00:16> - [INFO]: Camera position: vec3(12.508693, 17.264137, 21.413685)
+<01:00:17> - [INFO]: Camera position: vec3(-0.829369, 17.099419, 23.658386)
+<01:00:18> - [INFO]: Camera position: vec3(4.479027, 17.099419, 22.424286)
+<01:00:19> - [INFO]: Camera position: vec3(-3.747361, 17.099419, 19.370895)
+<01:00:20> - [INFO]: Camera position: vec3(8.893516, 17.099419, 22.266680)
+<01:00:21> - [INFO]: Camera position: vec3(8.893516, 17.099419, 22.266680)
+<01:00:22> - [INFO]: Camera position: vec3(-2.289738, 17.099419, 20.627153)
+<01:00:23> - [INFO]: Camera position: vec3(-4.686795, 29.932566, 14.369394)
+<01:00:24> - [INFO]: Camera position: vec3(-9.501656, 29.932566, 4.421926)
+<01:00:25> - [INFO]: Camera position: vec3(-9.501656, 29.932566, 4.421926)
+<01:00:26> - [INFO]: Camera position: vec3(-0.441520, 29.932566, -11.382983)
+<01:00:27> - [INFO]: Camera position: vec3(-15.695394, 29.932566, 13.834007)
+<01:00:28> - [INFO]: Camera position: vec3(-9.730897, 29.932566, 31.344133)
+<01:00:29> - [INFO]: Camera position: vec3(0.792224, 26.733088, 29.664040)
+<01:00:30> - [INFO]: Camera position: vec3(2.897154, 24.263132, 24.706951)
+<01:00:31> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:32> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:33> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:34> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:35> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:36> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:37> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:38> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:39> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:40> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:41> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:00:42> - [INFO]: Camera position: vec3(-2.702072, 24.263132, 22.621408)
+<01:02:04> - Session Initiated.
+
+<01:02:04> - [ERROR]: Error compiling shader of type 36313
+<01:02:04> - [ERROR]: Error log: 
+0(21) : error C1008: undefined variable "i"
+0(22) : error C1008: undefined variable "i"
+0(23) : error C1008: undefined variable "i"
+
+<01:02:04> - [ERROR]: Failed to compile shader file shaders/geom.glsl.
+<01:02:04> - [INFO]: Initializing systems...
+<01:02:05> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:02:06> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:02:07> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:02:08> - [INFO]: Camera position: vec3(-5.505435, 30.000000, -26.186787)
+<01:02:09> - [INFO]: Camera position: vec3(-11.209313, 21.047989, -4.402359)
+<01:02:10> - [INFO]: Camera position: vec3(-20.130152, 21.047989, 5.780582)
+<01:02:11> - [INFO]: Camera position: vec3(-20.130152, 21.047989, 5.780582)
+<01:02:12> - [INFO]: Camera position: vec3(-20.130152, 21.047989, 5.780582)
+<01:02:13> - [INFO]: Camera position: vec3(-20.130152, 21.047989, 5.780582)
+<01:02:38> - Session Initiated.
+
+<01:02:39> - [INFO]: Initializing systems...
+<01:02:40> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:02:41> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:02:42> - [INFO]: Camera position: vec3(-12.676180, 30.000000, -5.522415)
+<01:02:43> - [INFO]: Camera position: vec3(19.384596, 30.000000, -18.095022)
+<01:02:44> - [INFO]: Camera position: vec3(-26.132149, 30.000000, 8.447921)
+<01:02:45> - [INFO]: Camera position: vec3(-14.139232, 24.469421, 37.526604)
+<01:02:46> - [INFO]: Camera position: vec3(12.163277, 14.314159, 30.589760)
+<01:02:47> - [INFO]: Camera position: vec3(-7.783119, 37.462978, 26.710190)
+<01:02:48> - [INFO]: Camera position: vec3(-12.851365, 37.462978, 22.884357)
+<01:02:49> - [INFO]: Camera position: vec3(-12.851365, 37.462978, 22.884357)
+<01:02:50> - [INFO]: Camera position: vec3(-10.079933, 37.462978, 27.075819)
+<01:02:51> - [INFO]: Camera position: vec3(-7.115465, 37.462978, 31.559223)
+<01:02:52> - [INFO]: Camera position: vec3(-14.377272, 31.611927, -0.058060)
+<01:02:53> - [INFO]: Camera position: vec3(12.976762, 31.611927, -24.458710)
+<01:02:54> - [INFO]: Camera position: vec3(13.024022, 31.611927, -24.475029)
+<01:02:55> - [INFO]: Camera position: vec3(-29.841665, 31.611927, 6.721002)
+<01:02:56> - [INFO]: Camera position: vec3(-29.841665, 31.611927, 6.721002)
+<01:02:57> - [INFO]: Camera position: vec3(-4.828312, 15.395431, 7.038382)
+<01:02:58> - [INFO]: Camera position: vec3(17.152437, 27.427559, 35.469059)
+<01:02:59> - [INFO]: Camera position: vec3(16.319332, 24.073822, 22.211044)
+<01:03:00> - [INFO]: Camera position: vec3(24.706295, 24.073822, 19.993847)
+<01:03:01> - [INFO]: Camera position: vec3(33.244587, 24.073822, 7.381086)
+<01:03:02> - [INFO]: Camera position: vec3(20.703672, -11.549086, 2.768271)
+<01:03:03> - [INFO]: Camera position: vec3(20.703672, -11.549086, 2.768271)
+<01:03:04> - [INFO]: Camera position: vec3(13.287076, -11.549086, 34.178261)
+<01:03:05> - [INFO]: Camera position: vec3(6.119260, -2.995632, 35.786900)
+<01:03:06> - [INFO]: Camera position: vec3(-17.078320, 7.451922, 33.342503)
+<01:03:07> - [INFO]: Camera position: vec3(-8.647797, 2.902441, 17.491989)
+<01:03:08> - [INFO]: Camera position: vec3(13.576788, 2.564824, 29.166872)
+<01:03:09> - [INFO]: Camera position: vec3(21.378647, 2.564824, 19.497849)
+<01:03:10> - [INFO]: Camera position: vec3(10.342686, 2.564824, 24.561842)
+<01:03:11> - [INFO]: Camera position: vec3(11.675877, 35.859516, 28.426531)
+<01:03:12> - [INFO]: Camera position: vec3(-8.827389, 37.538124, 27.713688)
+<01:03:13> - [INFO]: Finalizing systems...
+
+<01:03:13> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<01:12:25> - Session Initiated.
+
+<01:12:26> - [INFO]: Initializing systems...
+<01:12:27> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:12:28> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:12:29> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:12:30> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:12:31> - [INFO]: Camera position: vec3(-1.535761, 30.000000, 29.406912)
+<01:12:32> - [INFO]: Camera position: vec3(33.970448, 30.000000, 42.597519)
+<01:12:33> - [INFO]: Camera position: vec3(-0.140439, 30.000000, 46.241932)
+<01:12:34> - [INFO]: Camera position: vec3(-20.004423, 30.000000, -2.690675)
+<01:12:35> - [INFO]: Camera position: vec3(-20.004423, 30.000000, -2.690675)
+<01:12:36> - [INFO]: Camera position: vec3(-20.004423, 30.000000, -2.690675)
+<01:12:37> - [INFO]: Camera position: vec3(-20.004423, 30.000000, -2.690675)
+<01:12:38> - [INFO]: Camera position: vec3(-22.541275, 30.000000, 21.338053)
+<01:12:39> - [INFO]: Camera position: vec3(-16.524990, 30.000000, 36.246063)
+<01:12:40> - [INFO]: Camera position: vec3(-30.358414, 30.000000, 13.260906)
+<01:12:41> - [INFO]: Camera position: vec3(-30.358414, 30.000000, 13.260906)
+<01:12:42> - [INFO]: Camera position: vec3(-30.358414, 30.000000, 13.260906)
+<01:12:43> - [INFO]: Camera position: vec3(-30.358414, 30.000000, 13.260906)
+<01:12:44> - [INFO]: Camera position: vec3(-13.976447, 30.000000, 48.349136)
+<01:12:45> - [INFO]: Camera position: vec3(-13.976447, 30.000000, 48.349136)
+<01:12:46> - [INFO]: Camera position: vec3(-24.734606, 39.326916, 72.662186)
+<01:12:47> - [INFO]: Camera position: vec3(-0.915325, 20.254162, 24.056129)
+<01:12:48> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:49> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:50> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:51> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:52> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:53> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:54> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:55> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:56> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:57> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:58> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:12:59> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:00> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:01> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:02> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:03> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:04> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:05> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:06> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:07> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:08> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:09> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:10> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:11> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:12> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:13> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:14> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:15> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:16> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:17> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:18> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:19> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:20> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:21> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:22> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:23> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:24> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:25> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:26> - [INFO]: Camera position: vec3(8.695927, 20.254162, 26.993565)
+<01:13:27> - [INFO]: Finalizing systems...
+
+<01:13:27> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<01:14:05> - Session Initiated.
+
+<01:14:06> - [INFO]: Initializing systems...
+<01:14:07> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:14:08> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:14:09> - [INFO]: Camera position: vec3(-22.279200, 30.000000, -5.743265)
+<01:14:10> - [INFO]: Camera position: vec3(-22.279200, 30.000000, -5.743265)
+<01:14:11> - [INFO]: Camera position: vec3(-23.742966, 30.000000, 24.774689)
+<01:14:12> - [INFO]: Camera position: vec3(-23.742966, 30.000000, 24.774689)
+<01:14:13> - [INFO]: Camera position: vec3(-23.742966, 30.000000, 24.774689)
+<01:14:14> - [INFO]: Camera position: vec3(-23.742966, 30.000000, 24.774689)
+<01:14:15> - [INFO]: Camera position: vec3(-23.742966, 30.000000, 24.774689)
+<01:14:16> - [INFO]: Camera position: vec3(-23.742966, 30.000000, 24.774689)
+<01:14:17> - [INFO]: Camera position: vec3(-23.742966, 30.000000, 24.774689)
+<01:14:18> - [INFO]: Camera position: vec3(2.165909, 16.528107, 27.716219)
+<01:14:19> - [INFO]: Camera position: vec3(2.165909, 16.528107, 27.716219)
+<01:14:20> - [INFO]: Camera position: vec3(2.165909, 16.528107, 27.716219)
+<01:14:21> - [INFO]: Camera position: vec3(2.165909, 16.528107, 27.716219)
+<01:14:22> - [INFO]: Camera position: vec3(2.165909, 16.528107, 27.716219)
+<01:14:23> - [INFO]: Camera position: vec3(2.165909, 16.528107, 27.716219)
+<01:14:24> - [INFO]: Camera position: vec3(2.165909, 16.528107, 27.716219)
+<01:14:25> - [INFO]: Camera position: vec3(2.165909, 16.528107, 27.716219)
+<01:14:26> - [INFO]: Camera position: vec3(-4.853341, 16.528107, 25.300011)
+<01:14:27> - [INFO]: Camera position: vec3(-6.119157, 16.528107, 31.024883)
+<01:14:28> - [INFO]: Camera position: vec3(-14.953725, 24.826401, 23.837717)
+<01:14:29> - [INFO]: Camera position: vec3(-17.182552, 24.826401, 10.475332)
+<01:14:30> - [INFO]: Camera position: vec3(-5.216657, 28.883623, 16.923264)
+<01:14:31> - [INFO]: Camera position: vec3(-1.498930, 28.883623, 21.598097)
+<01:14:32> - [INFO]: Camera position: vec3(0.715397, 28.883623, 23.053785)
+<01:14:33> - [INFO]: Camera position: vec3(0.715397, 28.883623, 23.053785)
+<01:14:33> - [INFO]: Finalizing systems...
+
+<01:14:33> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<01:16:43> - Session Initiated.
+
+<01:16:44> - [INFO]: Initializing systems...
+<01:16:45> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:16:46> - [INFO]: Camera position: vec3(9.126728, 30.000000, 34.388466)
+<01:16:47> - [INFO]: Camera position: vec3(26.731602, 30.000000, 34.184399)
+<01:16:48> - [INFO]: Camera position: vec3(-14.998724, 30.000000, -2.459876)
+<01:16:49> - [INFO]: Camera position: vec3(-14.998724, 30.000000, -2.459876)
+<01:16:50> - [INFO]: Camera position: vec3(-14.998724, 30.000000, -2.459876)
+<01:16:51> - [INFO]: Camera position: vec3(-14.998724, 30.000000, -2.459876)
+<01:16:52> - [INFO]: Camera position: vec3(-14.998724, 30.000000, -2.459876)
+<01:16:53> - [INFO]: Camera position: vec3(-14.998724, 30.000000, -2.459876)
+<01:16:54> - [INFO]: Camera position: vec3(-14.998724, 30.000000, -2.459876)
+<01:16:55> - [INFO]: Camera position: vec3(-14.998724, 30.000000, -2.459876)
+<01:16:56> - [INFO]: Finalizing systems...
+
+<01:16:56> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<01:18:29> - Session Initiated.
+
+<01:18:30> - [INFO]: Initializing systems...
+<01:18:31> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:18:32> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:18:33> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:18:34> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:18:35> - [INFO]: Camera position: vec3(-10.569865, 30.000000, 11.097662)
+<01:18:36> - [INFO]: Camera position: vec3(1.273973, 26.785563, -6.106784)
+<01:18:37> - [INFO]: Camera position: vec3(-4.386707, 21.483631, 1.287174)
+<01:18:38> - [INFO]: Camera position: vec3(-2.041944, 18.808308, 3.960588)
+<01:18:39> - [INFO]: Camera position: vec3(-0.334863, 16.874317, 5.811492)
+<01:18:40> - [INFO]: Camera position: vec3(1.458160, 16.874317, 2.047179)
+<01:18:41> - [INFO]: Camera position: vec3(8.754742, 16.874317, -0.777936)
+<01:18:42> - [INFO]: Camera position: vec3(-4.851341, 16.874317, -7.236039)
+<01:18:43> - [INFO]: Camera position: vec3(-12.242130, 16.874317, -3.627547)
+<01:18:44> - [INFO]: Camera position: vec3(-4.665350, 6.883940, 2.255480)
+<01:18:45> - [INFO]: Camera position: vec3(-4.930815, 1.719978, 16.870581)
+<01:18:46> - [INFO]: Camera position: vec3(-0.748007, 1.719978, 1.427157)
+<01:18:47> - [INFO]: Camera position: vec3(-0.748007, 1.719978, 1.427157)
+<01:18:48> - [INFO]: Camera position: vec3(2.951353, 1.719978, 1.413157)
+<01:18:49> - [INFO]: Camera position: vec3(-10.499310, 1.719978, 4.561337)
+<01:18:50> - [INFO]: Camera position: vec3(-24.312117, 1.719978, 25.729317)
+<01:18:51> - [INFO]: Camera position: vec3(-2.122588, 0.904094, 34.021637)
+<01:18:52> - [INFO]: Camera position: vec3(-0.907446, 0.904094, 29.740620)
+<01:18:53> - [INFO]: Camera position: vec3(1.322862, 7.153767, 21.888685)
+<01:18:54> - [INFO]: Camera position: vec3(1.313511, 19.178583, 21.939344)
+<01:18:55> - [INFO]: Camera position: vec3(-9.497563, 19.178583, 17.392717)
+<01:18:56> - [INFO]: Camera position: vec3(-2.815995, 19.178583, 31.001846)
+<01:18:57> - [INFO]: Camera position: vec3(-2.815995, 19.178583, 31.001846)
+<01:18:58> - [INFO]: Camera position: vec3(-2.815995, 19.178583, 31.001846)
+<01:18:59> - [INFO]: Camera position: vec3(-2.815995, 19.178583, 31.001846)
+<01:19:00> - [INFO]: Camera position: vec3(14.407454, 15.800130, 24.786592)
+<01:19:01> - [INFO]: Camera position: vec3(18.909967, 20.871469, 23.692972)
+<01:19:02> - [INFO]: Camera position: vec3(16.105772, 20.871469, 24.034391)
+<01:19:03> - [INFO]: Camera position: vec3(12.976941, 20.871469, 23.155909)
+<01:19:04> - [INFO]: Camera position: vec3(16.183382, 16.747183, 16.247093)
+<01:19:05> - [INFO]: Camera position: vec3(14.153315, 22.930117, 25.053242)
+<01:19:06> - [INFO]: Camera position: vec3(11.570139, 17.600664, 15.838446)
+<01:19:07> - [INFO]: Camera position: vec3(12.163283, 17.600664, 19.515738)
+<01:19:08> - [INFO]: Camera position: vec3(13.110226, 17.782013, 20.048670)
+<01:19:09> - [INFO]: Camera position: vec3(16.219776, 15.724792, 15.350844)
+<01:19:10> - [INFO]: Camera position: vec3(14.035033, 16.847923, 18.016626)
+<01:19:11> - [INFO]: Camera position: vec3(14.035033, 16.847923, 18.016626)
+<01:19:12> - [INFO]: Camera position: vec3(14.035033, 16.847923, 18.016626)
+<01:19:13> - [INFO]: Camera position: vec3(14.035033, 16.847923, 18.016626)
+<01:19:14> - [INFO]: Camera position: vec3(14.035033, 16.847923, 18.016626)
+<01:19:14> - [INFO]: Finalizing systems...
+
+<01:19:14> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<01:20:46> - Session Initiated.
+
+<01:20:46> - [INFO]: Initializing systems...
+<01:20:47> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:20:48> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:20:49> - [INFO]: Camera position: vec3(-3.382749, 21.918983, 7.177768)
+<01:20:50> - [INFO]: Camera position: vec3(-5.998522, 21.918983, 17.365578)
+<01:20:51> - [INFO]: Camera position: vec3(6.554534, 22.406000, 28.258402)
+<01:20:52> - [INFO]: Camera position: vec3(25.597836, 22.406000, 33.964508)
+<01:20:53> - [INFO]: Camera position: vec3(-13.304708, 22.406000, 14.477199)
+<01:20:54> - [INFO]: Camera position: vec3(-10.187508, 30.136160, -3.546837)
+<01:20:55> - [INFO]: Camera position: vec3(-12.428085, 25.802425, 21.828606)
+<01:20:56> - [INFO]: Camera position: vec3(-7.860979, 25.802425, 28.396746)
+<01:20:57> - [INFO]: Camera position: vec3(-6.284233, 25.802425, 32.609268)
+<01:20:58> - [INFO]: Camera position: vec3(-11.249993, 30.178474, 24.378181)
+<01:20:59> - [INFO]: Camera position: vec3(-6.128116, 25.546282, 16.050222)
+<01:21:00> - [INFO]: Camera position: vec3(-3.787845, 25.546282, 20.888342)
+<01:21:01> - [INFO]: Camera position: vec3(-3.787845, 25.546282, 20.888342)
+<01:21:02> - [INFO]: Camera position: vec3(-3.787845, 25.546282, 20.888342)
+<01:21:03> - [INFO]: Camera position: vec3(-19.533234, 36.367008, 26.874674)
+<01:21:04> - [INFO]: Camera position: vec3(-17.734688, 36.367008, 29.244514)
+<01:21:05> - [INFO]: Camera position: vec3(-11.961020, 26.255745, 12.875990)
+<01:21:06> - [INFO]: Camera position: vec3(-7.376008, 19.657398, 12.852579)
+<01:21:07> - [INFO]: Camera position: vec3(-20.714020, 27.631393, 21.249681)
+<01:21:08> - [INFO]: Camera position: vec3(-19.431252, 27.631393, 24.290308)
+<01:21:09> - [INFO]: Camera position: vec3(-5.016718, 27.631393, 40.099911)
+<01:21:10> - [INFO]: Camera position: vec3(5.916719, 27.631393, 45.029922)
+<01:21:11> - [INFO]: Camera position: vec3(-13.399542, 27.631393, 11.998925)
+<01:21:12> - [INFO]: Camera position: vec3(-12.809637, 27.631393, 19.475595)
+<01:21:13> - [INFO]: Camera position: vec3(-12.809637, 27.631393, 19.475595)
+<01:21:14> - [INFO]: Camera position: vec3(-12.809637, 27.631393, 19.475595)
+<01:21:15> - [INFO]: Camera position: vec3(-12.809637, 27.631393, 19.475595)
+<01:21:16> - [INFO]: Finalizing systems...
+
+<01:21:16> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------
+<01:27:55> - Session Initiated.
+
+<01:27:55> - [INFO]: Initializing systems...
+<01:27:56> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:27:57> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:27:58> - [INFO]: Camera position: vec3(-6.000000, 30.000000, 21.000000)
+<01:27:59> - [INFO]: Camera position: vec3(-11.896350, 30.000000, 1.155874)
+<01:28:00> - [INFO]: Camera position: vec3(-11.826727, 30.000000, 23.046309)
+<01:28:01> - [INFO]: Camera position: vec3(-3.760337, 19.892004, 7.097808)
+<01:28:02> - [INFO]: Camera position: vec3(12.470787, 19.892004, -17.415642)
+<01:28:03> - [INFO]: Camera position: vec3(56.941593, 19.892004, 13.713916)
+<01:28:04> - [INFO]: Camera position: vec3(19.910376, 12.955948, 34.395706)
+<01:28:05> - [INFO]: Camera position: vec3(-19.855181, 12.955948, 39.313953)
+<01:28:06> - [INFO]: Camera position: vec3(-29.732136, 12.330688, 27.636425)
+<01:28:07> - [INFO]: Camera position: vec3(-10.276104, 10.383981, 21.954201)
+<01:28:08> - [INFO]: Camera position: vec3(-25.059040, 10.819524, 8.293427)
+<01:28:09> - [INFO]: Camera position: vec3(-28.082127, 10.819524, -2.126981)
+<01:28:10> - [INFO]: Camera position: vec3(-25.871605, 10.819524, 19.443466)
+<01:28:11> - [INFO]: Camera position: vec3(-11.957952, 10.819524, 35.279045)
+<01:28:12> - [INFO]: Camera position: vec3(-1.868895, 27.728765, 34.308273)
+<01:28:13> - [INFO]: Camera position: vec3(-1.868895, 27.728765, 34.308273)
+<01:28:14> - [INFO]: Camera position: vec3(-16.644075, 27.728765, 23.974344)
+<01:28:15> - [INFO]: Camera position: vec3(-21.631071, 27.728765, 19.144981)
+<01:28:16> - [INFO]: Camera position: vec3(-21.631071, 27.728765, 19.144981)
+<01:28:17> - [INFO]: Camera position: vec3(-22.561075, 27.728765, 19.121565)
+<01:28:18> - [INFO]: Camera position: vec3(-19.355417, 27.728765, 24.313641)
+<01:28:19> - [INFO]: Camera position: vec3(-19.355417, 27.728765, 24.313641)
+<01:28:20> - [INFO]: Camera position: vec3(-19.355417, 27.728765, 24.313641)
+<01:28:21> - [INFO]: Camera position: vec3(-19.355417, 27.728765, 24.313641)
+<01:28:22> - [INFO]: Camera position: vec3(-19.355417, 27.728765, 24.313641)
+<01:28:23> - [INFO]: Camera position: vec3(-19.355417, 27.728765, 24.313641)
+<01:28:24> - [INFO]: Camera position: vec3(-19.355417, 27.728765, 24.313641)
+<01:28:25> - [INFO]: Camera position: vec3(-19.355417, 27.728765, 24.313641)
+<01:28:26> - [INFO]: Camera position: vec3(-19.355417, 27.728765, 24.313641)
+<01:28:28> - [INFO]: Camera position: vec3(-9.200386, 27.728765, 34.139122)
+<01:28:29> - [INFO]: Camera position: vec3(3.285120, 27.728765, 38.186611)
+<01:28:30> - [INFO]: Camera position: vec3(3.285120, 27.728765, 38.186611)
+<01:28:31> - [INFO]: Camera position: vec3(-16.970703, 27.728765, 25.745272)
+<01:28:32> - [INFO]: Camera position: vec3(1.760840, 20.136122, 28.122799)
+<01:28:33> - [INFO]: Camera position: vec3(-17.679855, 20.136122, 19.193699)
+<01:28:34> - [INFO]: Camera position: vec3(-17.679855, 20.136122, 19.193699)
+<01:28:35> - [INFO]: Camera position: vec3(-15.545853, 20.136122, 22.487711)
+<01:28:36> - [INFO]: Camera position: vec3(-27.649839, 20.136122, -4.312438)
+<01:28:37> - [INFO]: Camera position: vec3(-22.081516, 20.136122, 20.208704)
+<01:28:38> - [INFO]: Camera position: vec3(-5.831116, 31.948265, 11.284721)
+<01:28:39> - [INFO]: Camera position: vec3(-8.350003, 31.948265, -5.161753)
+<01:28:40> - [INFO]: Camera position: vec3(-6.966388, 31.948265, 11.681559)
+<01:28:41> - [INFO]: Camera position: vec3(17.464611, 31.948265, 20.735058)
+<01:28:42> - [INFO]: Camera position: vec3(7.629476, 31.948265, 21.513090)
+<01:28:43> - [INFO]: Camera position: vec3(-13.290753, 31.948265, 8.173473)
+<01:28:44> - [INFO]: Camera position: vec3(-8.860312, 29.029125, 15.665433)
+<01:28:45> - [INFO]: Camera position: vec3(-4.289893, 31.980644, 29.015757)
+<01:28:46> - [INFO]: Camera position: vec3(-1.275196, 28.261282, 24.558531)
+<01:28:47> - [INFO]: Camera position: vec3(0.737598, 20.667002, 15.411545)
+<01:28:48> - [INFO]: Camera position: vec3(-0.357638, 25.095942, 20.720612)
+<01:28:49> - [INFO]: Camera position: vec3(1.128513, 20.842699, 16.140186)
+<01:28:50> - [INFO]: Camera position: vec3(1.106773, 21.562235, 16.904583)
+<01:28:51> - [INFO]: Camera position: vec3(4.330584, 21.562235, 16.991701)
+<01:28:52> - [INFO]: Camera position: vec3(-0.434848, 21.562235, 17.455061)
+<01:28:53> - [INFO]: Camera position: vec3(-0.434848, 21.562235, 17.455061)
+<01:28:54> - [INFO]: Camera position: vec3(-0.434848, 21.562235, 17.455061)
+<01:28:55> - [INFO]: Camera position: vec3(-0.434848, 21.562235, 17.455061)
+<01:28:56> - [INFO]: Camera position: vec3(-0.434848, 21.562235, 17.455061)
+<01:28:57> - [INFO]: Camera position: vec3(-0.434848, 21.562235, 17.455061)
+<01:28:58> - [INFO]: Camera position: vec3(-0.434848, 21.562235, 17.455061)
+<01:28:59> - [INFO]: Camera position: vec3(-0.434848, 21.562235, 17.455061)
+<01:29:00> - [INFO]: Camera position: vec3(-5.789877, 21.562235, 11.956951)
+<01:29:01> - [INFO]: Camera position: vec3(-9.371256, 21.562235, 3.564889)
+<01:29:02> - [INFO]: Camera position: vec3(-9.371256, 21.562235, 3.564889)
+<01:29:03> - [INFO]: Camera position: vec3(-9.371256, 21.562235, 3.564889)
+<01:29:04> - [INFO]: Camera position: vec3(-9.371256, 21.562235, 3.564889)
+<01:29:05> - [INFO]: Camera position: vec3(-9.371256, 21.562235, 3.564889)
+<01:29:06> - [INFO]: Camera position: vec3(-9.371256, 21.562235, 3.564889)
+<01:29:07> - [INFO]: Camera position: vec3(-9.371256, 21.562235, 3.564889)
+<01:29:08> - [INFO]: Camera position: vec3(-9.327158, 21.562235, 3.810968)
+<01:29:09> - [INFO]: Camera position: vec3(-7.770477, 21.562235, 12.497552)
+<01:29:10> - [INFO]: Camera position: vec3(-7.770477, 21.562235, 12.497552)
+<01:29:11> - [INFO]: Camera position: vec3(-7.770477, 21.562235, 12.497552)
+<01:29:12> - [INFO]: Camera position: vec3(-7.770477, 21.562235, 12.497552)
+<01:29:13> - [INFO]: Camera position: vec3(-7.770477, 21.562235, 12.497552)
+<01:29:14> - [INFO]: Camera position: vec3(-3.138239, 21.562235, 0.414915)
+<01:29:15> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:16> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:17> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:18> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:19> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:20> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:21> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:22> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:23> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:24> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:25> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:26> - [INFO]: Camera position: vec3(-4.094233, 21.562235, 3.781685)
+<01:29:27> - [INFO]: Camera position: vec3(-2.125585, 21.562235, -3.843261)
+<01:29:28> - [INFO]: Camera position: vec3(-5.662959, 21.562235, 9.857432)
+<01:29:29> - [INFO]: Camera position: vec3(-9.683770, 21.562235, -3.944907)
+<01:29:30> - [INFO]: Camera position: vec3(-2.560662, 15.427862, 0.157360)
+<01:29:31> - [INFO]: Camera position: vec3(-0.840345, 16.021143, -0.618637)
+<01:29:32> - [INFO]: Camera position: vec3(0.486688, 22.077440, 1.168552)
+<01:29:33> - [INFO]: Camera position: vec3(-0.968866, 24.847454, -6.302905)
+<01:29:34> - [INFO]: Camera position: vec3(-0.968866, 24.847454, -6.302905)
+<01:29:35> - [INFO]: Camera position: vec3(-0.968866, 24.847454, -6.302905)
+<01:29:36> - [INFO]: Camera position: vec3(-0.968866, 24.847454, -6.302905)
+<01:29:37> - [INFO]: Camera position: vec3(-0.968866, 24.847454, -6.302905)
+<01:29:38> - [INFO]: Camera position: vec3(1.482257, 20.237082, 0.052293)
+<01:29:39> - [INFO]: Camera position: vec3(7.271788, 20.237082, -4.091006)
+<01:29:40> - [INFO]: Camera position: vec3(5.232722, 18.952337, -3.456127)
+<01:29:41> - [INFO]: Camera position: vec3(1.376370, 15.168337, -1.478521)
+<01:29:42> - [INFO]: Camera position: vec3(-2.648365, 15.168337, -1.450043)
+<01:29:43> - [INFO]: Camera position: vec3(6.695516, 15.099801, -4.798534)
+<01:29:44> - [INFO]: Camera position: vec3(6.695516, 15.099801, -4.798534)
+<01:29:45> - [INFO]: Camera position: vec3(0.581298, 15.099801, -4.141125)
+<01:29:46> - [INFO]: Camera position: vec3(2.968655, 9.501528, 0.856158)
+<01:29:47> - [INFO]: Camera position: vec3(2.968655, 9.501528, 0.856158)
+<01:29:48> - [INFO]: Camera position: vec3(2.968655, 9.501528, 0.856158)
+<01:29:49> - [INFO]: Camera position: vec3(-0.361530, 0.563251, -16.404026)
+<01:29:50> - [INFO]: Camera position: vec3(0.065329, -1.718267, -21.654770)
+<01:29:51> - [INFO]: Camera position: vec3(-3.125893, -1.718267, -20.815142)
+<01:29:52> - [INFO]: Camera position: vec3(-3.125893, -1.718267, -20.815142)
+<01:29:53> - [INFO]: Camera position: vec3(-3.125893, -1.718267, -20.815142)
+<01:29:54> - [INFO]: Camera position: vec3(-3.125893, -1.718267, -20.815142)
+<01:29:55> - [INFO]: Camera position: vec3(-3.125893, -1.718267, -20.815142)
+<01:29:56> - [INFO]: Camera position: vec3(-3.125893, -1.718267, -20.815142)
+<01:29:57> - [INFO]: Camera position: vec3(0.013369, 2.205251, -11.900983)
+<01:29:58> - [INFO]: Camera position: vec3(-3.153433, 2.205251, -10.801427)
+<01:29:59> - [INFO]: Camera position: vec3(-3.483916, 2.205251, -10.684546)
+<01:30:00> - [INFO]: Camera position: vec3(-7.617597, 2.205251, -8.970299)
+<01:30:01> - [INFO]: Camera position: vec3(-11.212018, 2.205251, -6.304644)
+<01:30:02> - [INFO]: Camera position: vec3(-12.589657, 2.205251, -4.557450)
+<01:30:03> - [INFO]: Camera position: vec3(-15.441563, 2.205251, 0.834763)
+<01:30:04> - [INFO]: Camera position: vec3(-17.148973, 2.205251, 9.390772)
+<01:30:05> - [INFO]: Camera position: vec3(-15.980597, 2.205251, 21.709427)
+<01:30:06> - [INFO]: Camera position: vec3(-8.864850, 4.808289, 18.382305)
+<01:30:07> - [INFO]: Camera position: vec3(-4.175790, 4.808289, 23.025640)
+<01:30:08> - [INFO]: Camera position: vec3(7.839193, 4.808289, 30.784475)
+<01:30:09> - [INFO]: Camera position: vec3(1.907911, 4.808289, 29.591757)
+<01:30:10> - [INFO]: Camera position: vec3(-9.662804, 4.808289, 22.491869)
+<01:30:11> - [INFO]: Camera position: vec3(-13.173783, 4.808289, -18.739943)
+<01:30:12> - [INFO]: Camera position: vec3(-13.173783, 4.808289, -18.739943)
+<01:30:13> - [INFO]: Camera position: vec3(-13.494647, 9.898417, -19.242872)
+<01:30:14> - [INFO]: Camera position: vec3(-0.987863, 9.898417, -25.286942)
+<01:30:15> - [INFO]: Camera position: vec3(-0.987863, 9.898417, -25.286942)
+<01:30:16> - [INFO]: Camera position: vec3(-0.987863, 9.898417, -25.286942)
+<01:30:17> - [INFO]: Camera position: vec3(4.196301, 8.572321, -8.415009)
+<01:30:18> - [INFO]: Camera position: vec3(3.875614, 8.602289, -8.732467)
+<01:30:19> - [INFO]: Camera position: vec3(-18.011320, 9.930082, -10.397984)
+<01:30:20> - [INFO]: Camera position: vec3(-26.881268, 17.428837, 11.833007)
+<01:30:21> - [INFO]: Camera position: vec3(-18.978785, 48.598896, 10.388303)
+<01:30:22> - [INFO]: Camera position: vec3(-1.323001, 23.075247, 9.462235)
+<01:30:23> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:24> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:25> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:26> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:27> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:28> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:29> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:30> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:31> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:32> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:33> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:34> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:35> - [INFO]: Camera position: vec3(-5.308211, 39.120480, -10.002518)
+<01:30:36> - [INFO]: Camera position: vec3(-3.364117, 39.120480, -11.451966)
+<01:30:37> - [INFO]: Camera position: vec3(-8.512531, 21.353310, 14.514494)
+<01:30:38> - [INFO]: Camera position: vec3(-8.574051, 21.353310, 14.593328)
+<01:30:39> - [INFO]: Camera position: vec3(-9.377276, 21.353310, 4.851933)
+<01:30:40> - [INFO]: Camera position: vec3(-9.587605, 21.353310, -0.243723)
+<01:30:41> - [INFO]: Camera position: vec3(-12.645466, 21.353310, 11.360129)
+<01:30:42> - [INFO]: Camera position: vec3(-12.068253, 21.353310, 21.217960)
+<01:30:43> - [INFO]: Camera position: vec3(-7.563131, 21.353310, 28.166050)
+<01:30:44> - [INFO]: Camera position: vec3(-1.849253, 18.395912, 22.422180)
+<01:30:45> - [INFO]: Camera position: vec3(-1.849253, 18.395912, 22.422180)
+<01:30:46> - [INFO]: Finalizing systems...
+
+<01:30:46> - There were 0 warnings and 0 errors.
+
+---------------------------------------
+
+
+---------------------------------------

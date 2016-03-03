@@ -204,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\frag.glsl" />
+    <None Include="shaders\normal_frag.glsl" />
+    <None Include="shaders\normal_geom.glsl" />
+    <None Include="shaders\normal_vertex.glsl" />
     <None Include="shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

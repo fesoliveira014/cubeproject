@@ -29,7 +29,7 @@ namespace tactical
 					v1 = vertices[cornerA].m_position - vertices[cornerB].m_position;
 					v2 = vertices[cornerC].m_position - vertices[cornerA].m_position;
 
-					normal = glm::cross(v1, v2);
+					normal = glm::cross(v2, v1);
 
 					vertices[cornerA].m_normal += normal;
 					vertices[cornerB].m_normal += normal;

@@ -27,22 +27,31 @@ int main(int argc, char* argv[])
 
 	glm::mat4 persp = glm::perspective(45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
 
-	tactical::render::FPSCamera camera(persp, glm::vec3(0.0f, 0.0f, -15.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+	tactical::render::FPSCamera camera(persp, glm::vec3(-6.0f, 30.0f, 21.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	camera.LinkTo(window);
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 
-	tactical::render::Shader shader("shaders/vertex.glsl", "shaders/frag.glsl", NULL);
+	tactical::render::Shader shader("shaders/vertex.glsl", "shaders/frag.glsl", nullptr);
+	tactical::render::Shader normalsShader("shaders/normal_vertex.glsl", "shaders/normal_frag.glsl", "shaders/normal_geom.glsl");
 
 	shader.Enable();
 
 	shader.SetUniformMat4fv("projection", persp);
 	shader.SetUniformMat4fv("model", model);
-	shader.SetUniform3fv("light_pos", glm::vec3(32.0f, 100.0f, 32.0f));
+	shader.SetUniform3fv("light_pos", glm::vec3(-6.0f, 30.0f, 21.0f));
 	shader.SetUniform3fv("light_color", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.SetUniform3fv("camera_pos", camera.GetPosition());
 
 	shader.Disable();
+
+	normalsShader.Enable();
+
+	normalsShader.SetUniformMat4fv("projection", persp);
+	normalsShader.SetUniformMat4fv("model", model);
+
+	normalsShader.Disable();
 
 	LOG << LOGTYPE::LOG_INFO << "Initializing systems...";
 
@@ -60,6 +69,7 @@ int main(int argc, char* argv[])
 	glDepthFunc(GL_LESS);
 
 	bool wireframe = false;
+	bool showNormals = false;
 	
 		
 	while (window.IsOpen() == true) {
@@ -68,15 +78,31 @@ int main(int argc, char* argv[])
 		if (window.GetEventHandler()->GetKeyboardState()->key_1)
 			wireframe = !wireframe;
 
-		shader.Enable();
+		if (window.GetEventHandler()->GetKeyboardState()->key_2)
+			showNormals = !showNormals;
 
 		camera.Update();
+
+		shader.Enable();
+
 		shader.SetUniformMat4fv("view", camera.GetViewMatrix());
+		shader.SetUniform3fv("camera_pos", camera.GetPosition());
 		if (wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		chunk.Draw(shader);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		shader.Disable();
+
+		if (showNormals) {
+			normalsShader.Enable();
+
+			normalsShader.SetUniformMat4fv("view", camera.GetViewMatrix());
+			chunk.Draw(normalsShader);
+
+			normalsShader.Disable();
+		}
+
+		
 
 		framerate++;
 		if (clock.getElapsedTime().asMilliseconds() > 999) {

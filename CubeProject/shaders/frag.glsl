@@ -4,6 +4,7 @@ layout (location = 0) out vec4 color;
 
 uniform vec3 light_pos;
 uniform vec3 light_color;
+uniform vec3 camera_pos;
 
 in DATA
 {
@@ -25,8 +26,13 @@ void main()
 	vec3 diffuse = diff * light_color;
 
 	// specular light
+	float specular_strength = 0.5f;
+	vec3 camera_dir = normalize(camera_pos - fs_in.position);
+	vec3 reflect_dir = reflect(-light_dir, normal);  
+	float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), 32);
+	vec3 specular =	specular_strength * spec * light_color;
 	// todo
 
-	vec3 result = (ambient + diffuse) * vec3(fs_in.color);
+	vec3 result = (ambient + diffuse + specular) * vec3(fs_in.color);
 	color = vec4(result, 1.0f);
 }
