@@ -11,12 +11,16 @@ namespace tactical
 			m_maxHeight = maxHeight;
 
 			m_voxels.SetCapacity(size);
+			m_isActive = false;
+			m_isVisible = false;
 
 			m_boudingBox = math::AABB(m_position, 
 				glm::vec3(m_position.x + m_size, m_position.y + m_size, m_position.z + m_size));
 
 			for (int i = 0; i < 6; i++)
 				m_neighbors[i] = nullptr;
+			
+			Load();
 		}
 
 		Chunk::~Chunk()
@@ -49,7 +53,7 @@ namespace tactical
 			delete m_mesh.ibo;
 			m_mesh.vertices.clear();
 			m_mesh.indices.clear();
-			int* mask = new int[static_cast<int>(m_size) * static_cast<int>(m_size)];
+			int* mask = new int[m_size * m_size];
 
 			int axis = 0;
 
@@ -62,12 +66,12 @@ namespace tactical
 
 				q[axis] = 1;
 
-				for (x[axis] = -1; x[axis] < static_cast<int>(m_size);) {
+				for (x[axis] = -1; x[axis] < m_size;) {
 					int n = 0;
-					for (x[v] = 0; x[v] < static_cast<int>(m_size); ++x[v]) {
-						for (x[u] = 0; x[u] < static_cast<int>(m_size); ++x[u], ++n) {
+					for (x[v] = 0; x[v] < m_size; ++x[v]) {
+						for (x[u] = 0; x[u] < m_size; ++x[u], ++n) {
 							int a = (0       <= x[axis]    ? m_voxels.Get(x[0],        x[1],        x[2])        : 0);
-							int b = (x[axis] <  static_cast<int>(m_size) - 1 ? m_voxels.Get(x[0] + q[0], x[1] + q[1], x[2] + q[2]) : 0);
+							int b = (x[axis] <  m_size - 1 ? m_voxels.Get(x[0] + q[0], x[1] + q[1], x[2] + q[2]) : 0);
 
 							// These determine the normal sign
 							// and if there should be placed a face
@@ -82,16 +86,16 @@ namespace tactical
 
 					++x[axis];
 					n = 0;
-					for (int j = 0; j < static_cast<int>(m_size); ++j) {
-						for (int i = 0; i < static_cast<int>(m_size);) {
+					for (int j = 0; j < m_size; ++j) {
+						for (int i = 0; i < m_size;) {
 							int c = mask[n];
-							uint width, height;
+							int width, height;
 							if (!!c) {
-								for (width = 1; c == mask[n + width] && i + width < static_cast<int>(m_size); ++width) {}
+								for (width = 1; c == mask[n + width] && i + width < m_size; ++width) {}
 								bool done = false;
-								for (height = 1; height + j < static_cast<int>(m_size); ++height) {
-									for (uint k = 0; k < width; ++k) {
-										if (c != mask[n + k + height * static_cast<int>(m_size)]) {
+								for (height = 1; height + j < m_size; ++height) {
+									for (int k = 0; k < width; ++k) {
+										if (c != mask[n + k + height * m_size]) {
 											done = true;
 											break;
 										}
@@ -122,9 +126,9 @@ namespace tactical
 									glm::vec3(x[0]         + dv[0], x[1]         + dv[1], x[2]         + dv[2]),
 									m_mesh.vertices, m_mesh.indices);
 
-								for (uint l = 0; l < height; ++l) {
-									for (uint k = 0; k < width; ++k) {
-										mask[n + k + l*static_cast<int>(m_size)] = 0;
+								for (int l = 0; l < height; ++l) {
+									for (int k = 0; k < width; ++k) {
+										mask[n + k + l*m_size] = 0;
 									}
 								}
 
@@ -191,7 +195,7 @@ namespace tactical
 			return m_voxels.Get(position);
 		}
 
-		void Chunk::SetSize(uint size)
+		void Chunk::SetSize(int size)
 		{
 			m_size = size;
 			m_voxels.SetCapacity(size);
@@ -204,9 +208,24 @@ namespace tactical
 				if (m_neighbors[i] != nullptr)
 					ret++;
 			}
-
 			return ret;
 		}
 
+		void Chunk::Load()
+		{
+			GenerateGeometry();
+			m_isActive = true;
+		}
+
+		void Chunk::Unload()
+		{
+			delete m_mesh.vao;
+			delete m_mesh.ibo;
+			m_mesh.vertices.clear();
+			m_mesh.indices.clear();
+
+			m_isActive = false;
+			m_isVisible = false;
+		}
 	}
 }

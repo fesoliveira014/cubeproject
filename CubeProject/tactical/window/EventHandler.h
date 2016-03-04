@@ -40,6 +40,7 @@ namespace tactical
 		struct WindowSizeState {
 			int width;
 			int height;
+			float aspectRatio;
 		};
 
 		class EventHandler

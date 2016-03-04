@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 	tactical::window::Window window(1600, 900, "Game window");
 	tactical::volume::Chunk chunk(glm::vec3(0.0f, 0.0f, 0.0f), 16, 16);
 
-	tactical::math::PerlinNoise2D noise(0.5, 1.0 / 64.0, 4, 10, 0);
+	tactical::math::PerlinNoise2D noise(0.5, 1.0 / 64.0, 4, 10, 13);
 	tactical::math::SimplexNoise simplex(0.5, 8, 1);
 
 	for (tactical::uint i = 0; i < chunk.GetSize(); ++i) {
@@ -24,8 +24,8 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
-
-	glm::mat4 persp = glm::perspective(45.0f, 800.0f / 600.0f, 0.1f, 1000.0f);
+	
+	glm::mat4 persp = glm::perspective(45.0f, window.GetEventHandler()->GetWindowSizeState()->aspectRatio, 0.1f, 1000.0f);
 
 	tactical::render::FPSCamera camera(persp, glm::vec3(-6.0f, 30.0f, 21.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	camera.LinkTo(window);

@@ -7,6 +7,7 @@ namespace tactical
 		{
 			m_eventHandler.m_windowSizeState.width = width;
 			m_eventHandler.m_windowSizeState.height = height;
+			m_eventHandler.m_windowSizeState.aspectRatio = float(width) / float(height);
 			m_title = title;
 
 			m_open = Initialize();
@@ -66,6 +67,7 @@ namespace tactical
 				if (event.type == sf::Event::Resized) {
 					m_eventHandler.m_windowSizeState.width = event.size.width;
 					m_eventHandler.m_windowSizeState.height = event.size.height;
+					m_eventHandler.m_windowSizeState.aspectRatio = float(event.size.width) / float(event.size.height);
 
 					glViewport(0, 0, m_eventHandler.m_windowSizeState.width, m_eventHandler.m_windowSizeState.height);
 				}

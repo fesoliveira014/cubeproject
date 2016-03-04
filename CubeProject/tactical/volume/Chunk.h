@@ -49,8 +49,8 @@ namespace tactical
 			void SetVoxel(const glm::vec3& position, byte type);
 			byte GetVoxel(const glm::vec3& position);
 
-			void SetSize(uint size);
-			inline uint GetSize() const { return m_size; }
+			void SetSize(int size);
+			inline int GetSize() const { return m_size; }
 
 			void SetPosition(const glm::vec3& position) { m_position = position; }
 			inline glm::vec3 GetPosition() const { return m_position; }
@@ -81,6 +81,11 @@ namespace tactical
 
 			int GetNumOfNeighbors();
 
+			void Load();
+			void Unload();
+
+			inline bool IsActive() const { return m_isActive; }
+
 		protected:
 			Chunk(); // can't create an undefined chunk
 			Chunk(const Chunk& chunk); // No two chunks are equal
@@ -92,10 +97,11 @@ namespace tactical
 			glm::vec3 m_position;
 
 			Volume m_voxels;
-			uint m_size;
+			int m_size;
 			int m_maxHeight;
 
 			bool m_isVisible;
+			bool m_isActive;
 
 			render::Mesh<render::Vertex3f3f> m_mesh;
 			math::AABB m_boudingBox;
