@@ -31,7 +31,7 @@ namespace tactical
 
 		void UpdateChunks(const glm::ivec3& currentPos);
 
-		void Draw(const glm::vec3& center, render::Shader& shader);
+		void Draw(render::Shader& shader);
 
 		inline void SetChunkSize(int size) { m_chunkSize = size; }
 		inline int GetChunkSize() const { return m_chunkSize; }
@@ -50,10 +50,7 @@ namespace tactical
 		inline int GetChunkLoadingRadius() const { return m_chunkLoadingRadius; }
 
 		inline void SetNoise(math::PerlinNoise2D& noise) { m_noise = noise; }
-		inline void SetNoise(double persistance, double frequency, double amplitude, int octaves, int seed) 
-		{ 
-			m_noise.Set(persistance, frequency, amplitude, octaves, seed); 
-		}
+		inline void SetNoise(double persistance, double frequency, double amplitude, int octaves, int seed);
 
 		inline math::PerlinNoise2D* GetNoise() { return &m_noise; }
 
@@ -63,6 +60,8 @@ namespace tactical
 	private:
 		bool CreateChunk(const glm::ivec3& pos);
 		void RecursiveChunkUpdate(Chunk* chunk);
+		bool IsWithinRadius(const glm::ivec3& position);
+		void Draw(Chunk* chunk, render::Shader& shader);
 
 		ChunkMap m_chunks;
 
@@ -70,7 +69,7 @@ namespace tactical
 		int m_chunkSize;
 		int m_maxWorldHeight;
 		int m_chunkLoadingRadius; // in number of chunks, not in coordinates
-		glm::vec3 m_currentChunk;
+		glm::ivec3 m_currentChunk;
 
 		math::PerlinNoise2D m_noise;
 

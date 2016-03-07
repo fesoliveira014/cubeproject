@@ -18,8 +18,8 @@ namespace tactical
 
 			bool Contains(const glm::vec3& point);
 
-			void SetMin(const glm::vec3 min);
-			void SetMax(const glm::vec3 max);
+			void SetMin(const glm::vec3& min);
+			void SetMax(const glm::vec3& max);
 
 			inline const glm::vec3 GetMin() const { return m_min; }
 			inline const glm::vec3 GetMax() const { return m_max; }
@@ -36,12 +36,12 @@ namespace tactical
 
 		};
 
-		inline void AABB::SetMin(const glm::vec3 min)
+		inline void AABB::SetMin(const glm::vec3& min)
 		{
 			m_min = min;
 		}
 
-		inline void AABB::SetMax(const glm::vec3 max)
+		inline void AABB::SetMax(const glm::vec3& max)
 		{
 			m_max = max;
 		}
