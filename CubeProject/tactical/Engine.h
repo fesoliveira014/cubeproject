@@ -15,6 +15,7 @@
 
 #include "tactical/volume/Voxel.h"
 #include "tactical/volume/Chunk.h"
+#include "tactical/volume/ChunkManager.h"
 
 #include "tactical/math/AABB.h"
 #include "tactical/math/Frustum.h"

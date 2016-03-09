@@ -58,6 +58,7 @@ namespace tactical
 		inline ChunkIterator end() { return m_chunks.end(); }
 
 	private:
+		void Initialize();
 		bool CreateChunk(const glm::ivec3& pos);
 		void RecursiveChunkUpdate(Chunk* chunk);
 		bool IsWithinRadius(const glm::ivec3& position);

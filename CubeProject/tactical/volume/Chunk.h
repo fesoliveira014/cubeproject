@@ -41,6 +41,8 @@ namespace tactical
 			// Checks if chunk has been modified (dirty)
 			bool IsModified();
 
+			void UpdateVisibility();
+
 			// Methods to fill and empty the chunk
 			void Fill();
 			void Empty();
@@ -102,6 +104,7 @@ namespace tactical
 
 			bool m_isVisible;
 			bool m_isActive;
+			bool m_needsUpdate;
 
 			render::Mesh<render::Vertex3f3f> m_mesh;
 			math::AABB m_boudingBox;

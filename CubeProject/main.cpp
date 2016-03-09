@@ -9,6 +9,7 @@ int main(int argc, char* argv[])
 	logger->SetConsoleLogging(true);
 
 	tactical::window::Window window(1600, 900, "Game window");
+#ifdef TEST
 	tactical::volume::Chunk chunk(glm::vec3(0.0f, 0.0f, 0.0f), 16, 16);
 
 	tactical::math::PerlinNoise2D noise(0.5, 1.0 / 64.0, 4, 10, 13);
@@ -24,10 +25,13 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
+#else
+	tactical::ChunkManager chunkManager(0);
+#endif
 	
 	glm::mat4 persp = glm::perspective(45.0f, window.GetEventHandler()->GetWindowSizeState()->aspectRatio, 0.1f, 1000.0f);
 
-	tactical::render::FPSCamera camera(persp, glm::vec3(-6.0f, 30.0f, 21.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+	tactical::render::FPSCamera camera(persp, glm::vec3(-6.0f, 65.0f, 21.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	camera.LinkTo(window);
 
 	glm::mat4 model = glm::mat4(1.0f);
@@ -58,7 +62,8 @@ int main(int argc, char* argv[])
 	sf::Clock clock;
 	clock.restart();
 
-	int time = 0;
+	int previous = clock.getElapsedTime().asMilliseconds();
+	int lag = 0;
 	int framerate = 0;
 
 	glEnable(GL_CULL_FACE);
@@ -73,6 +78,11 @@ int main(int argc, char* argv[])
 	
 		
 	while (window.IsOpen() == true) {
+		int current = clock.getElapsedTime().asMilliseconds();
+		int elapsed = current - previous;
+		previous = current;
+		lag += elapsed;
+
 		window.Clear();
 
 		if (window.GetEventHandler()->GetKeyboardState()->key_1)
@@ -82,13 +92,20 @@ int main(int argc, char* argv[])
 			showNormals = !showNormals;
 
 		camera.Update();
+#ifndef TEST
+		chunkManager.UpdateChunks(camera.GetPosition());
+#endif
 
 		shader.Enable();
 
 		shader.SetUniformMat4fv("view", camera.GetViewMatrix());
 		shader.SetUniform3fv("camera_pos", camera.GetPosition());
 		if (wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+#ifdef TEST
 		chunk.Draw(shader);
+#else
+		chunkManager.Draw(shader);
+#endif
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		shader.Disable();
@@ -97,12 +114,14 @@ int main(int argc, char* argv[])
 			normalsShader.Enable();
 
 			normalsShader.SetUniformMat4fv("view", camera.GetViewMatrix());
+#ifdef TEST
 			chunk.Draw(normalsShader);
+#else
+			chunkManager.Draw(normalsShader);
+#endif
 
 			normalsShader.Disable();
 		}
-
-		
 
 		framerate++;
 		if (clock.getElapsedTime().asMilliseconds() > 999) {

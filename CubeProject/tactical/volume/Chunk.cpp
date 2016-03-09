@@ -31,20 +31,22 @@ namespace tactical
 
 		void Chunk::Draw(render::Shader& shader)
 		{
-			if (m_mesh.vao == nullptr || m_voxels.IsModified())
-				GenerateGeometry();
+			if (m_isVisible) {
+				if (m_mesh.vao == nullptr || m_voxels.IsModified())
+					GenerateGeometry();
 
-			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position);
+				glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position);
 
-			m_mesh.vao->Bind();
-			m_mesh.ibo->Bind();
-			if (shader.IsEnabled()) 
-				shader.SetUniformMat4fv("model", model);
+				m_mesh.vao->Bind();
+				m_mesh.ibo->Bind();
+				if (shader.IsEnabled())
+					shader.SetUniformMat4fv("model", model);
 
-			glDrawElements(GL_TRIANGLES, (GLsizei)m_mesh.ibo->GetCount(), GL_UNSIGNED_INT, 0);
+				glDrawElements(GL_TRIANGLES, (GLsizei)m_mesh.ibo->GetCount(), GL_UNSIGNED_INT, 0);
 
-			m_mesh.ibo->Unbind();
-			m_mesh.vao->Unbind();
+				m_mesh.ibo->Unbind();
+				m_mesh.vao->Unbind();
+			}
 		}
 
 		void Chunk::GenerateGeometry()
@@ -225,6 +227,15 @@ namespace tactical
 			m_mesh.indices.clear();
 
 			m_isActive = false;
+			m_isVisible = false;
+		}
+		
+		void Chunk::UpdateVisibility()
+		{
+			for (int i = 0; i < 6; ++i) {
+				if (m_neighbors[i] == nullptr)
+					m_isVisible = true;
+			}
 			m_isVisible = false;
 		}
 	}
