@@ -3,24 +3,17 @@
 namespace tactical
 {
 	using namespace volume;
-	
-	ChunkManager::ChunkManager()
-		: m_chunkSize(16), m_numChunks(0), m_maxWorldHeight(64), m_chunkLoadingRadius(4)
-	{
-		m_currentChunk = glm::ivec3(0);
-		m_noise = math::PerlinNoise2D(0.5, 1.0 / float(m_maxWorldHeight), 4, 10, 0);
-	}
 
-	ChunkManager::ChunkManager(int seed)
-		: m_chunkSize(16), m_numChunks(0), m_maxWorldHeight(64), m_chunkLoadingRadius(4)
+	ChunkManager::ChunkManager(const glm::ivec3& worldDimension, int seed)
+		: m_chunkSize(16), m_maxWorldHeight(64), m_chunkLoadingRadius(4), m_worldDimensions(worldDimension)
 	{
 		m_currentChunk = glm::ivec3(0);
 		m_noise = math::PerlinNoise2D(0.5, 1.0 / float(m_maxWorldHeight), 4, 10, seed);
 		CreateChunk(m_currentChunk);
 	}
 
-	ChunkManager::ChunkManager(const glm::ivec3& initialPosition, int seed)
-		: m_chunkSize(16), m_numChunks(0), m_maxWorldHeight(64), m_currentChunk(initialPosition), m_chunkLoadingRadius(4)
+	ChunkManager::ChunkManager(const glm::ivec3& worldDimension, const glm::ivec3& initialPosition, int seed)
+		: m_chunkSize(16), m_maxWorldHeight(64), m_currentChunk(initialPosition), m_chunkLoadingRadius(4), m_worldDimensions(worldDimension)
 	{
 		m_noise = math::PerlinNoise2D(0.5, 1.0 / float(m_maxWorldHeight), 4, 10, seed);
 		CreateChunk(m_currentChunk);
@@ -36,10 +29,12 @@ namespace tactical
 	void ChunkManager::Initialize()
 	{
 		glm::ivec3 key;
-		for (int i = 0; i < m_chunkLoadingRadius; i += m_chunkSize) {
-			for (int k = 0; k < m_chunkLoadingRadius; k += m_chunkSize) {
-				for (int j = 0; j < m_maxWorldHeight / m_chunkSize; j += m_chunkSize) {
-					key.x = i; key.y = j; key.z = k;
+		for (int i = 0; i < m_worldDimensions.x; ++i) {
+			for (int k = 0; k < m_worldDimensions.z; ++k) {
+				for (int j = 0; j < m_worldDimensions.y; ++j) {
+					key.x = i * m_chunkSize; 
+					key.y = j * m_chunkSize; 
+					key.z = k * m_chunkSize;
 					CreateChunk(key + m_currentChunk);
 				}
 			}

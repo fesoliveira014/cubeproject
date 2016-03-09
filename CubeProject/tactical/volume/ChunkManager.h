@@ -21,9 +21,8 @@ namespace tactical
 	class ChunkManager
 	{
 	public:
-		ChunkManager();
-		ChunkManager(int seed = 0);
-		ChunkManager(const glm::ivec3& initalPosition, int seed = 0);
+		ChunkManager(const glm::ivec3& worldDimension, int seed = 0);
+		ChunkManager(const glm::ivec3& worldDimension, const glm::ivec3& initalPosition, int seed = 0);
 		~ChunkManager();
 
 		void FillChunks();
@@ -58,19 +57,21 @@ namespace tactical
 		inline ChunkIterator end() { return m_chunks.end(); }
 
 	private:
+		ChunkManager();
 		void Initialize();
+
 		bool CreateChunk(const glm::ivec3& pos);
 		void RecursiveChunkUpdate(Chunk* chunk);
 		bool IsWithinRadius(const glm::ivec3& position);
 		void Draw(Chunk* chunk, render::Shader& shader);
 
 		ChunkMap m_chunks;
-
-		int m_numChunks;
+	
 		int m_chunkSize;
 		int m_maxWorldHeight;
 		int m_chunkLoadingRadius; // in number of chunks, not in coordinates
 		glm::ivec3 m_currentChunk;
+		glm::ivec3 m_worldDimensions;
 
 		math::PerlinNoise2D m_noise;
 
