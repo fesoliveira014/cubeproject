@@ -208,6 +208,7 @@
     <ClCompile Include="tactical\render\buffer\Buffer.cpp" />
     <ClCompile Include="tactical\render\buffer\IndexBuffer.cpp" />
     <ClCompile Include="tactical\render\buffer\VertexArray.cpp" />
+    <ClCompile Include="tactical\render\Renderer.cpp" />
     <ClCompile Include="tactical\render\structures\Shader.cpp" />
     <ClCompile Include="tactical\volume\Chunk.cpp" />
     <ClCompile Include="tactical\volume\ChunkManager.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="tactical\render\buffer\IndexBuffer.h" />
     <ClInclude Include="tactical\render\buffer\VertexArray.h" />
     <ClInclude Include="tactical\render\IRenderable3D.h" />
+    <ClInclude Include="tactical\render\Renderer.h" />
     <ClInclude Include="tactical\render\structures\Mesh.h" />
     <ClInclude Include="tactical\render\structures\Shader.h" />
     <ClInclude Include="tactical\render\structures\Vertex.h" />
