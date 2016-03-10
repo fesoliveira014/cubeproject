@@ -2,10 +2,9 @@
 #define _CHUNK_MANAGER_H_
 
 #include "../Common.h"
-#include "../math/PerlinNoise.h"
 
 #include "Chunk.h"
-#include "../math/PerlinNoise.h"
+#include "../math/noise/noise.h"
 
 namespace tactical
 {
@@ -48,22 +47,20 @@ namespace tactical
 		inline void SetChunkLoadingRadius(int radius) { m_chunkLoadingRadius = radius; }
 		inline int GetChunkLoadingRadius() const { return m_chunkLoadingRadius; }
 
-		inline void SetNoise(math::PerlinNoise2D& noise) { m_noise = noise; }
-		inline void SetNoise(double persistance, double frequency, double amplitude, int octaves, int seed);
-
-		inline math::PerlinNoise2D* GetNoise() { return &m_noise; }
-
 		inline ChunkIterator begin() { return m_chunks.begin(); }
 		inline ChunkIterator end() { return m_chunks.end(); }
 
 	private:
 		ChunkManager();
 		void Initialize();
-
-		bool CreateChunk(const glm::ivec3& pos);
-		void RecursiveChunkUpdate(Chunk* chunk);
+		
 		bool IsWithinRadius(const glm::ivec3& position);
 		void Draw(Chunk* chunk, render::Shader& shader);
+
+		// Returns coordinates of the chunk a point is in, if any
+		glm::ivec3 WorldCoordsToGridCoords(const glm::ivec3& pos);
+
+		glm::ivec3 GridCoordsToWorldCoords(const glm::ivec3& pos);
 
 		ChunkMap m_chunks;
 	
@@ -73,7 +70,14 @@ namespace tactical
 		glm::ivec3 m_currentChunk;
 		glm::ivec3 m_worldDimensions;
 
-		math::PerlinNoise2D m_noise;
+		noise::module::RidgedMulti m_mountains;
+		noise::module::Billow m_baseFlat;
+		noise::module::ScaleBias m_flat;
+		noise::module::Perlin m_perlin;
+		noise::module::Select m_selector;
+		noise::module::Turbulence m_final;
+
+		noise::utils::NoiseMap m_heightMap;
 
 	};
 }

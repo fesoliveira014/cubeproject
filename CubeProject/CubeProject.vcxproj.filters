@@ -84,10 +84,115 @@
     <ClCompile Include="tactical\math\Frustum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tactical\math\PerlinNoise.cpp">
+    <ClCompile Include="tactical\volume\ChunkManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tactical\volume\ChunkManager.cpp">
+    <ClCompile Include="tactical\math\noise\latlon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\noisegen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\add.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\abs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\billow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\blend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\cache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\checkerboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\clamp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\const.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\curve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\cylinders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\displace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\exponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\invert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\max.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\min.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\modulebase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\multiply.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\perlin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\power.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\ridgedmulti.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\rotatepoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\scalebias.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\scalepoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\select.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\spheres.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\terrace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\translatepoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\turbulence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\module\voronoi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\model\cylinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\model\line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\model\plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\model\sphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\math\noise\noiseutils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,7 +287,139 @@
     <ClInclude Include="tactical\math\Frustum.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tactical\math\PerlinNoise.h">
+    <ClInclude Include="tactical\math\noise\basictypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\interp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\latlon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\mathconsts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\misc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\noise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\noisegen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\vectortable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\abs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\add.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\billow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\blend.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\checkerboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\clamp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\const.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\curve.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\cylinders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\displace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\exponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\invert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\max.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\min.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\module.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\modulebase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\multiply.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\perlin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\power.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\ridgedmulti.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\rotatepoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\scalebias.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\scalepoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\select.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\spheres.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\terrace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\translatepoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\turbulence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\module\voronoi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\model\cylinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\model\line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\model\model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\model\plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\model\sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\math\noise\noiseutils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

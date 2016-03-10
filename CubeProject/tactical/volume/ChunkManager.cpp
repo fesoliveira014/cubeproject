@@ -5,18 +5,18 @@ namespace tactical
 	using namespace volume;
 
 	ChunkManager::ChunkManager(const glm::ivec3& worldDimension, int seed)
-		: m_chunkSize(16), m_maxWorldHeight(64), m_chunkLoadingRadius(4), m_worldDimensions(worldDimension)
+		: m_chunkSize(32), m_maxWorldHeight(32), m_chunkLoadingRadius(4), m_worldDimensions(worldDimension)
 	{
+		
 		m_currentChunk = glm::ivec3(0);
-		m_noise = math::PerlinNoise2D(0.5, 1.0 / float(m_maxWorldHeight), 4, 10, seed);
-		CreateChunk(m_currentChunk);
+		Initialize();
+		
 	}
 
 	ChunkManager::ChunkManager(const glm::ivec3& worldDimension, const glm::ivec3& initialPosition, int seed)
-		: m_chunkSize(16), m_maxWorldHeight(64), m_currentChunk(initialPosition), m_chunkLoadingRadius(4), m_worldDimensions(worldDimension)
+		: m_chunkSize(32), m_maxWorldHeight(32), m_currentChunk(initialPosition), m_chunkLoadingRadius(4), m_worldDimensions(worldDimension)
 	{
-		m_noise = math::PerlinNoise2D(0.5, 1.0 / float(m_maxWorldHeight), 4, 10, seed);
-		CreateChunk(m_currentChunk);
+		Initialize();
 	}
 
 	ChunkManager::~ChunkManager()
@@ -28,49 +28,107 @@ namespace tactical
 
 	void ChunkManager::Initialize()
 	{
-		glm::ivec3 key;
-		for (int i = 0; i < m_worldDimensions.x; ++i) {
-			for (int k = 0; k < m_worldDimensions.z; ++k) {
-				for (int j = 0; j < m_worldDimensions.y; ++j) {
-					key.x = i * m_chunkSize; 
-					key.y = j * m_chunkSize; 
-					key.z = k * m_chunkSize;
-					CreateChunk(key + m_currentChunk);
-				}
-			}
-		}
-
-		for (int i = 0; i < m_chunkLoadingRadius; i += m_chunkSize) {
-			for (int k = 0; k < m_chunkLoadingRadius; k += m_chunkSize) {
-				for (int j = 0; j < m_maxWorldHeight / m_chunkSize; j += m_chunkSize) {
+		glm::ivec3 key, neighKey, pos;
+		for (int k = 0; k < m_worldDimensions.z; ++k) {
+			for (int j = 0; j < m_worldDimensions.y; ++j) {
+				for (int i = 0; i < m_worldDimensions.x; ++i) {
 					key.x = i; key.y = j; key.z = k;
-					m_chunks[key + m_currentChunk]->NeighborSetTop(m_chunks[glm::ivec3(i, j + m_chunkSize, k) + m_currentChunk]);
-					m_chunks[key + m_currentChunk]->NeighborSetBottom(m_chunks[glm::ivec3(i, j - m_chunkSize, k) + m_currentChunk]);
-					m_chunks[key + m_currentChunk]->NeighborSetRight(m_chunks[glm::ivec3(i + m_chunkSize, j, k) + m_currentChunk]);
-					m_chunks[key + m_currentChunk]->NeighborSetLeft(m_chunks[glm::ivec3(i - m_chunkSize, j, k) + m_currentChunk]);
-					m_chunks[key + m_currentChunk]->NeighborSetFront(m_chunks[glm::ivec3(i, j, k + m_chunkSize) + m_currentChunk]);
-					m_chunks[key + m_currentChunk]->NeighborSetBack(m_chunks[glm::ivec3(i, j, k - m_chunkSize) + m_currentChunk]);
+					pos = GridCoordsToWorldCoords(key);
+					m_chunks[key] = new Chunk(pos, m_chunkSize, m_maxWorldHeight);
 				}
 			}
 		}
 
+		for (int k = 0; k < m_worldDimensions.z; ++k) {
+			for (int j = 0; j < m_worldDimensions.y; ++j) {
+				for (int i = 0; i < m_worldDimensions.x; ++i) {
+					key.x = i; key.y = j; key.z = k;
+
+					m_chunks[key]->NeighborSetTop(NULL);
+					m_chunks[key]->NeighborSetBottom(NULL);
+					m_chunks[key]->NeighborSetRight(NULL);
+					m_chunks[key]->NeighborSetLeft(NULL);
+					m_chunks[key]->NeighborSetFront(NULL);
+					m_chunks[key]->NeighborSetBack(NULL);
+
+					neighKey = key;
+					if (j < m_worldDimensions.y - 1) {
+						neighKey.y += 1;
+						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
+					}
+					
+					neighKey = key;
+					if (j > 0) {
+						neighKey.y -= 1;
+						m_chunks[key]->NeighborSetBottom(m_chunks[neighKey]);
+					}
+
+					neighKey = key;
+					if (i < m_worldDimensions.x - 1) {
+						neighKey.x += 1;
+						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
+					}
+
+					neighKey = key;
+					if (i > 0) {
+						neighKey.x -= 1;
+						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
+					}
+
+					neighKey = key;
+					if (k < m_worldDimensions.z - 1) {
+						neighKey.z += 1;
+						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
+					}
+
+					neighKey = key;
+					if (k > 0) {
+						neighKey.z -= 1;
+						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
+					}
+				}
+			}
+		}
+
+		m_baseFlat.SetFrequency(2.0f);
+
+		m_flat.SetSourceModule(0, m_baseFlat);
+		m_flat.SetScale(0.125);
+		m_flat.SetBias(-0.75);
+
+		m_perlin.SetFrequency(0.25);
+		m_perlin.SetPersistence(0.5);
+		m_perlin.SetOctaveCount(6);
+
+		m_selector.SetSourceModule(0, m_flat);
+		m_selector.SetSourceModule(1, m_mountains);
+		m_selector.SetControlModule(m_perlin);
+		m_selector.SetBounds(0.0, 1000.0);
+		m_selector.SetEdgeFalloff(0.125);
+
+		m_final.SetSourceModule(0, m_selector);
+		m_final.SetFrequency(4.0f);
+		m_final.SetPower(0.125f);
+
+		noise::utils::NoiseMapBuilderPlane heightMapBuilder;
+		heightMapBuilder.SetSourceModule(m_final);
+		heightMapBuilder.SetDestNoiseMap(m_heightMap);
+		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
+		heightMapBuilder.SetBounds(2.0, 4.0, 2.0, 4.0);
+		heightMapBuilder.Build();
 	}
+
+	/*void ChunkManager::Draw(render::Shader& shader)
+	{
+		Draw(m_chunks[m_currentChunk], shader);
+	}*/
 
 	void ChunkManager::Draw(render::Shader& shader)
 	{
-		Draw(m_chunks[m_currentChunk], shader);
-	}
-
-	void ChunkManager::Draw(Chunk* chunk, render::Shader& shader)
-	{
-		if (chunk != nullptr) {
-			chunk->Draw(shader);
-			Draw(chunk->NeighborGetTop(), shader);
-			Draw(chunk->NeighborGetBottom(), shader);
-			Draw(chunk->NeighborGetRight(), shader);
-			Draw(chunk->NeighborGetLeft(), shader);
-			Draw(chunk->NeighborGetFront(), shader);
-			Draw(chunk->NeighborGetBack(), shader);
+		if (!m_chunks.empty()) {
+			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+				(*iter).second->Draw(shader);
+			}
 		}
 	}
 
@@ -79,50 +137,48 @@ namespace tactical
 
 	}
 
-	void ChunkManager::RecursiveChunkUpdate(Chunk* chunk) 
-	{
-		
-	}
-
 	void ChunkManager::FillChunks()
 	{
-		
+		if (!m_chunks.empty()) {
+			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+				(*iter).second->Fill();
+			}
+		}
 	}
 
 	void ChunkManager::GenerateWorld()
 	{
-		
+		noise::model::Plane planeModel;
+		planeModel.SetModule(m_final);
+
+		if (!m_chunks.empty()) {
+			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+				for (int k = 0; k < m_chunkSize; ++k) {
+					
+					for (int i = 0; i < m_chunkSize; ++i) {
+						int x = (*iter).second->GetPosition().x;
+						int y = (*iter).second->GetPosition().y;
+						int z = (*iter).second->GetPosition().z;
+
+						
+						double noise =  m_heightMap.GetValue((i + x), (k + z));
+						noise = (noise + 1) * 0.5f;
+						int height = ((m_worldDimensions.y - 1) * m_chunkSize - y) + m_chunkSize * noise;
+						height = height <= 0 ? 1 : height > m_chunkSize ? m_chunkSize : height;
+
+
+						for (int j = 0; j < height; ++j) {
+							(*iter).second->SetVoxel(glm::vec3(i,j,k), 1);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	void ChunkManager::SetCurrentChunk(const glm::ivec3& pos)
 	{
-		glm::ivec3 offset(pos.x % m_chunkSize, pos.y % m_chunkSize, pos.z % m_chunkSize);
-		glm::ivec3 chunkPos = pos - offset;
-		if (m_chunks[chunkPos] == nullptr)
-			CreateChunk(chunkPos);
-		m_currentChunk = chunkPos;
-	}
 
-	bool ChunkManager::CreateChunk(const glm::ivec3& pos)
-	{
-		if (m_chunks[pos] == nullptr && (pos.y >= 0 && pos.y < m_maxWorldHeight)) {
-			m_chunks[pos] = new Chunk(pos, m_chunkSize, m_maxWorldHeight);
-			for (int k = 0; k < m_chunkSize; ++k) {
-				for (int i = 0; i < m_chunkSize; ++i) {
-					int height = int(m_maxWorldHeight - round(m_maxWorldHeight * m_noise.GetHeight(i + pos.x, k + pos.z)));
-					for (int j = pos.y; j < height && j < pos.y + m_chunkSize; ++j) {
-						m_chunks[pos]->SetVoxel(glm::vec3(i, j, k), 1);
-					}
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	void ChunkManager::SetNoise(double persistance, double frequency, double amplitude, int octaves, int seed)
-	{
-		m_noise.Set(persistance, frequency, amplitude, octaves, seed);
 	}
 
 	bool ChunkManager::IsWithinRadius(const glm::ivec3& position)
@@ -133,5 +189,19 @@ namespace tactical
 		int distance2 = vec.x * vec.x + vec.y * vec.y + vec.z + vec.z;
 
 		return (distance2 < radius2);
+	}
+
+	glm::ivec3 ChunkManager::WorldCoordsToGridCoords(const glm::ivec3& pos) 
+	{
+		glm::ivec3 offset(pos.x % m_chunkSize, pos.y % m_chunkSize, pos.z % m_chunkSize);
+		glm::ivec3 chunkPos = pos - offset;
+		chunkPos = chunkPos / m_chunkSize;
+
+		return chunkPos;
+	}
+
+	glm::ivec3 ChunkManager::GridCoordsToWorldCoords(const glm::ivec3 & pos)
+	{
+		return pos * m_chunkSize;
 	}
 }

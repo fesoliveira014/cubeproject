@@ -2,6 +2,7 @@
 #define _COMMON_H_
 
 #include <algorithm>
+#include <numeric>
 #include <vector>
 #include <string>
 #include <iostream>

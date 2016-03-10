@@ -26,7 +26,9 @@ int main(int argc, char* argv[])
 		}
 	}
 #else
-	tactical::ChunkManager chunkManager(0);
+	tactical::ChunkManager chunkManager(glm::ivec3(4, 2, 4));
+	//chunkManager.FillChunks();
+	chunkManager.GenerateWorld();
 #endif
 	
 	glm::mat4 persp = glm::perspective(45.0f, window.GetEventHandler()->GetWindowSizeState()->aspectRatio, 0.1f, 1000.0f);
@@ -44,7 +46,7 @@ int main(int argc, char* argv[])
 
 	shader.SetUniformMat4fv("projection", persp);
 	shader.SetUniformMat4fv("model", model);
-	shader.SetUniform3fv("light_pos", glm::vec3(-6.0f, 30.0f, 21.0f));
+	shader.SetUniform3fv("light_pos", glm::vec3(-6.0f, 70.0f, 21.0f));
 	shader.SetUniform3fv("light_color", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.SetUniform3fv("camera_pos", camera.GetPosition());
 

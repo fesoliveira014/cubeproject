@@ -17,12 +17,8 @@
 #include "tactical/volume/Chunk.h"
 #include "tactical/volume/ChunkManager.h"
 
-#include "tactical/math/AABB.h"
-#include "tactical/math/Frustum.h"
-#include "tactical/math/Sphere.h"
-#include "tactical/math/PerlinNoise.h"
-#include "tactical/math/Ray.h"
-#include "tactical/math/Plane.h"
+#include "tactical/math/Math.h"
+#include "tactical/math/noise/noise.h"
 
 
 #endif
