@@ -6,6 +6,8 @@
 #include "Chunk.h"
 #include "../math/noise/noise.h"
 
+#include  "../render/Renderer.h"
+
 namespace tactical
 {
 	using namespace volume;
@@ -20,8 +22,7 @@ namespace tactical
 	class ChunkManager
 	{
 	public:
-		ChunkManager(const glm::ivec3& worldDimension, int seed = 0);
-		ChunkManager(const glm::ivec3& worldDimension, const glm::ivec3& initalPosition, int seed = 0);
+		ChunkManager(render::Renderer* pRenderer, const glm::ivec3& worldDimension, int seed = 0);
 		~ChunkManager();
 
 		void FillChunks();
@@ -29,7 +30,7 @@ namespace tactical
 
 		void UpdateChunks(const glm::ivec3& currentPos);
 
-		void Draw(render::Shader& shader);
+		void Draw(std::string shaderID);
 
 		inline void SetChunkSize(int size) { m_chunkSize = size; }
 		inline int GetChunkSize() const { return m_chunkSize; }
@@ -70,13 +71,15 @@ namespace tactical
 		glm::ivec3 m_currentChunk;
 		glm::ivec3 m_worldDimensions;
 
+		render::Renderer* m_pRenderer;
+
+		// these will be moved to a terrain engine in the future. 
 		noise::module::RidgedMulti m_mountains;
 		noise::module::Billow m_baseFlat;
 		noise::module::ScaleBias m_flat;
 		noise::module::Perlin m_perlin;
 		noise::module::Select m_selector;
 		noise::module::Turbulence m_final;
-
 		noise::utils::NoiseMap m_heightMap;
 
 	};

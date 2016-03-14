@@ -18,7 +18,12 @@
 #include "structures\Vertex.h"
 #include "structures\Mesh.h"
 
+#include "../math/AABB.h"
+#include "../math/Frustum.h"
+#include "../math/Ray.h"
+
 #include "geometry\Geometry.h"
+
 
 namespace tactical
 {
@@ -26,21 +31,39 @@ namespace tactical
 	{
 		enum PolygonMode
 		{
-			POLYGON = 0,
+			WIREFRAME = 0,
 			POLYGON_AND_WIREFRAME,
-			WIREFRAME
+			POLYGON
 		};
 
 		class Renderer
 		{
 		public:
-			Renderer(Camera* camera, std::vector<std::string> shaderPaths);
+			Renderer(Camera* camera);
 			~Renderer();
 
-			void Render(IRenderable3D& renderable, std::string shaderID);
+			void Render(IRenderable3D* renderable, std::string shaderID);
 
-			void SetPolygonMode();
-			void SetNormalRendering() { m_showNormals = !m_showNormals; }
+			/*
+			* Toggle polygon rendering mode. There are three modes available:
+			*	POLYGON: Normal rendering of the polygon
+			*	POLYGON + WIREFRAME : Draws the polygon and the wireframe on top of it
+			*	WIREFRAME: Draws just the wireframe
+			*/
+			void TogglePolygonMode();
+			
+			/*
+			* Toggle normal rendering for debug purposes.
+			*/
+			void ToggleNormalRendering() { m_showNormals = !m_showNormals; }
+			bool NormalRendering() { return m_showNormals; }
+
+			void Update();
+
+			void EnableShader(std::string shaderID) { m_shaders[shaderID]->Enable(); }
+			void DisableShader(std::string shaderID) { m_shaders[shaderID]->Disable(); }
+
+			Shader* GetShader(std::string shaderID) { return m_shaders[shaderID]; }
 
 		private:
 			Renderer();
@@ -51,6 +74,7 @@ namespace tactical
 
 			PolygonMode m_polygonMode;
 			bool m_showNormals;
+			math::Frustum m_frustum;
 		};
 	}
 }

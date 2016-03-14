@@ -107,7 +107,6 @@ namespace tactical
 			bool m_needsUpdate;
 
 			render::Mesh<render::Vertex3f3f> m_mesh;
-			math::AABB m_boudingBox;
 
 			Chunk* m_neighbors[6]; // 0 - top, 1 - bottom, 2 - right, 3 - left, 4 - front, 5 - back
 		};

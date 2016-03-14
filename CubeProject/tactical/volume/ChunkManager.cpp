@@ -4,8 +4,12 @@ namespace tactical
 {
 	using namespace volume;
 
-	ChunkManager::ChunkManager(const glm::ivec3& worldDimension, int seed)
-		: m_chunkSize(32), m_maxWorldHeight(32), m_chunkLoadingRadius(4), m_worldDimensions(worldDimension)
+	ChunkManager::ChunkManager(render::Renderer* pRenderer, const glm::ivec3& worldDimension, int seed) :
+		m_chunkSize(32),
+		m_maxWorldHeight(32),
+		m_chunkLoadingRadius(4),
+		m_worldDimensions(worldDimension),
+		m_pRenderer(pRenderer)
 	{
 		
 		m_currentChunk = glm::ivec3(0);
@@ -13,17 +17,13 @@ namespace tactical
 		
 	}
 
-	ChunkManager::ChunkManager(const glm::ivec3& worldDimension, const glm::ivec3& initialPosition, int seed)
-		: m_chunkSize(32), m_maxWorldHeight(32), m_currentChunk(initialPosition), m_chunkLoadingRadius(4), m_worldDimensions(worldDimension)
-	{
-		Initialize();
-	}
-
 	ChunkManager::~ChunkManager()
 	{
 		for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
 			delete iter->second;
 		}
+
+		m_pRenderer = nullptr;
 	}
 
 	void ChunkManager::Initialize()
@@ -123,11 +123,11 @@ namespace tactical
 		Draw(m_chunks[m_currentChunk], shader);
 	}*/
 
-	void ChunkManager::Draw(render::Shader& shader)
+	void ChunkManager::Draw(std::string shaderID)
 	{
 		if (!m_chunks.empty()) {
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				(*iter).second->Draw(shader);
+				m_pRenderer->Render((*iter).second, shaderID);
 			}
 		}
 	}

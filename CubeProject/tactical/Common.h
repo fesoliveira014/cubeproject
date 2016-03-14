@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <cmath>
 #include <random>
+#include <thread>
 
 #include "glew\glew.h"
 

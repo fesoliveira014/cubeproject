@@ -39,9 +39,10 @@ namespace tactical
 
 				m_mesh.vao->Bind();
 				m_mesh.ibo->Bind();
-				if (shader.IsEnabled())
-					shader.SetUniformMat4fv("model", model);
+				if (!shader.IsEnabled())
+					shader.Enable();
 
+				shader.SetUniformMat4fv("model", model);
 				glDrawElements(GL_TRIANGLES, (GLsizei)m_mesh.ibo->GetCount(), GL_UNSIGNED_INT, 0);
 
 				m_mesh.ibo->Unbind();

@@ -9,6 +9,11 @@ namespace tactical
 
 		}
 
+		Frustum::~Frustum()
+		{
+
+		}
+
 		void Frustum::Update(glm::mat4 clipMatrix)
 		{
 			// need to fix this, transposing every frame is costly
@@ -20,12 +25,6 @@ namespace tactical
 			m_planes[3].Set(glm::vec3(matrix[0].w - matrix[0].y, matrix[1].w - matrix[1].y, matrix[2].w - matrix[2].y), matrix[3].w - matrix[3].y);
 			m_planes[4].Set(glm::vec3(matrix[0].w - matrix[0].z, matrix[1].w - matrix[1].z, matrix[2].w - matrix[2].z), matrix[3].w - matrix[3].z);
 			m_planes[5].Set(glm::vec3(matrix[0].w + matrix[0].z, matrix[1].w + matrix[1].z, matrix[2].w + matrix[2].z), matrix[3].w + matrix[3].z);
-
-			for (int i = 0; i < 6; ++i) {
-				float magnitude = glm::length(m_planes[i].GetNormal());
-				m_planes[i].SetScalar(m_planes[i].GetScalar() / magnitude);
-				m_planes[i].SetNormal(m_planes[i].GetNormal() / magnitude);
-			}
 		}
 
 		void Frustum::Update(glm::mat4 projection, glm::mat4 modelView)

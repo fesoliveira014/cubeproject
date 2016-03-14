@@ -3,6 +3,7 @@
 
 #include "../Common.h"
 
+#include "../math/AABB.h"
 #include "structures\Shader.h"
 
 namespace tactical
@@ -13,6 +14,9 @@ namespace tactical
 		{
 		public:
 			virtual void Draw(Shader& shader) = 0;
+			math::AABB GetBoundingBox() { return m_boudingBox; }
+		protected:
+			math::AABB m_boudingBox;
 		};
 	}
 }
