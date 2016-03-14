@@ -18,9 +18,9 @@ namespace tactical
 		{
 			m_center = (m_max + m_min) / 2.0f;
 
-			m_dim.x = abs(m_center.x - m_min.x);
-			m_dim.y = abs(m_center.y - m_min.y);
-			m_dim.z = abs(m_center.z - m_min.z);
+			m_dim.x = abs(m_max.x - m_min.x);
+			m_dim.y = abs(m_max.y - m_min.y);
+			m_dim.z = abs(m_max.z - m_min.z);
 		}
 
 		bool AABB::Intersects(const glm::vec3& vector)
