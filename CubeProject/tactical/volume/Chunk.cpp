@@ -32,9 +32,6 @@ namespace tactical
 		void Chunk::Draw(render::Shader& shader)
 		{
 			if (m_isVisible) {
-				if (m_mesh.vao == nullptr || m_voxels.IsModified())
-					GenerateGeometry();
-
 				glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position);
 
 				m_mesh.vao->Bind();
@@ -214,6 +211,66 @@ namespace tactical
 			return ret;
 		}
 
+		bool Chunk::IsFaceVisible(const glm::vec3 & pos, render::geometry::Face face)
+		{
+			byte neighbor = 0;
+			if (face.face == render::geometry::Face::TOP) {
+				if (pos.y == m_size) {
+					neighbor = m_neighbors[0]->GetVoxel(glm::vec3(pos.x, 0, pos.z));
+				}
+				else {
+					neighbor = m_voxels.Get(pos + glm::vec3(0, 1, 0));
+				}
+			}
+
+			else if (face.face == render::geometry::Face::BOTTOM) {
+				if (pos.y == 0) {
+					neighbor = m_neighbors[0]->GetVoxel(glm::vec3(pos.x, m_size, pos.z));
+				}
+				else {
+					neighbor = m_voxels.Get(pos + glm::vec3(0, -1, 0));
+				}
+			}
+
+			else if (face.face == render::geometry::Face::RIGHT) {
+				if (pos.x == m_size) {
+					neighbor = m_neighbors[0]->GetVoxel(glm::vec3(0, pos.y, pos.z));
+				}
+				else {
+					neighbor = m_voxels.Get(pos + glm::vec3(1, 0, 0));
+				}
+			}
+
+			else if (face.face == render::geometry::Face::LEFT) {
+				if (pos.x == 0) {
+					neighbor = m_neighbors[0]->GetVoxel(glm::vec3(m_size, pos.y, pos.z));
+				}
+				else {
+					neighbor = m_voxels.Get(pos + glm::vec3(-1, 0, 0));
+				}
+			}
+
+			else if (face.face == render::geometry::Face::FRONT) {
+				if (pos.z == m_size) {
+					neighbor = m_neighbors[0]->GetVoxel(glm::vec3(pos.x, pos.y, 0));
+				}
+				else {
+					neighbor = m_voxels.Get(pos + glm::vec3(0, 0, 1));
+				}
+			}
+
+			else if (face.face == render::geometry::Face::BACK) {
+				if (pos.z == 0) {
+					neighbor = m_neighbors[0]->GetVoxel(glm::vec3(pos.x, pos.y, m_size));
+				}
+				else {
+					neighbor = m_voxels.Get(pos + glm::vec3(0, 0, -1));
+				}
+			}
+
+			return (neighbor ? true : false);
+		}
+
 		void Chunk::Load()
 		{
 			GenerateGeometry();
@@ -230,12 +287,21 @@ namespace tactical
 			m_isActive = false;
 			m_isVisible = false;
 		}
+
+		void Chunk::Update()
+		{
+			UpdateVisibility();
+			if (m_isVisible && (m_mesh.vao == nullptr || m_voxels.IsModified()))
+				GenerateGeometry();
+		}
 		
 		void Chunk::UpdateVisibility()
 		{
 			for (int i = 0; i < 6; ++i) {
-				if (m_neighbors[i] == nullptr)
+				if (m_neighbors[i] == nullptr || !m_neighbors[i]->IsActive()) {
 					m_isVisible = true;
+					return;
+				}
 			}
 			m_isVisible = false;
 		}

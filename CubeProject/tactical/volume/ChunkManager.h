@@ -64,6 +64,8 @@ namespace tactical
 		glm::ivec3 GridCoordsToWorldCoords(const glm::ivec3& pos);
 
 		ChunkMap m_chunks;
+
+		bool m_meshNeedsUpdate;
 	
 		int m_chunkSize;
 		int m_maxWorldHeight;

@@ -11,6 +11,18 @@ namespace tactical
 	{
 		namespace geometry
 		{
+			struct Face
+			{
+				enum FaceName 
+				{
+					TOP = 0, BOTTOM,
+					RIGHT, LEFT,
+					FRONT, BACK
+				};
+
+				FaceName face;
+			};
+
 			template<typename Vertex>
 			static void CalculateNormals(std::vector<Vertex>& vertices, const std::vector<uint>& indices)
 			{

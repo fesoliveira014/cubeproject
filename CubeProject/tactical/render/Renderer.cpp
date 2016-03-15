@@ -44,7 +44,9 @@ namespace tactical
 		void Renderer::Render(IRenderable3D* renderable, std::string shaderID)
 		{
 			if (m_polygonMode == WIREFRAME)
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			else
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 			if (renderable->GetBoundingBox().Contains(m_pCamera->GetPosition()) || m_frustum.Contains(renderable->GetBoundingBox())) {
 				if (!(m_shaders.find(shaderID) == m_shaders.end()))
@@ -56,7 +58,10 @@ namespace tactical
 
 		void Renderer::TogglePolygonMode()
 		{
-			m_polygonMode = PolygonMode((m_polygonMode + 1) % 3);
+			if (m_polygonMode == POLYGON)
+				m_polygonMode = WIREFRAME;
+			else
+				m_polygonMode = POLYGON;
 		}
 
 		void Renderer::Update()

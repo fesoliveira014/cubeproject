@@ -66,25 +66,25 @@ namespace tactical
 					neighKey = key;
 					if (i < m_worldDimensions.x - 1) {
 						neighKey.x += 1;
-						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
+						m_chunks[key]->NeighborSetRight(m_chunks[neighKey]);
 					}
 
 					neighKey = key;
 					if (i > 0) {
 						neighKey.x -= 1;
-						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
+						m_chunks[key]->NeighborSetLeft(m_chunks[neighKey]);
 					}
 
 					neighKey = key;
 					if (k < m_worldDimensions.z - 1) {
 						neighKey.z += 1;
-						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
+						m_chunks[key]->NeighborSetFront(m_chunks[neighKey]);
 					}
 
 					neighKey = key;
 					if (k > 0) {
 						neighKey.z -= 1;
-						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
+						m_chunks[key]->NeighborSetBack(m_chunks[neighKey]);
 					}
 				}
 			}
@@ -116,6 +116,8 @@ namespace tactical
 		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
 		heightMapBuilder.SetBounds(2.0, 4.0, 2.0, 4.0);
 		heightMapBuilder.Build();
+
+		m_meshNeedsUpdate = true;
 	}
 
 	/*void ChunkManager::Draw(render::Shader& shader)
@@ -134,7 +136,12 @@ namespace tactical
 
 	void ChunkManager::UpdateChunks(const glm::ivec3& currentPos)
 	{
-
+		if (!m_chunks.empty() && m_meshNeedsUpdate) {
+			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+				(*iter).second->GenerateGeometry();
+			}
+			m_meshNeedsUpdate = false;
+		}
 	}
 
 	void ChunkManager::FillChunks()

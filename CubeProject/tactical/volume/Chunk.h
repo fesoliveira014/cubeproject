@@ -41,7 +41,11 @@ namespace tactical
 			// Checks if chunk has been modified (dirty)
 			bool IsModified();
 
+			void Update();
 			void UpdateVisibility();
+
+			// Generates chunk mesh geometry
+			void GenerateGeometry();
 
 			// Methods to fill and empty the chunk
 			void Fill();
@@ -83,6 +87,8 @@ namespace tactical
 
 			int GetNumOfNeighbors();
 
+			bool IsFaceVisible(const glm::vec3& pos, render::geometry::Face face);
+
 			void Load();
 			void Unload();
 
@@ -92,7 +98,6 @@ namespace tactical
 			Chunk(); // can't create an undefined chunk
 			Chunk(const Chunk& chunk); // No two chunks are equal
 
-			void GenerateGeometry();
 
 			// position is important when meshing the chunk, so we can get the correct position 
 			// for each voxel

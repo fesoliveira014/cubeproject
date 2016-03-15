@@ -51,7 +51,21 @@ namespace tactical
 			*	WIREFRAME: Draws just the wireframe
 			*/
 			void TogglePolygonMode();
-			
+			PolygonMode GetPolygonMode() { return m_polygonMode; }
+
+			void WireframeMode()
+			{
+				if (m_polygonMode == WIREFRAME)
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				else 
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			}
+
+			void FillPolygonMode()
+			{
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			}
+
 			/*
 			* Toggle normal rendering for debug purposes.
 			*/
