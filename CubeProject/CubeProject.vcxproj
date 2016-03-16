@@ -76,6 +76,11 @@
     <IncludePath>..\Common\SOIL\include;..\Common\glm\include;..\Common\SFML(2015)\include;..\Common\glew-1.12.0\include;..\Common\assimp\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Common\SOIL\lib;..\Common\SFML(2015)\lib;..\Common\glew-1.12.0\lib\Release\x64;..\Common\assimp\lib64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>..\Common\SOIL\include;..\Common\glm\include;..\Common\SFML(2015)\include;..\Common\glew-1.12.0\include;..\Common\assimp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Common\SOIL\lib;..\Common\SFML(2015)\lib;..\Common\glew-1.12.0\lib\Release\x64;..\Common\assimp\lib64;$(LibraryPath)</LibraryPath>
+    <CodeAnalysisRuleSet>MixedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -142,17 +147,23 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <XMLDocumentationFileName>$(IntDir)</XMLDocumentationFileName>
+      <AdditionalIncludeDirectories>..\Common\SOIL\include;..\Common\glm\include;..\Common\SFML(2015)\include;..\Common\glew-1.12.0\include;..\Common\assimp\include;$(IncludePath)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SFML_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\Common\SOIL\lib;..\Common\SFML(2015)\lib;..\Common\glew-1.12.0\lib\Release\x64;..\Common\assimp\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SOIL.lib;sfml-window-s.lib;sfml-system-s.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
