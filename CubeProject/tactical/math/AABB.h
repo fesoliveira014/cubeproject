@@ -26,9 +26,6 @@ namespace tactical
 			inline const glm::vec3 GetCenter() const { return m_center; }
 			inline const glm::vec3 GetSize() const { return m_dim; }
 
-			inline glm::vec3 GetCornerP(const glm::vec3& vec) const;
-			inline glm::vec3 GetCornerN(const glm::vec3& vec) const;
-
 		private:
 			void UpdateAttributes();
 
@@ -38,38 +35,6 @@ namespace tactical
 			glm::vec3 m_dim;
 
 		};
-
-		inline glm::vec3 AABB::GetCornerP(const glm::vec3& vec) const
-		{
-			glm::vec3 result = m_min;
-
-			if (vec.x > 0)
-				result.x += m_max.x;
-
-			if (vec.y > 0)
-				result.y += m_max.y;
-
-			if (vec.z > 0)
-				result.z += m_max.z;
-
-			return std::move(result);
-		}
-
-		inline glm::vec3 AABB::GetCornerN(const glm::vec3& vec) const
-		{
-			glm::vec3 result = m_min;
-
-			if (vec.x < 0)
-				result.x += m_max.x;
-
-			if (vec.y < 0)
-				result.y += m_max.y;
-
-			if (vec.z < 0)
-				result.z += m_max.z;
-
-			return std::move(result);
-		}
 
 		inline void AABB::SetMin(const glm::vec3& min)
 		{

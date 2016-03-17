@@ -8,16 +8,16 @@ int main(int argc, char* argv[])
 	tactical::utils::Logger *logger = tactical::utils::Logger::GetInstance();
 	logger->SetConsoleLogging(true);
 
-	tactical::window::Window window(1600, 900, "Game window");
+	tactical::window::Window window(480, 320, "Game window");
 
 	glm::mat4 persp = glm::perspective(45.0f, window.GetEventHandler()->GetWindowSizeState()->aspectRatio, 0.1f, 1000.0f);
 
-	tactical::render::FPSCamera camera(persp, glm::vec3(-6.0f, 65.0f, 21.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	tactical::render::FPSCamera camera(persp, glm::vec3(0.0f, 64.0f, 0.0f), glm::vec3(640.0f, 0.0f, 640.0f));
 	camera.LinkTo(window);
 
 	tactical::render::Renderer renderer(&camera);
 
-	tactical::ChunkManager chunkManager(&renderer, glm::ivec3(2, 1, 2));
+	tactical::ChunkManager chunkManager(&renderer, glm::ivec3(20, 1, 20));
 	chunkManager.GenerateWorld();
 
 	LOG << LOGTYPE::LOG_INFO << "Initializing systems...";

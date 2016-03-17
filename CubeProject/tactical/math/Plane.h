@@ -28,6 +28,7 @@ namespace tactical
 			float DistanceFromPoint(const glm::vec3& point);
 
 			void Set(const glm::vec3& normal, float scalar);
+			void SetAndNormalize(const glm::vec3& normal, float scalar);
 			void SetNormal(const glm::vec3& normal);
 			void SetScalar(float scalar);
 

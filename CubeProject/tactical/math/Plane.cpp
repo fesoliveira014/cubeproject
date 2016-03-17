@@ -48,13 +48,6 @@ namespace tactical
 
 		Plane::PlaneSide Plane::Intersects(const AABB& box)
 		{
-			/*if (DistanceFromPoint(box.GetCornerP(m_normal)) < 0)
-				return PlaneSide::OUTSIDE;
-			else if (DistanceFromPoint(box.GetCornerN(m_normal)) < 0)
-				return PlaneSide::INTERSECTING;
-
-			return PlaneSide::INSIDE;*/
-
 			float d = glm::dot(box.GetCenter(), m_normal);
 			float r = box.GetSize().x * abs(m_normal.x) + box.GetSize().y * abs(m_normal.y) + box.GetSize().z * abs(m_normal.z);
 			float dpr = d + r;
@@ -65,6 +58,12 @@ namespace tactical
 		}
 
 		void Plane::Set(const glm::vec3& normal, float scalar)
+		{
+			m_normal = normal;
+			m_scalar = scalar;
+		}
+
+		void Plane::SetAndNormalize(const glm::vec3& normal, float scalar)
 		{
 			float length = glm::length(normal);
 

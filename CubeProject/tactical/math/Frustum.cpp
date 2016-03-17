@@ -16,15 +16,12 @@ namespace tactical
 
 		void Frustum::Update(glm::mat4 clipMatrix)
 		{
-			// need to fix this, transposing every frame is costly
-			glm::mat4 matrix = glm::transpose(clipMatrix);
-
-			m_planes[0].Set(glm::vec3(matrix[0].w - matrix[0].x, matrix[1].w - matrix[1].x, matrix[2].w - matrix[2].x), matrix[3].w - matrix[3].x);
-			m_planes[1].Set(glm::vec3(matrix[0].w + matrix[0].x, matrix[1].w + matrix[1].x, matrix[2].w + matrix[2].x), matrix[3].w + matrix[3].x);
-			m_planes[2].Set(glm::vec3(matrix[0].w + matrix[0].y, matrix[1].w + matrix[1].y, matrix[2].w + matrix[2].y), matrix[3].w + matrix[3].y);
-			m_planes[3].Set(glm::vec3(matrix[0].w - matrix[0].y, matrix[1].w - matrix[1].y, matrix[2].w - matrix[2].y), matrix[3].w - matrix[3].y);
-			m_planes[4].Set(glm::vec3(matrix[0].w - matrix[0].z, matrix[1].w - matrix[1].z, matrix[2].w - matrix[2].z), matrix[3].w - matrix[3].z);
-			m_planes[5].Set(glm::vec3(matrix[0].w + matrix[0].z, matrix[1].w + matrix[1].z, matrix[2].w + matrix[2].z), matrix[3].w + matrix[3].z);
+			m_planes[0].SetAndNormalize(glm::vec3(clipMatrix[0].w + clipMatrix[0].x, clipMatrix[1].w + clipMatrix[1].x, clipMatrix[2].w + clipMatrix[2].x), clipMatrix[3].w + clipMatrix[3].x); // right
+			m_planes[1].SetAndNormalize(glm::vec3(clipMatrix[0].w - clipMatrix[0].x, clipMatrix[1].w - clipMatrix[1].x, clipMatrix[2].w - clipMatrix[2].x), clipMatrix[3].w - clipMatrix[3].x); // left
+			m_planes[2].SetAndNormalize(glm::vec3(clipMatrix[0].w + clipMatrix[0].y, clipMatrix[1].w + clipMatrix[1].y, clipMatrix[2].w + clipMatrix[2].y), clipMatrix[3].w + clipMatrix[3].y); // top
+			m_planes[3].SetAndNormalize(glm::vec3(clipMatrix[0].w - clipMatrix[0].y, clipMatrix[1].w - clipMatrix[1].y, clipMatrix[2].w - clipMatrix[2].y), clipMatrix[3].w - clipMatrix[3].y); // bottom
+			m_planes[4].SetAndNormalize(glm::vec3(clipMatrix[0].w + clipMatrix[0].z, clipMatrix[1].w + clipMatrix[1].z, clipMatrix[2].w + clipMatrix[2].z), clipMatrix[3].w + clipMatrix[3].z); // front
+			m_planes[5].SetAndNormalize(glm::vec3(clipMatrix[0].w - clipMatrix[0].z, clipMatrix[1].w - clipMatrix[1].z, clipMatrix[2].w - clipMatrix[2].z), clipMatrix[3].w - clipMatrix[3].z); // back
 		}
 
 		void Frustum::Update(glm::mat4 projection, glm::mat4 modelView)

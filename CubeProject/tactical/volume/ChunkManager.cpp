@@ -114,7 +114,7 @@ namespace tactical
 		heightMapBuilder.SetSourceModule(m_final);
 		heightMapBuilder.SetDestNoiseMap(m_heightMap);
 		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
-		heightMapBuilder.SetBounds(2.0, 4.0, 2.0, 4.0);
+		heightMapBuilder.SetBounds(1.0, 4.0, 1.0, 4.0);
 		heightMapBuilder.Build();
 
 		m_meshNeedsUpdate = true;
