@@ -12,6 +12,7 @@ namespace tactical
 		public:
 			AABB();
 			AABB(const glm::vec3& min, const glm::vec3& max);
+			AABB(const AABB& box);
 
 			bool Intersects(const glm::vec3& vector);
 			bool Intersects(AABB& box);

@@ -158,11 +158,110 @@ namespace tactical
 			delete mask;
 		}
 
-		void Chunk::PickVoxel(math::Ray& ray)
+		math::RayCastResult Chunk::PickVoxel(math::Ray& ray)
 		{
-			if (ray.Intersects(m_boudingBox)) {
+			math::RayCastResult result;
 
+			auto hitTester = [](byte blockId) -> bool {return blockId != 0; };
+			auto checkHit = [this,&hitTester](math::RayCastResult& result, glm::vec3 tmax, glm::vec3 pos, glm::vec3 oldPos) -> bool {
+				byte outOfBounds = 0;
+				byte block = GetVoxel(pos);
+
+				if ((block != 0 && hitTester(block))) {
+					result.oldPos = oldPos;
+					result.pos = pos;
+
+					float min = tmax.x;
+					min = tmax.y < min ? tmax.y : min;
+					min = tmax.z < min ? tmax.z : min;
+
+					float epsilon = 0.01;
+					float length = min > 0 ? glm::max(min - epsilon, 0.0f) : min;
+					length = min < 0 ? glm::min(min - epsilon, 0.0f) : min;
+
+					result.length = length;
+					result.hit = true;
+					return true;
+				}
+
+				return false;
+			};
+			
+			glm::vec3 tmax;
+			glm::vec3 tdelta;
+
+			glm::vec3 step(0.0f);
+			glm::vec3 cb(0.0f);
+
+			step.x = ray.GetDirection().x > 0 ? 1 : -1;
+			step.y = ray.GetDirection().y > 0 ? 1 : -1;
+			step.z = ray.GetDirection().z > 0 ? 1 : -1;
+
+			cb.x = ray.GetDirection().x > 0 ? ray.GetOrigin().x + 1 : ray.GetOrigin().x;
+			cb.y = ray.GetDirection().y > 0 ? ray.GetOrigin().y + 1 : ray.GetOrigin().x;
+			cb.z = ray.GetDirection().z > 0 ? ray.GetOrigin().z + 1 : ray.GetOrigin().x;
+
+			if (ray.GetDirection().x != 0) {
+				float rxr = 1.0 / ray.GetDirection().x;
+				tmax.x = (cb.x - ray.GetDirection().x) * rxr;
+				tdelta.x = step.x * rxr;
 			}
+			else
+				tmax.x = 1000000;
+
+			if (ray.GetDirection().y != 0) {
+				float ryr = 1.0 / ray.GetDirection().y;
+				tmax.y = (cb.y - ray.GetDirection().y) * ryr;
+				tdelta.y = step.y * ryr;
+			}
+			else
+				tmax.y = 1000000;
+
+			if (ray.GetDirection().z != 0) {
+				float rzr = 1.0 / ray.GetDirection().z;
+				tmax.z = (cb.z - ray.GetDirection().z) * rzr;
+				tdelta.z = step.z * rzr;
+			}
+			else
+				tmax.z = 1000000;
+
+			glm::vec3 origin = ray.GetOrigin();
+			glm::vec3 old = origin;
+
+			int iterations = 32;
+
+			for (int i = 0; i < iterations; ++i) {
+				if (tmax.x < tmax.y) {
+					if (tmax.x < tmax.z) {
+						origin.x += step.x;
+						if (checkHit(result, tmax, origin, old))
+							return std::move(result);
+						tmax.x += tdelta.x;
+					}
+					else {
+						origin.z += step.z;
+						if (checkHit(result, tmax, origin, old))
+							return std::move(result);
+						tmax.z += tdelta.z;
+					}
+				}
+				else {
+					if (tmax.y < tmax.z) {
+						origin.y += step.y;
+						if (checkHit(result, tmax, origin, old))
+							return std::move(result);
+						tmax.y += tdelta.y;
+					}
+					else {
+						origin.x += step.x;
+						if (checkHit(result, tmax, origin, old))
+							return std::move(result);
+						tmax.x += tdelta.x;
+					}
+				}
+				old = origin;
+			}
+			return std::move(result);
 		}
 
 		bool Chunk::IsSolid(const glm::vec3& position)

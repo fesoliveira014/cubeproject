@@ -64,7 +64,7 @@ namespace tactical
 			inline void SetMaxHeight(int maxHeight) { m_maxHeight = maxHeight; }
 			inline int GetMaxHeight() const { return m_maxHeight; }
 
-			void PickVoxel(math::Ray& ray);
+			math::RayCastResult PickVoxel(math::Ray& ray);
 
 			// Iterators
 			inline VolumeIterator begin() { return m_voxels.begin(); }
@@ -97,7 +97,6 @@ namespace tactical
 		protected:
 			Chunk(); // can't create an undefined chunk
 			Chunk(const Chunk& chunk); // No two chunks are equal
-
 
 			// position is important when meshing the chunk, so we can get the correct position 
 			// for each voxel

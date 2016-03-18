@@ -72,6 +72,20 @@ namespace tactical
 			}
 		};
 
+		struct Vertex3f3f4f
+		{
+			glm::vec3 m_position;
+			glm::vec3 m_normal;
+			glm::vec3 m_color;
+
+			Vertex3f3f4f() { }
+			Vertex3f3f4f(glm::vec3 position, glm::vec3 normal, glm::vec3 color)
+				: m_position(position), m_normal(normal), m_color(color)
+			{
+
+			}
+		};
+
 		struct Vertex3f2f4f
 		{
 			glm::vec3 m_position;

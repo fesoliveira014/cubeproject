@@ -14,6 +14,14 @@ namespace tactical
 			UpdateAttributes();
 		}
 
+		AABB::AABB(const AABB & box)
+		{
+			m_min = box.m_min;
+			m_max = box.m_max;
+			m_center = box.m_center;
+			m_dim = box.m_dim;
+		}
+
 		void AABB::UpdateAttributes()
 		{
 			m_center = (m_max + m_min) / 2.0f;

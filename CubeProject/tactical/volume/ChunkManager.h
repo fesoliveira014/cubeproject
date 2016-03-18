@@ -48,6 +48,8 @@ namespace tactical
 		inline void SetChunkLoadingRadius(int radius) { m_chunkLoadingRadius = radius; }
 		inline int GetChunkLoadingRadius() const { return m_chunkLoadingRadius; }
 
+		glm::vec3 GetRayVoxelIntersection(math::Ray& ray, const glm::vec3& pos, float pickRadius);
+
 		inline ChunkIterator begin() { return m_chunks.begin(); }
 		inline ChunkIterator end() { return m_chunks.end(); }
 
