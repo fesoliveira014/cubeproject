@@ -21,10 +21,14 @@ namespace tactical
 			void Draw(Shader& shader);
 
 			void SetAABB(const math::AABB& box);
+			inline void SetPosition(const glm::vec3& pos) { m_position = pos; }
+			glm::vec3 GetPosition() const { return m_position; }
 
 		private:
 			void GenerateMesh();
-			Mesh<render::Vertex3f3f4f> m_mesh;
+			Mesh<render::Vertex3f3f> m_mesh;
+
+			glm::vec3 m_position;
 		};
 	}
 }

@@ -10,6 +10,7 @@ namespace tactical
 
 			m_shaders["basic_light"] = new Shader("shaders/vertex.glsl", "shaders/frag.glsl", nullptr);
 			m_shaders["normal"] = new Shader("shaders/normal_vertex.glsl", "shaders/normal_frag.glsl", "shaders/normal_geom.glsl");
+			m_shaders["picking"] = new Shader("shaders/picking_vert.glsl", "shaders/picking_frag.glsl", nullptr);
 			m_polygonMode = POLYGON;
 
 			m_shaders["basic_light"]->Enable();
@@ -22,6 +23,10 @@ namespace tactical
 			m_shaders["normal"]->Enable();
 			m_shaders["normal"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["normal"]->SetUniformMat4fv("model", glm::mat4(1.0f));
+
+			m_shaders["picking"]->Enable();
+			m_shaders["picking"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
+			m_shaders["picking"]->SetUniformMat4fv("model", glm::mat4(1.0f));
 
 			glEnable(GL_CULL_FACE);
 			glCullFace(GL_BACK);

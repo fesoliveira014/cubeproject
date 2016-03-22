@@ -188,7 +188,7 @@ namespace tactical
 
 	}
 
-	glm::vec3 ChunkManager::GetRayVoxelIntersection(math::Ray & ray, const glm::vec3& pos, float pickRadius)
+	math::RayCastResult ChunkManager::GetRayVoxelIntersection(math::Ray & ray, const glm::vec3& pos, float pickRadius)
 	{
 		math::RayCastResult result;
 
@@ -197,12 +197,12 @@ namespace tactical
 				float distance = glm::length(pos - (*iter).second->GetBoundingBox().GetCenter());
 				if (distance < pickRadius && ray.Intersects((*iter).second->GetBoundingBox())) {
 					result = (*iter).second->PickVoxel(ray);
-					if (result.hit) return result.pos;
+					if (result.hit) return result;
 				}
 			}
 		}
 
-		return pos;
+		return result;
 	}
 
 	bool ChunkManager::IsWithinRadius(const glm::ivec3& position)

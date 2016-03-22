@@ -76,10 +76,10 @@ namespace tactical
 		{
 			glm::vec3 m_position;
 			glm::vec3 m_normal;
-			glm::vec3 m_color;
+			glm::vec4 m_color;
 
 			Vertex3f3f4f() { }
-			Vertex3f3f4f(glm::vec3 position, glm::vec3 normal, glm::vec3 color)
+			Vertex3f3f4f(glm::vec3 position, glm::vec3 normal, glm::vec4 color)
 				: m_position(position), m_normal(normal), m_color(color)
 			{
 

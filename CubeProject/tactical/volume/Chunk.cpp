@@ -162,12 +162,16 @@ namespace tactical
 		{
 			math::RayCastResult result;
 
-			auto hitTester = [](byte blockId) -> bool {return blockId != 0; };
-			auto checkHit = [this,&hitTester](math::RayCastResult& result, glm::vec3 tmax, glm::vec3 pos, glm::vec3 oldPos) -> bool {
+			auto hitTester = [this, &ray](const glm::ivec3& pos) -> bool 
+			{
+				math::AABB box(pos, pos + 1);
+				return ray.Intersects(box);
+			};
+			auto checkHit = [this,&hitTester](math::RayCastResult& result, const glm::vec3& tmax, const glm::vec3& pos, const glm::vec3& oldPos) -> bool {
 				byte outOfBounds = 0;
-				byte block = GetVoxel(pos);
+				byte block = GetVoxel(glm::floor(pos));
 
-				if ((block != 0 && hitTester(block))) {
+				if ((block != 0 && hitTester(glm::floor(pos)))) {
 					result.oldPos = oldPos;
 					result.pos = pos;
 
@@ -228,7 +232,7 @@ namespace tactical
 			glm::vec3 origin = ray.GetOrigin();
 			glm::vec3 old = origin;
 
-			int iterations = 32;
+			int iterations = 100;
 
 			for (int i = 0; i < iterations; ++i) {
 				if (tmax.x < tmax.y) {
@@ -253,10 +257,10 @@ namespace tactical
 						tmax.y += tdelta.y;
 					}
 					else {
-						origin.x += step.x;
+						origin.z += step.z;
 						if (checkHit(result, tmax, origin, old))
 							return std::move(result);
-						tmax.x += tdelta.x;
+						tmax.z += tdelta.z;
 					}
 				}
 				old = origin;
@@ -385,6 +389,11 @@ namespace tactical
 
 			m_isActive = false;
 			m_isVisible = false;
+		}
+
+		glm::ivec3 Chunk::GetGridPosition(const glm::vec3 & pos)
+		{
+			return glm::ivec3(pos);
 		}
 
 		void Chunk::Update()

@@ -14,11 +14,6 @@ namespace tactical
 			PreCalculate();
 		}
 
-		Ray::~Ray()
-		{
-
-		}
-
 		void Ray::PreCalculate() {
 			m_inverse = 1.0f / m_direction;
 

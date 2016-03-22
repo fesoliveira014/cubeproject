@@ -98,6 +98,8 @@ namespace tactical
 			Chunk(); // can't create an undefined chunk
 			Chunk(const Chunk& chunk); // No two chunks are equal
 
+			glm::ivec3 GetGridPosition(const glm::vec3& pos);
+
 			// position is important when meshing the chunk, so we can get the correct position 
 			// for each voxel
 			glm::vec3 m_position;

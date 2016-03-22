@@ -41,7 +41,7 @@ namespace tactical
 			inline void Translate(const glm::vec3& translation) { m_translation += translation; }
 			inline void Translate(float x, float y, float z) { m_translation += glm::vec3(x, y, z); }
 
-			math::Ray CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport);
+			math::Ray& CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport);
 
 			inline const glm::mat4 GetProjectionMatrix() const { return m_projection; }
 			inline const glm::mat4 GetViewMatrix() const { return m_view; }

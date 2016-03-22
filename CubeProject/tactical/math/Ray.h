@@ -46,16 +46,21 @@ namespace tactical
 				MMM, PPP, OOO
 			};
 
+			Ray();
 			Ray(const glm::vec3& o, const glm::vec3& d);
-			~Ray();
+			Ray(const Ray& rhs) = default;
+			Ray(Ray&&) = default;
+			~Ray() = default;
 
 			bool Intersects(AABB& box);
 
 			inline glm::vec3 GetDirection() const { return m_direction; }
 			inline glm::vec3 GetOrigin() const { return m_origin; }
 
+			Ray& operator=(const Ray&) = default;
+			Ray& operator=(Ray&&) = default;
+
 		private:
-			Ray();
 			void PreCalculate();
 
 		private:

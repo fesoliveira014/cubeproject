@@ -56,8 +56,7 @@ namespace tactical
 
 			template<typename Vertex>
 			static void AddQuad(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3,
-				const glm::vec3& v4, std::vector<Vertex>& vertices, std::vector<uint>& indices, 
-				const glm::vec4& color = (0.0f), bool uv = false)
+				const glm::vec3& v4, std::vector<Vertex>& vertices, std::vector<uint>& indices)
 			{
 				Vertex cornerA, cornerB, cornerC, cornerD;
 
@@ -66,19 +65,32 @@ namespace tactical
 				cornerC.m_position = v3;
 				cornerD.m_position = v4;
 
-				if (color != glm::vec3(0.0f)) {
-					cornerA.m_color = color;
-					cornerB.m_color = color;
-					cornerC.m_color = color;
-					cornerD.m_color = color;
-				}
+				uint offset = (uint)vertices.size();
+				indices.push_back(offset); indices.push_back(offset + 1); indices.push_back(offset + 2);
+				indices.push_back(offset + 2); indices.push_back(offset + 3); indices.push_back(offset);
 
-				if (uv) {
-					cornerA.uv = glm::vec2(1.0f, 1.0f);
-					cornerB.uv = glm::vec2(0.0f, 1.0f);
-					cornerC.uv = glm::vec2(0.0f, 0.0f);
-					cornerD.uv = glm::vec2(1.0f, 0.0f);
-				}
+				vertices.push_back(cornerA);
+				vertices.push_back(cornerB);
+				vertices.push_back(cornerC);
+				vertices.push_back(cornerD);
+			}
+
+			template<typename Vertex>
+			static void AddQuad(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3,
+				const glm::vec3& v4, std::vector<Vertex>& vertices, std::vector<uint>& indices,
+				const glm::vec4& color)
+			{
+				Vertex cornerA, cornerB, cornerC, cornerD;
+
+				cornerA.m_position = v1;
+				cornerB.m_position = v2;
+				cornerC.m_position = v3;
+				cornerD.m_position = v4;
+
+				cornerA.m_color = color;
+				cornerB.m_color = color;
+				cornerC.m_color = color;
+				cornerD.m_color = color;
 
 				uint offset = (uint)vertices.size();
 				indices.push_back(offset); indices.push_back(offset + 1); indices.push_back(offset + 2);

@@ -54,7 +54,7 @@ namespace tactical
 			m_eventHandler = windowHandler.GetEventHandler();
 		}
 
-		math::Ray Camera::CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport)
+		math::Ray& Camera::CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport)
 		{
 			float x = (2.0f * mouse.x) / viewport.x - 1.0f;
 			float y = 1.0f - (2.0f * mouse.y) / viewport.y;

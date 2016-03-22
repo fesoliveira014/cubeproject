@@ -7,12 +7,22 @@ namespace tactical
 		DrawableBox::DrawableBox(const math::AABB & box)
 		{
 			m_boudingBox = box;
+
+			m_mesh.vao = nullptr;
+			m_mesh.ibo = nullptr;
+			m_mesh.vertices.clear();
+			m_mesh.indices.clear();
+
+			m_position = glm::vec3(0.0f);
+
 			GenerateMesh();
+
 		}
 
 		void DrawableBox::Draw(Shader & shader)
 		{
-			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_boudingBox.GetCenter());
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position-glm::vec3(0.01f));
+			model = glm::scale(model, glm::vec3(1.02));
 
 			m_mesh.vao->Bind();
 			m_mesh.ibo->Bind();
@@ -34,30 +44,29 @@ namespace tactical
 
 		void DrawableBox::GenerateMesh()
 		{
-			delete m_mesh.vao;
-			delete m_mesh.ibo;
+			if (m_mesh.vao != nullptr) delete m_mesh.vao;
+			if (m_mesh.ibo != nullptr) delete m_mesh.ibo;
 			m_mesh.vertices.clear();
 			m_mesh.indices.clear();
 
-			glm::vec3 v0(m_boudingBox.GetMin().x, m_boudingBox.GetMin().y, m_boudingBox.GetMax().z);
-			glm::vec3 v1(m_boudingBox.GetMax().x, m_boudingBox.GetMin().y, m_boudingBox.GetMax().z);
-			glm::vec3 v2(m_boudingBox.GetMin().x, m_boudingBox.GetMax().y, m_boudingBox.GetMax().z);
-			glm::vec3 v3(m_boudingBox.GetMax().x, m_boudingBox.GetMax().y, m_boudingBox.GetMax().z);
-			glm::vec3 v4(m_boudingBox.GetMax().x, m_boudingBox.GetMin().y, m_boudingBox.GetMin().z);
-			glm::vec3 v5(m_boudingBox.GetMax().x, m_boudingBox.GetMax().y, m_boudingBox.GetMin().z);
-			glm::vec3 v6(m_boudingBox.GetMin().x, m_boudingBox.GetMax().y, m_boudingBox.GetMin().z);
-			glm::vec3 v7(m_boudingBox.GetMin().x, m_boudingBox.GetMin().y, m_boudingBox.GetMin().z);
+			glm::vec3 mmm(0,0,0); // ---
+			glm::vec3 pmm(1,0,0); // +--
+			glm::vec3 pmp(1,0,1); // +-+
+			glm::vec3 mmp(0,0,1); // --+
+			glm::vec3 mpp(0,1,1); // -++
+			glm::vec3 mpm(0,1,0); // -+-
+			glm::vec3 ppm(1,1,0); // ++-
+			glm::vec3 ppp(1,1,1); // +++
 
-			glm::vec4 color(1.0f, 1.0f, 0.0f, 0.5f);
+			geometry::AddQuad(mmm, mmp, mpp, mpm, m_mesh.vertices, m_mesh.indices); // left
+			geometry::AddQuad(pmm, ppm, ppp, pmp, m_mesh.vertices, m_mesh.indices); // right
+			geometry::AddQuad(mmm, pmm, pmp, mmp, m_mesh.vertices, m_mesh.indices); // bottom
+			geometry::AddQuad(mpm, mpp, ppp, ppm, m_mesh.vertices, m_mesh.indices); // top
+			geometry::AddQuad(mmm, mpm, ppm, pmm, m_mesh.vertices, m_mesh.indices); // back
+			geometry::AddQuad(mmp, pmp, ppp, mpp, m_mesh.vertices, m_mesh.indices); // front
 
-			geometry::AddQuad(v0, v1, v2, v3, m_mesh.vertices, m_mesh.indices, color);
-			geometry::AddQuad(v1, v4, v3, v5, m_mesh.vertices, m_mesh.indices, color);
-			geometry::AddQuad(v4, v7, v5, v6, m_mesh.vertices, m_mesh.indices, color);
-			geometry::AddQuad(v7, v0, v6, v2, m_mesh.vertices, m_mesh.indices, color);
-			geometry::AddQuad(v7, v4, v0, v1, m_mesh.vertices, m_mesh.indices, color);
-			geometry::AddQuad(v2, v3, v6, v5, m_mesh.vertices, m_mesh.indices, color);
 
-			geometry::CalculateNormals<render::Vertex3f3f4f>(m_mesh.vertices, m_mesh.indices);
+			geometry::CalculateNormals<render::Vertex3f3f>(m_mesh.vertices, m_mesh.indices);
 
 			std::vector<render::VertexAttribute> attributes;
 			attributes.push_back(render::VertexAttribute(0, 3, GLType::FLOAT));
