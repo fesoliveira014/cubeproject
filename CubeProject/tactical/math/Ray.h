@@ -55,6 +55,7 @@ namespace tactical
 			bool Intersects(AABB& box);
 
 			inline glm::vec3 GetDirection() const { return m_direction; }
+			inline glm::vec3 GetInverse() const { return m_inverse; }
 			inline glm::vec3 GetOrigin() const { return m_origin; }
 
 			Ray& operator=(const Ray&) = default;

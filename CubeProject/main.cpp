@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 
 	tactical::render::Renderer renderer(&camera);
 
-	tactical::ChunkManager chunkManager(&renderer, glm::ivec3(2, 1, 2));
+	tactical::ChunkManager chunkManager(&renderer, glm::ivec3(1, 1, 1));
 	//chunkManager.FillChunks();
 	chunkManager.GenerateWorld();
 

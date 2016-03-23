@@ -162,110 +162,79 @@ namespace tactical
 		{
 			math::RayCastResult result;
 
-			auto hitTester = [this, &ray](const glm::ivec3& pos) -> bool 
-			{
-				math::AABB box(pos, pos + 1);
-				return ray.Intersects(box);
-			};
-			auto checkHit = [this,&hitTester](math::RayCastResult& result, const glm::vec3& tmax, const glm::vec3& pos, const glm::vec3& oldPos) -> bool {
-				byte outOfBounds = 0;
-				byte block = GetVoxel(glm::floor(pos));
+			//auto hitTester = [this, &ray](const glm::ivec3& pos) -> bool 
+			//{
+			//	math::AABB box(pos, pos + 1);
+			//	float t1 = (box.GetMin().x - ray.GetOrigin().x)*ray.GetInverse().x;
+			//	float t2 = (box.GetMax().x - ray.GetOrigin().x)*ray.GetInverse().x;
+			//	float t3 = (box.GetMin().y - ray.GetOrigin().y)*ray.GetInverse().y;
+			//	float t4 = (box.GetMax().y - ray.GetOrigin().y)*ray.GetInverse().y;
+			//	float t5 = (box.GetMin().z - ray.GetOrigin().z)*ray.GetInverse().z;
+			//	float t6 = (box.GetMax().z - ray.GetOrigin().z)*ray.GetInverse().z;
 
-				if ((block != 0 && hitTester(glm::floor(pos)))) {
-					result.oldPos = oldPos;
-					result.pos = pos;
+			//	float tmin = glm::max(glm::max(glm::min(t1, t2), glm::min(t3, t4)), glm::min(t5, t6));
+			//	float tmax = glm::min(glm::min(glm::max(t1, t2), glm::max(t3, t4)), glm::max(t5, t6));
 
-					float min = tmax.x;
-					min = tmax.y < min ? tmax.y : min;
-					min = tmax.z < min ? tmax.z : min;
+			//	// if tmax < 0, ray (line) is intersecting AABB, but whole AABB is behing us
+			//	if (tmax < 0)
+			//	{
+			//		//t = tmax;
+			//		return false;
+			//	}
 
-					float epsilon = 0.01;
-					float length = min > 0 ? glm::max(min - epsilon, 0.0f) : min;
-					length = min < 0 ? glm::min(min - epsilon, 0.0f) : min;
+			//	// if tmin > tmax, ray doesn't intersect AABB
+			//	if (tmin > tmax)
+			//	{
+			//		//t = tmax;
+			//		return false;
+			//	}
 
-					result.length = length;
-					result.hit = true;
-					return true;
-				}
+			//	//t = tmin;
+			//	return true;
+			//};
+			//auto checkHit = [this,&hitTester](math::RayCastResult& result, const glm::vec3& tmax, const glm::vec3& pos, const glm::vec3& oldPos) -> bool {
+			//	byte outOfBounds = 0;
+			//	byte block = GetVoxel(glm::floor(pos));
 
-				return false;
-			};
+			//	if ((block != 0 && hitTester(glm::floor(pos)))) {
+			//		result.oldPos = oldPos;
+			//		result.pos = pos;
+
+			//		float min = tmax.x;
+			//		min = tmax.y < min ? tmax.y : min;
+			//		min = tmax.z < min ? tmax.z : min;
+
+			//		float epsilon = 0.01;
+			//		float length = min > 0 ? glm::max(min - epsilon, 0.0f) : min;
+			//		length = min < 0 ? glm::min(min - epsilon, 0.0f) : min;
+
+			//		result.length = length;
+			//		result.hit = true;
+			//		return true;
+			//	}
+
+			//	return false;
+			//};
 			
 			glm::vec3 tmax;
 			glm::vec3 tdelta;
+			glm::vec3 tnext;
+			glm::vec3 size(1.0f);
 
 			glm::vec3 step(0.0f);
-			glm::vec3 cb(0.0f);
 
 			step.x = ray.GetDirection().x > 0 ? 1 : -1;
 			step.y = ray.GetDirection().y > 0 ? 1 : -1;
 			step.z = ray.GetDirection().z > 0 ? 1 : -1;
 
-			cb.x = ray.GetDirection().x > 0 ? ray.GetOrigin().x + 1 : ray.GetOrigin().x;
-			cb.y = ray.GetDirection().y > 0 ? ray.GetOrigin().y + 1 : ray.GetOrigin().x;
-			cb.z = ray.GetDirection().z > 0 ? ray.GetOrigin().z + 1 : ray.GetOrigin().x;
+			tdelta.x = size.x * ray.GetInverse().x;
+			tdelta.y = size.y * ray.GetInverse().y;
+			tdelta.z = size.z * ray.GetInverse().z;
 
-			if (ray.GetDirection().x != 0) {
-				float rxr = 1.0 / ray.GetDirection().x;
-				tmax.x = (cb.x - ray.GetDirection().x) * rxr;
-				tdelta.x = step.x * rxr;
-			}
-			else
-				tmax.x = 1000000;
+			tnext.x = std::fmod(ray.GetOrigin().x, size.x);
+			tnext.y = std::fmod(ray.GetOrigin().y, size.y);
+			tnext.z = std::fmod(ray.GetOrigin().z, size.z);
 
-			if (ray.GetDirection().y != 0) {
-				float ryr = 1.0 / ray.GetDirection().y;
-				tmax.y = (cb.y - ray.GetDirection().y) * ryr;
-				tdelta.y = step.y * ryr;
-			}
-			else
-				tmax.y = 1000000;
-
-			if (ray.GetDirection().z != 0) {
-				float rzr = 1.0 / ray.GetDirection().z;
-				tmax.z = (cb.z - ray.GetDirection().z) * rzr;
-				tdelta.z = step.z * rzr;
-			}
-			else
-				tmax.z = 1000000;
-
-			glm::vec3 origin = ray.GetOrigin();
-			glm::vec3 old = origin;
-
-			int iterations = 100;
-
-			for (int i = 0; i < iterations; ++i) {
-				if (tmax.x < tmax.y) {
-					if (tmax.x < tmax.z) {
-						origin.x += step.x;
-						if (checkHit(result, tmax, origin, old))
-							return std::move(result);
-						tmax.x += tdelta.x;
-					}
-					else {
-						origin.z += step.z;
-						if (checkHit(result, tmax, origin, old))
-							return std::move(result);
-						tmax.z += tdelta.z;
-					}
-				}
-				else {
-					if (tmax.y < tmax.z) {
-						origin.y += step.y;
-						if (checkHit(result, tmax, origin, old))
-							return std::move(result);
-						tmax.y += tdelta.y;
-					}
-					else {
-						origin.z += step.z;
-						if (checkHit(result, tmax, origin, old))
-							return std::move(result);
-						tmax.z += tdelta.z;
-					}
-				}
-				old = origin;
-			}
-			return std::move(result);
 		}
 
 		bool Chunk::IsSolid(const glm::vec3& position)

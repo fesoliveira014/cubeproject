@@ -21,8 +21,8 @@ namespace tactical
 
 		void DrawableBox::Draw(Shader & shader)
 		{
-			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position-glm::vec3(0.01f));
-			model = glm::scale(model, glm::vec3(1.02));
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position-glm::vec3(0.005f));
+			model = glm::scale(model, glm::vec3(1.01));
 
 			m_mesh.vao->Bind();
 			m_mesh.ibo->Bind();
