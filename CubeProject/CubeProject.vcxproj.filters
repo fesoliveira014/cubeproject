@@ -434,6 +434,9 @@
     <ClInclude Include="tactical\render\geometry\DrawableBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tactical\math\Picking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.glsl" />

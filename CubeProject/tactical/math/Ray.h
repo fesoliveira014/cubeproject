@@ -12,11 +12,9 @@ namespace tactical
 		struct RayCastResult
 		{
 			bool hit;
-			float length;
 			glm::vec3 pos;
-			glm::vec3 oldPos;
 
-			RayCastResult() : hit(false), length(0.0f), pos(glm::vec3(0)), oldPos(glm::vec3(0))
+			RayCastResult() : hit(false), pos(glm::vec3(0))
 			{
 
 			}
@@ -24,9 +22,7 @@ namespace tactical
 			RayCastResult(const RayCastResult& r)
 			{
 				hit = r.hit;
-				length = r.length;
 				pos = r.pos;
-				oldPos = r.oldPos;
 			}
 		};
 

@@ -281,6 +281,7 @@
     <ClInclude Include="tactical\math\noise\noisegen.h" />
     <ClInclude Include="tactical\math\noise\noiseutils.h" />
     <ClInclude Include="tactical\math\noise\vectortable.h" />
+    <ClInclude Include="tactical\math\Picking.h" />
     <ClInclude Include="tactical\math\Plane.h" />
     <ClInclude Include="tactical\math\Ray.h" />
     <ClInclude Include="tactical\math\Sphere.h" />

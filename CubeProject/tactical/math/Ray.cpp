@@ -15,7 +15,11 @@ namespace tactical
 		}
 
 		void Ray::PreCalculate() {
-			m_inverse = 1.0f / m_direction;
+			//m_inverse = 1.0f / m_direction;
+
+			m_inverse.x = m_direction.x != 0 ? 1.0f / m_direction.x : std::numeric_limits<float>::infinity();
+			m_inverse.y = m_direction.y != 0 ? 1.0f / m_direction.y : std::numeric_limits<float>::infinity();
+			m_inverse.z = m_direction.z != 0 ? 1.0f / m_direction.z : std::numeric_limits<float>::infinity();
 
 			m_ibyj = m_direction.x * m_inverse.y;
 			m_ibyk = m_direction.x * m_inverse.z;

@@ -158,85 +158,6 @@ namespace tactical
 			delete mask;
 		}
 
-		math::RayCastResult Chunk::PickVoxel(math::Ray& ray)
-		{
-			math::RayCastResult result;
-
-			//auto hitTester = [this, &ray](const glm::ivec3& pos) -> bool 
-			//{
-			//	math::AABB box(pos, pos + 1);
-			//	float t1 = (box.GetMin().x - ray.GetOrigin().x)*ray.GetInverse().x;
-			//	float t2 = (box.GetMax().x - ray.GetOrigin().x)*ray.GetInverse().x;
-			//	float t3 = (box.GetMin().y - ray.GetOrigin().y)*ray.GetInverse().y;
-			//	float t4 = (box.GetMax().y - ray.GetOrigin().y)*ray.GetInverse().y;
-			//	float t5 = (box.GetMin().z - ray.GetOrigin().z)*ray.GetInverse().z;
-			//	float t6 = (box.GetMax().z - ray.GetOrigin().z)*ray.GetInverse().z;
-
-			//	float tmin = glm::max(glm::max(glm::min(t1, t2), glm::min(t3, t4)), glm::min(t5, t6));
-			//	float tmax = glm::min(glm::min(glm::max(t1, t2), glm::max(t3, t4)), glm::max(t5, t6));
-
-			//	// if tmax < 0, ray (line) is intersecting AABB, but whole AABB is behing us
-			//	if (tmax < 0)
-			//	{
-			//		//t = tmax;
-			//		return false;
-			//	}
-
-			//	// if tmin > tmax, ray doesn't intersect AABB
-			//	if (tmin > tmax)
-			//	{
-			//		//t = tmax;
-			//		return false;
-			//	}
-
-			//	//t = tmin;
-			//	return true;
-			//};
-			//auto checkHit = [this,&hitTester](math::RayCastResult& result, const glm::vec3& tmax, const glm::vec3& pos, const glm::vec3& oldPos) -> bool {
-			//	byte outOfBounds = 0;
-			//	byte block = GetVoxel(glm::floor(pos));
-
-			//	if ((block != 0 && hitTester(glm::floor(pos)))) {
-			//		result.oldPos = oldPos;
-			//		result.pos = pos;
-
-			//		float min = tmax.x;
-			//		min = tmax.y < min ? tmax.y : min;
-			//		min = tmax.z < min ? tmax.z : min;
-
-			//		float epsilon = 0.01;
-			//		float length = min > 0 ? glm::max(min - epsilon, 0.0f) : min;
-			//		length = min < 0 ? glm::min(min - epsilon, 0.0f) : min;
-
-			//		result.length = length;
-			//		result.hit = true;
-			//		return true;
-			//	}
-
-			//	return false;
-			//};
-			
-			glm::vec3 tmax;
-			glm::vec3 tdelta;
-			glm::vec3 tnext;
-			glm::vec3 size(1.0f);
-
-			glm::vec3 step(0.0f);
-
-			step.x = ray.GetDirection().x > 0 ? 1 : -1;
-			step.y = ray.GetDirection().y > 0 ? 1 : -1;
-			step.z = ray.GetDirection().z > 0 ? 1 : -1;
-
-			tdelta.x = size.x * ray.GetInverse().x;
-			tdelta.y = size.y * ray.GetInverse().y;
-			tdelta.z = size.z * ray.GetInverse().z;
-
-			tnext.x = std::fmod(ray.GetOrigin().x, size.x);
-			tnext.y = std::fmod(ray.GetOrigin().y, size.y);
-			tnext.z = std::fmod(ray.GetOrigin().z, size.z);
-
-		}
-
 		bool Chunk::IsSolid(const glm::vec3& position)
 		{
 			return m_voxels.IsFull();
@@ -259,12 +180,24 @@ namespace tactical
 
 		void Chunk::SetVoxel(const glm::vec3& position, byte type)
 		{
-			m_voxels.Set(position, type);
+			glm::vec3 pos;
+
+			pos.x = (position.x < m_size) && (position.x >= 0) ? position.x : position.x - m_position.x;
+			pos.y = (position.y < m_size) && (position.y >= 0) ? position.y : position.y - m_position.y;
+			pos.z = (position.z < m_size) && (position.z >= 0) ? position.z : position.z - m_position.z;
+
+			m_voxels.Set(pos, type);
 		}
 
 		byte Chunk::GetVoxel(const glm::vec3& position)
 		{
-			return m_voxels.Get(position);
+			glm::vec3 pos;
+
+			pos.x = (position.x < m_size) && (position.x >= 0) ? position.x : position.x - m_position.x;
+			pos.y = (position.y < m_size) && (position.y >= 0) ? position.y : position.y - m_position.y;
+			pos.z = (position.z < m_size) && (position.z >= 0) ? position.z : position.z - m_position.z;
+
+			return m_voxels.Get(pos);
 		}
 
 		void Chunk::SetSize(int size)

@@ -114,7 +114,7 @@ namespace tactical
 		heightMapBuilder.SetSourceModule(m_final);
 		heightMapBuilder.SetDestNoiseMap(m_heightMap);
 		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
-		heightMapBuilder.SetBounds(1.0, 4.0, 1.0, 4.0);
+		heightMapBuilder.SetBounds(1.0, 5.0, 1.0, 5.0);
 		heightMapBuilder.Build();
 
 		m_meshNeedsUpdate = true;
@@ -191,16 +191,10 @@ namespace tactical
 	math::RayCastResult ChunkManager::GetRayVoxelIntersection(math::Ray & ray, const glm::vec3& pos, float pickRadius)
 	{
 		math::RayCastResult result;
+		result.hit = false;
 
-		if (!m_chunks.empty()) {
-			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				float distance = glm::length(pos - (*iter).second->GetBoundingBox().GetCenter());
-				if (distance < pickRadius && ray.Intersects((*iter).second->GetBoundingBox())) {
-					result = (*iter).second->PickVoxel(ray);
-					if (result.hit) return result;
-				}
-			}
-		}
+		if (!m_chunks.empty()) 
+			result = math::PickVoxel(ray, m_chunks, 64, m_chunkSize);
 
 		return result;
 	}

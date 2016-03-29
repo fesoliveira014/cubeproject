@@ -5,6 +5,7 @@
 
 #include "Chunk.h"
 #include "../math/noise/noise.h"
+#include "../math/Picking.h"
 
 #include  "../render/Renderer.h"
 

@@ -64,8 +64,6 @@ namespace tactical
 			inline void SetMaxHeight(int maxHeight) { m_maxHeight = maxHeight; }
 			inline int GetMaxHeight() const { return m_maxHeight; }
 
-			math::RayCastResult PickVoxel(math::Ray& ray);
-
 			// Iterators
 			inline VolumeIterator begin() { return m_voxels.begin(); }
 			inline VolumeIterator end() { return m_voxels.end(); }
