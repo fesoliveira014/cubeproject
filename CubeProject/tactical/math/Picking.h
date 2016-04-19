@@ -7,7 +7,7 @@
 
 namespace tactical
 {
-	using ChunkMap = std::unordered_map < glm::ivec3, volume::Chunk*,
+	using ChunkMap = std::unordered_map < glm::ivec3, std::shared_ptr<volume::Chunk>,
 			std::hash<glm::ivec3>, std::equal_to<glm::ivec3 >>;
 
 	namespace math
@@ -71,7 +71,7 @@ namespace tactical
 			tmax.z = ray.GetDirection().z != 0 ? (currentBoundary.z - origin.z) * ray.GetInverse().z : std::numeric_limits<float>::infinity();
 
 			result.pos = origin;
-			if (GetVoxel(glm::floor(result.pos), map, chunkSize) != 0) {
+			if (GetVoxel(result.pos, map, chunkSize) != 0) {
 				result.hit = true;
 				return result;
 			}
@@ -91,7 +91,7 @@ namespace tactical
 				}
 
 				result.pos = origin;
-				if (GetVoxel(glm::floor(result.pos), map, chunkSize) != 0) {
+				if (GetVoxel(result.pos, map, chunkSize) != 0) {
 					result.hit = true;
 					return result;
 				}

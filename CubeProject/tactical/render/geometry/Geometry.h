@@ -13,7 +13,7 @@ namespace tactical
 		{
 			struct Face
 			{
-				enum FaceName 
+				enum FaceName
 				{
 					TOP = 0, BOTTOM,
 					RIGHT, LEFT,
@@ -28,8 +28,7 @@ namespace tactical
 			{
 				glm::vec3 v1, v2, normal;
 
-				for (uint i = 0; i < vertices.size(); i++)
-				{
+				for (uint i = 0; i < vertices.size(); i++) {
 					vertices[i].m_normal = glm::vec3(0.0f);
 				}
 
@@ -48,8 +47,7 @@ namespace tactical
 					vertices[cornerC].m_normal += normal;
 				}
 
-				for (uint i = 0; i < vertices.size(); i++)
-				{
+				for (uint i = 0; i < vertices.size(); i++) {
 					vertices[i].m_normal = glm::normalize(vertices[i].m_normal);
 				}
 			}

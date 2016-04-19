@@ -15,9 +15,9 @@ namespace tactical
 
 	class render::Shader;
 
-	using ChunkMap = std::unordered_map<glm::ivec3, Chunk*,
+	using ChunkMap = std::unordered_map<glm::ivec3, std::shared_ptr<Chunk>,
 			std::hash<glm::ivec3>, std::equal_to<glm::ivec3>> ;
-	using ChunkIterator = std::unordered_map<glm::ivec3, Chunk*,
+	using ChunkIterator = std::unordered_map<glm::ivec3, std::shared_ptr<Chunk>,
 			std::hash<glm::ivec3>, std::equal_to<glm::ivec3>>::iterator;
 
 	class ChunkManager
@@ -36,7 +36,7 @@ namespace tactical
 		inline void SetChunkSize(int size) { m_chunkSize = size; }
 		inline int GetChunkSize() const { return m_chunkSize; }
 
-		inline Chunk* GetChunk(const glm::ivec3& pos) 
+		inline std::shared_ptr<Chunk> GetChunk(const glm::ivec3& pos) 
 		{
 			if (m_chunks[pos] != nullptr)
 				return m_chunks[pos];
@@ -59,7 +59,7 @@ namespace tactical
 		void Initialize();
 		
 		bool IsWithinRadius(const glm::ivec3& position);
-		void Draw(Chunk* chunk, render::Shader& shader);
+		void Draw(std::shared_ptr<Chunk> chunk, render::Shader& shader);
 
 		// Returns coordinates of the chunk a point is in, if any
 		glm::ivec3 WorldCoordsToGridCoords(const glm::ivec3& pos);

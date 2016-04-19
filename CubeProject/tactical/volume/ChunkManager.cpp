@@ -20,7 +20,7 @@ namespace tactical
 	ChunkManager::~ChunkManager()
 	{
 		for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-			delete iter->second;
+			(iter)->second.reset();
 		}
 
 		m_pRenderer = nullptr;
@@ -28,13 +28,17 @@ namespace tactical
 
 	void ChunkManager::Initialize()
 	{
+		auto chunkDeleter = [](Chunk* chunk) {
+			delete chunk;
+		};
+
 		glm::ivec3 key, neighKey, pos;
 		for (int k = 0; k < m_worldDimensions.z; ++k) {
 			for (int j = 0; j < m_worldDimensions.y; ++j) {
 				for (int i = 0; i < m_worldDimensions.x; ++i) {
 					key.x = i; key.y = j; key.z = k;
 					pos = GridCoordsToWorldCoords(key);
-					m_chunks[key] = new Chunk(pos, m_chunkSize, m_maxWorldHeight);
+					m_chunks[key] = std::shared_ptr<Chunk> (new Chunk(pos, m_chunkSize, m_maxWorldHeight));
 				}
 			}
 		}
@@ -129,7 +133,8 @@ namespace tactical
 	{
 		if (!m_chunks.empty()) {
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				m_pRenderer->Render((*iter).second, shaderID);
+				
+				m_pRenderer->Render(static_cast<std::shared_ptr<render::IRenderable3D>>((*iter).second), shaderID);
 			}
 		}
 	}

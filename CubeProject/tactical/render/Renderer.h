@@ -42,7 +42,7 @@ namespace tactical
 			Renderer(Camera* camera);
 			~Renderer();
 
-			void Render(IRenderable3D* renderable, std::string shaderID);
+			void Render(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID);
 
 			/*
 			* Toggle polygon rendering mode. There are three modes available:

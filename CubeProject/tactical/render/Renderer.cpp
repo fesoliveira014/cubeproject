@@ -49,7 +49,7 @@ namespace tactical
 			m_pCamera = nullptr;
 		}
 
-		void Renderer::Render(IRenderable3D* renderable, std::string shaderID)
+		void Renderer::Render(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID)
 		{
 			if (m_polygonMode == WIREFRAME)
 				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

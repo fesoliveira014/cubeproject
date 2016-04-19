@@ -212,8 +212,10 @@
     <ClCompile Include="tactical\math\noise\noiseutils.cpp" />
     <ClCompile Include="tactical\math\Plane.cpp" />
     <ClCompile Include="tactical\math\Ray.cpp" />
+    <ClCompile Include="tactical\render\buffer\Framebuffer.cpp" />
     <ClCompile Include="tactical\render\camera\Camera.cpp" />
     <ClCompile Include="tactical\render\camera\FPSCamera.cpp" />
+    <ClCompile Include="tactical\render\buffer\GBuffer.cpp" />
     <ClCompile Include="tactical\render\geometry\DrawableBox.cpp" />
     <ClCompile Include="tactical\render\geometry\Geometry.cpp" />
     <ClCompile Include="tactical\render\IRenderable2D.cpp" />
@@ -285,6 +287,8 @@
     <ClInclude Include="tactical\math\Plane.h" />
     <ClInclude Include="tactical\math\Ray.h" />
     <ClInclude Include="tactical\math\Sphere.h" />
+    <ClInclude Include="tactical\render\buffer\Framebuffer.h" />
+    <ClInclude Include="tactical\render\buffer\GBuffer.h" />
     <ClInclude Include="tactical\render\buffer\VertexAttribute.h" />
     <ClInclude Include="tactical\render\camera\Camera.h" />
     <ClInclude Include="tactical\render\camera\FPSCamera.h" />

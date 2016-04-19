@@ -69,19 +69,19 @@ namespace tactical
 			inline VolumeIterator end() { return m_voxels.end(); }
 
 			// neighborhood
-			Chunk* NeighborGetTop()    { return m_neighbors[0]; }
-			Chunk* NeighborGetBottom() { return m_neighbors[1]; }
-			Chunk* NeighborGetRight()  { return m_neighbors[2]; }
-			Chunk* NeighborGetLeft()   { return m_neighbors[3]; }
-			Chunk* NeighborGetFront()  { return m_neighbors[4]; }
-			Chunk* NeighborGetBack()   { return m_neighbors[5]; }
+			std::shared_ptr<Chunk> NeighborGetTop()    { return m_neighbors[0]; }
+			std::shared_ptr<Chunk> NeighborGetBottom() { return m_neighbors[1]; }
+			std::shared_ptr<Chunk> NeighborGetRight()  { return m_neighbors[2]; }
+			std::shared_ptr<Chunk> NeighborGetLeft()   { return m_neighbors[3]; }
+			std::shared_ptr<Chunk> NeighborGetFront()  { return m_neighbors[4]; }
+			std::shared_ptr<Chunk> NeighborGetBack()   { return m_neighbors[5]; }
 
-			void NeighborSetTop(Chunk* chunk)    { m_neighbors[0] = chunk; }
-			void NeighborSetBottom(Chunk* chunk) { m_neighbors[1] = chunk; }
-			void NeighborSetRight(Chunk* chunk)  { m_neighbors[2] = chunk; }
-			void NeighborSetLeft(Chunk* chunk)   { m_neighbors[3] = chunk; }
-			void NeighborSetFront(Chunk* chunk)  { m_neighbors[4] = chunk; }
-			void NeighborSetBack(Chunk* chunk)	 { m_neighbors[5] = chunk; }
+			void NeighborSetTop(std::shared_ptr<Chunk> chunk)    { m_neighbors[0] = chunk; }
+			void NeighborSetBottom(std::shared_ptr<Chunk> chunk) { m_neighbors[1] = chunk; }
+			void NeighborSetRight(std::shared_ptr<Chunk> chunk)  { m_neighbors[2] = chunk; }
+			void NeighborSetLeft(std::shared_ptr<Chunk> chunk)   { m_neighbors[3] = chunk; }
+			void NeighborSetFront(std::shared_ptr<Chunk> chunk)  { m_neighbors[4] = chunk; }
+			void NeighborSetBack(std::shared_ptr<Chunk> chunk)	 { m_neighbors[5] = chunk; }
 
 			int GetNumOfNeighbors();
 
@@ -112,7 +112,7 @@ namespace tactical
 
 			render::Mesh<render::Vertex3f3f> m_mesh;
 
-			Chunk* m_neighbors[6]; // 0 - top, 1 - bottom, 2 - right, 3 - left, 4 - front, 5 - back
+			std::shared_ptr<Chunk> m_neighbors[6]; // 0 - top, 1 - bottom, 2 - right, 3 - left, 4 - front, 5 - back
 		};
 	}
 }
