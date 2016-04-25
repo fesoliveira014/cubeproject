@@ -12,7 +12,6 @@
 
 #include "../math/AABB.h"
 #include "../math/Ray.h"
-
 /*
 Chunks are blocks of voxels representing a cubic region of the world. Each chunk is rendered indepen-
 dantly, and each has it's own geometry. Voxel coordinates are in "chunk space", that is, are numbered 
@@ -43,9 +42,7 @@ namespace tactical
 
 			void Update();
 			void UpdateVisibility();
-
-			// Generates chunk mesh geometry
-			void GenerateGeometry();
+			void UpdatedGeometry() { m_voxels.Updated(); }
 
 			// Methods to fill and empty the chunk
 			void Fill();
@@ -53,7 +50,10 @@ namespace tactical
 
 			// Setters and getters
 			void SetVoxel(const glm::vec3& position, byte type);
+			void SetVoxel(const int x, const int y, const int z, byte type);
+
 			byte GetVoxel(const glm::vec3& position);
+			byte GetVoxel(const int x, const int y, const int z);
 
 			void SetSize(int size);
 			inline int GetSize() const { return m_size; }
@@ -63,6 +63,8 @@ namespace tactical
 
 			inline void SetMaxHeight(int maxHeight) { m_maxHeight = maxHeight; }
 			inline int GetMaxHeight() const { return m_maxHeight; }
+
+			inline render::Mesh<render::Vertex3f3f>* GetMesh() { return &m_mesh; }
 
 			// Iterators
 			inline VolumeIterator begin() { return m_voxels.begin(); }

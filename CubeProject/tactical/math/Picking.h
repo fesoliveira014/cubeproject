@@ -50,7 +50,7 @@ namespace tactical
 			glm::vec3 currentBoundary;
 			glm::vec3 size(1.0f);
 
-			glm::ivec3 step(0.0f);
+			glm::ivec3 step(0);
 			
 			glm::ivec3 origin = glm::floor(ray.GetOrigin() + glm::vec3(0.5f));
 

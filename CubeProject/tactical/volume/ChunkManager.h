@@ -4,6 +4,7 @@
 #include "../Common.h"
 
 #include "Chunk.h"
+#include  "mesher\ChunkMesher.hpp"
 #include "../math/noise/noise.h"
 #include "../math/Picking.h"
 

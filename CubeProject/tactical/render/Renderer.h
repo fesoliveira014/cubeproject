@@ -44,12 +44,6 @@ namespace tactical
 
 			void Render(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID);
 
-			/*
-			* Toggle polygon rendering mode. There are three modes available:
-			*	POLYGON: Normal rendering of the polygon
-			*	POLYGON + WIREFRAME : Draws the polygon and the wireframe on top of it
-			*	WIREFRAME: Draws just the wireframe
-			*/
 			void TogglePolygonMode();
 			PolygonMode GetPolygonMode() { return m_polygonMode; }
 
@@ -66,9 +60,6 @@ namespace tactical
 				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 
-			/*
-			* Toggle normal rendering for debug purposes.
-			*/
 			void ToggleNormalRendering() { m_showNormals = !m_showNormals; }
 			bool NormalRendering() { return m_showNormals; }
 

@@ -18,8 +18,8 @@ int main(int argc, char* argv[])
 	tactical::render::Renderer renderer(&camera);
 
 	tactical::ChunkManager chunkManager(&renderer, glm::ivec3(20, 1, 20));
-	//chunkManager.FillChunks();
-	chunkManager.GenerateWorld();
+	chunkManager.FillChunks();
+	//chunkManager.GenerateWorld();
 
 	LOG << LOGTYPE::LOG_INFO << "Initializing systems...";
 

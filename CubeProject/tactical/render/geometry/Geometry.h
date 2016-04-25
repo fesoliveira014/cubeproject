@@ -99,6 +99,26 @@ namespace tactical
 				vertices.push_back(cornerC);
 				vertices.push_back(cornerD);
 			}
+
+			template<typename Vertex>
+			static void AddTriangle(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3,
+				std::vector<Vertex>& vertices, std::vector<uint>& indices)
+			{
+				Vertex a, b, c;
+
+				a.m_position = v1;
+				b.m_position = v2;
+				c.m_position = v3;
+
+				uint offset = (uint)vertices.size();
+				indices.push_back(offset); 
+				indices.push_back(offset + 1); 
+				indices.push_back(offset + 2);
+
+				vertices.push_back(a);
+				vertices.push_back(b);
+				vertices.push_back(c);
+			}
 		}
 	}
 }

@@ -50,8 +50,8 @@ namespace tactical
 			void Empty();
 			void Fill();
 
-			byte Get(const int x, const int y, const int z);
-			byte Get(const glm::vec3& position);
+			const byte Get(const int x, const int y, const int z);
+			const byte Get(const glm::vec3& position);
 
 			void Set(const int x, const int y, const int z, byte type);
 			void Set(const glm::vec3& position, byte type);

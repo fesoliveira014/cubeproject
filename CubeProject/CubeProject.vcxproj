@@ -300,6 +300,7 @@
     <ClInclude Include="tactical\render\buffer\VertexArray.h" />
     <ClInclude Include="tactical\render\IRenderable3D.h" />
     <ClInclude Include="tactical\render\Renderer.h" />
+    <ClInclude Include="tactical\render\structures\Light.h" />
     <ClInclude Include="tactical\render\structures\Mesh.h" />
     <ClInclude Include="tactical\render\structures\Shader.h" />
     <ClInclude Include="tactical\render\structures\Vertex.h" />
@@ -308,6 +309,7 @@
     <ClInclude Include="tactical\utils\stringutils.h" />
     <ClInclude Include="tactical\volume\Chunk.h" />
     <ClInclude Include="tactical\volume\ChunkManager.h" />
+    <ClInclude Include="tactical\volume\mesher\ChunkMesher.hpp" />
     <ClInclude Include="tactical\volume\Voxel.h" />
     <ClInclude Include="tactical\window\EventHandler.h" />
     <ClInclude Include="tactical\utils\Logger.h" />

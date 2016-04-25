@@ -58,12 +58,12 @@ namespace tactical
 			}
 		}
 
-		byte Volume::Get(const int x, const int y, const int z)
+		const byte Volume::Get(const int x, const int y, const int z)
 		{
 			return Get(glm::vec3(x, y, z));
 		}
 
-		byte Volume::Get(const glm::vec3& position)
+		const byte Volume::Get(const glm::vec3& position)
 		{
 			if (IsSolid(position)) {
 				return m_data[position].type;

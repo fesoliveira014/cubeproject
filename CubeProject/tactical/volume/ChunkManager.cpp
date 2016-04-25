@@ -48,12 +48,12 @@ namespace tactical
 				for (int i = 0; i < m_worldDimensions.x; ++i) {
 					key.x = i; key.y = j; key.z = k;
 
-					m_chunks[key]->NeighborSetTop(NULL);
-					m_chunks[key]->NeighborSetBottom(NULL);
-					m_chunks[key]->NeighborSetRight(NULL);
-					m_chunks[key]->NeighborSetLeft(NULL);
-					m_chunks[key]->NeighborSetFront(NULL);
-					m_chunks[key]->NeighborSetBack(NULL);
+					m_chunks[key]->NeighborSetTop(nullptr);
+					m_chunks[key]->NeighborSetBottom(nullptr);
+					m_chunks[key]->NeighborSetRight(nullptr);
+					m_chunks[key]->NeighborSetLeft(nullptr);
+					m_chunks[key]->NeighborSetFront(nullptr);
+					m_chunks[key]->NeighborSetBack(nullptr);
 
 					neighKey = key;
 					if (j < m_worldDimensions.y - 1) {
@@ -118,22 +118,16 @@ namespace tactical
 		heightMapBuilder.SetSourceModule(m_final);
 		heightMapBuilder.SetDestNoiseMap(m_heightMap);
 		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
-		heightMapBuilder.SetBounds(1.0, 5.0, 1.0, 5.0);
+		heightMapBuilder.SetBounds(1.0, 1.1, 1.0, 1.1);
 		heightMapBuilder.Build();
 
 		m_meshNeedsUpdate = true;
 	}
 
-	/*void ChunkManager::Draw(render::Shader& shader)
-	{
-		Draw(m_chunks[m_currentChunk], shader);
-	}*/
-
 	void ChunkManager::Draw(std::string shaderID)
 	{
 		if (!m_chunks.empty()) {
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				
 				m_pRenderer->Render(static_cast<std::shared_ptr<render::IRenderable3D>>((*iter).second), shaderID);
 			}
 		}
@@ -143,7 +137,7 @@ namespace tactical
 	{
 		if (!m_chunks.empty() && m_meshNeedsUpdate) {
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				(*iter).second->GenerateGeometry();
+				mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
 			}
 			m_meshNeedsUpdate = false;
 		}

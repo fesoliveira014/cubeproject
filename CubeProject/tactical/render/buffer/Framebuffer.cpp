@@ -16,13 +16,13 @@ namespace tactical
 			m_attachments.clear();
 		}
 
-		void Framebuffer::Bind(GLenum target = GL_FRAMEBUFFER)
+		void Framebuffer::Bind(GLenum target)
 		{
 			glBindFramebuffer(target, m_buffer);
 			m_isBound = true;
 		}
 
-		void Framebuffer::Unbind(GLenum target = GL_FRAMEBUFFER)
+		void Framebuffer::Unbind(GLenum target)
 		{
 			glBindFramebuffer(target, 0);
 			if (target == GL_FRAMEBUFFER) m_isBound = false;
