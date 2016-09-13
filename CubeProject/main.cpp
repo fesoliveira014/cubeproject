@@ -11,15 +11,16 @@ int main(int argc, char* argv[])
 	tactical::window::Window window(1600, 900, "Game window");
 
 	glm::mat4 persp = glm::perspective(45.0f, window.GetEventHandler()->GetWindowSizeState()->aspectRatio, 0.1f, 1000.0f);
+	glm::mat4 ortho = glm::ortho(-400.0f, 400.0f, -400.0f, 400.0f, -1000.0f, 1000.0f);
 
 	tactical::render::FPSCamera camera(persp, glm::vec3(0.0f, 64.0f, 0.0f), glm::vec3(640.0f, 0.0f, 640.0f));
 	camera.LinkTo(window);
 
 	tactical::render::Renderer renderer(&camera);
 
-	tactical::ChunkManager chunkManager(&renderer, glm::ivec3(20, 1, 20));
-	chunkManager.FillChunks();
-	//chunkManager.GenerateWorld();
+	tactical::ChunkManager chunkManager(&renderer, glm::ivec3(20, 2, 20));
+	//chunkManager.FillChunks();
+	chunkManager.GenerateWorld();
 
 	LOG << LOGTYPE::LOG_INFO << "Initializing systems...";
 

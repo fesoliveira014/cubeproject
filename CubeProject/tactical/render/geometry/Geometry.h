@@ -15,9 +15,9 @@ namespace tactical
 			{
 				enum FaceName
 				{
-					TOP = 0, BOTTOM,
-					RIGHT, LEFT,
-					FRONT, BACK
+					RIGHT = 0, TOP,
+					BACK, LEFT,
+					BOTTOM, FRONT
 				};
 
 				FaceName face;

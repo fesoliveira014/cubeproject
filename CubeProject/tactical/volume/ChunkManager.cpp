@@ -6,7 +6,7 @@ namespace tactical
 
 	ChunkManager::ChunkManager(render::Renderer* pRenderer, const glm::ivec3& worldDimension, int seed) :
 		m_chunkSize(32),
-		m_maxWorldHeight(32),
+		m_maxWorldHeight(64),
 		m_chunkLoadingRadius(4),
 		m_worldDimensions(worldDimension),
 		m_pRenderer(pRenderer)
@@ -78,17 +78,17 @@ namespace tactical
 						neighKey.x -= 1;
 						m_chunks[key]->NeighborSetLeft(m_chunks[neighKey]);
 					}
-
+					
 					neighKey = key;
 					if (k < m_worldDimensions.z - 1) {
 						neighKey.z += 1;
-						m_chunks[key]->NeighborSetFront(m_chunks[neighKey]);
+						m_chunks[key]->NeighborSetBack(m_chunks[neighKey]);
 					}
 
 					neighKey = key;
 					if (k > 0) {
 						neighKey.z -= 1;
-						m_chunks[key]->NeighborSetBack(m_chunks[neighKey]);
+						m_chunks[key]->NeighborSetFront(m_chunks[neighKey]);
 					}
 				}
 			}
@@ -118,7 +118,7 @@ namespace tactical
 		heightMapBuilder.SetSourceModule(m_final);
 		heightMapBuilder.SetDestNoiseMap(m_heightMap);
 		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
-		heightMapBuilder.SetBounds(1.0, 1.1, 1.0, 1.1);
+		heightMapBuilder.SetBounds(1.0, 5.0, 1.0, 5.0);
 		heightMapBuilder.Build();
 
 		m_meshNeedsUpdate = true;

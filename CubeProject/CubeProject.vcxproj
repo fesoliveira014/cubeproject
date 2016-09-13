@@ -164,6 +164,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\Common\SOIL\lib;..\Common\SFML(2015)\lib;..\Common\glew-1.12.0\lib\Release\x64;..\Common\assimp\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SOIL.lib;sfml-window-s.lib;sfml-system-s.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <PreventDllBinding>false</PreventDllBinding>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -224,6 +225,7 @@
     <ClCompile Include="tactical\render\buffer\VertexArray.cpp" />
     <ClCompile Include="tactical\render\Renderer.cpp" />
     <ClCompile Include="tactical\render\structures\Shader.cpp" />
+    <ClCompile Include="tactical\utils\debug\Helpers.cpp" />
     <ClCompile Include="tactical\volume\Chunk.cpp" />
     <ClCompile Include="tactical\volume\ChunkManager.cpp" />
     <ClCompile Include="tactical\volume\Voxel.cpp" />
@@ -305,6 +307,7 @@
     <ClInclude Include="tactical\render\structures\Shader.h" />
     <ClInclude Include="tactical\render\structures\Vertex.h" />
     <ClInclude Include="tactical\Types.h" />
+    <ClInclude Include="tactical\utils\debug\Helpers.h" />
     <ClInclude Include="tactical\utils\fileutils.h" />
     <ClInclude Include="tactical\utils\stringutils.h" />
     <ClInclude Include="tactical\volume\Chunk.h" />

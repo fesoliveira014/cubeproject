@@ -161,20 +161,20 @@ namespace tactical
 			else if (face.face == render::geometry::Face::FRONT) {
 				if (pos.z == 0) {
 					if (m_neighbors[4] != nullptr)
-						neighbor = m_neighbors[4]->GetVoxel(glm::vec3(pos.x, pos.y, 0));
+						neighbor = m_neighbors[4]->GetVoxel(glm::vec3(pos.x, pos.y, m_size-1));
 				}
 				else {
-					neighbor = m_voxels.Get(pos + glm::vec3(0, 0, 1));
+					neighbor = m_voxels.Get(pos + glm::vec3(0, 0, -1));
 				}
 			}
 
 			else if (face.face == render::geometry::Face::BACK) {
 				if (pos.z == m_size - 1) {
 					if (m_neighbors[5] != nullptr) 
-						neighbor = m_neighbors[5]->GetVoxel(glm::vec3(pos.x, pos.y, m_size-1));
+						neighbor = m_neighbors[5]->GetVoxel(glm::vec3(pos.x, pos.y, 0));
 				}
 				else {
-					neighbor = m_voxels.Get(pos + glm::vec3(0, 0, -1));
+					neighbor = m_voxels.Get(pos + glm::vec3(0, 0, 1));
 				}
 			}
 
