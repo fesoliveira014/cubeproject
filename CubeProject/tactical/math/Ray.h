@@ -13,8 +13,9 @@ namespace tactical
 		{
 			bool hit;
 			glm::vec3 pos;
+			glm::vec3 face;
 
-			RayCastResult() : hit(false), pos(glm::vec3(0))
+			RayCastResult() : hit(false), pos(glm::vec3(0)), face(glm::vec3(0))
 			{
 
 			}
@@ -23,6 +24,7 @@ namespace tactical
 			{
 				hit = r.hit;
 				pos = r.pos;
+				face = r.face;
 			}
 		};
 

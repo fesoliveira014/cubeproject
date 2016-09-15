@@ -210,6 +210,9 @@
     <ClCompile Include="tactical\utils\debug\Helpers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tactical\render\geometry\DrawableLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tactical\utils\Logger.h">
@@ -459,6 +462,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tactical\utils\debug\Helpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\render\geometry\DrawableLine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

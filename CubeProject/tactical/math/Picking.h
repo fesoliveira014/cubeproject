@@ -7,8 +7,8 @@
 
 namespace tactical
 {
-	using ChunkMap = std::unordered_map < glm::ivec3, std::shared_ptr<volume::Chunk>,
-			std::hash<glm::ivec3>, std::equal_to<glm::ivec3 >>;
+	using ChunkMap = std::unordered_map < glm::vec3, std::shared_ptr<volume::Chunk>,
+			std::hash<glm::vec3>, std::equal_to<glm::vec3 >>;
 
 	namespace math
 	{
@@ -19,19 +19,19 @@ namespace tactical
 			result.pos = glm::vec3(0.0f);
 			result.hit = false;
 
-			auto World2Chunk = [](const glm::ivec3& pos, int chunkSize) {
-				glm::ivec3 offset(pos.x % chunkSize, pos.y % chunkSize, pos.z % chunkSize);
-				glm::ivec3 position = pos - offset;
-				position = pos / chunkSize;
+			auto World2Chunk = [](const glm::vec3& pos, int chunkSize) {
+				glm::vec3 offset(glm::vec3(glm::fmod(pos, (float)chunkSize)));
+				glm::vec3 position = pos - offset;
+				position = glm::vec3(position.x / chunkSize, position.y / chunkSize, position.z / chunkSize);
 
 				return position;
 			};
 
-			auto World2Voxel = [](const glm::ivec3& pos, int chunkSize) {
-				return glm::ivec3(pos % chunkSize);
+			auto World2Voxel = [](const glm::vec3& pos, int chunkSize) {
+				return glm::vec3(glm::fmod(pos, (float)chunkSize));
 			};
 
-			auto GetVoxel = [World2Chunk, World2Voxel](const glm::ivec3& pos, ChunkMap& map, int chunkSize) {
+			auto GetVoxel = [World2Chunk, World2Voxel](const glm::vec3& pos, ChunkMap& map, int chunkSize) {
 				// find chunk index associated with position
 				glm::vec3 chunkIndex = World2Chunk(pos, chunkSize);
 
@@ -50,13 +50,13 @@ namespace tactical
 			glm::vec3 currentBoundary;
 			glm::vec3 size(1.0f);
 
-			glm::ivec3 step(0);
+			glm::vec3 step(0);
 			
-			glm::ivec3 origin = glm::floor(ray.GetOrigin() + glm::vec3(0.5f));
+			glm::vec3 origin = glm::floor(ray.GetOrigin() + 0.5f); // ?
 
-			step.x = ray.GetDirection().x > 0 ? 1 : -1;
-			step.y = ray.GetDirection().y > 0 ? 1 : -1;
-			step.z = ray.GetDirection().z > 0 ? 1 : -1;
+			step.x = ray.GetDirection().x > 0.0f ? 1.0f : -1.0f;
+			step.y = ray.GetDirection().y > 0.0f ? 1.0f : -1.0f;
+			step.z = ray.GetDirection().z > 0.0f ? 1.0f : -1.0f;
 
 			tdelta.x = glm::abs(size.x * ray.GetInverse().x);
 			tdelta.y = glm::abs(size.y * ray.GetInverse().y);
@@ -71,6 +71,8 @@ namespace tactical
 			tmax.z = ray.GetDirection().z != 0 ? (currentBoundary.z - origin.z) * ray.GetInverse().z : std::numeric_limits<float>::infinity();
 
 			result.pos = origin;
+
+			// you are inside a voxel lol (maybe in water this could happen?)
 			if (GetVoxel(result.pos, map, chunkSize) != 0) {
 				result.hit = true;
 				return result;
@@ -80,14 +82,23 @@ namespace tactical
 				if (tmax.x < tmax.y && tmax.x < tmax.z) {
 					origin.x += step.x;
 					tmax.x += tdelta.x;
+					result.face[0] = -step.x;
+					result.face[1] = 0;
+					result.face[2] = 0;
 				}
 				else if (tmax.y < tmax.z) {
 					origin.y += step.y;
 					tmax.y += tdelta.y;
+					result.face[0] = 0;
+					result.face[1] = -step.y;
+					result.face[2] = 0;
 				}
 				else {
 					origin.z += step.z;
 					tmax.z += tdelta.z;
+					result.face[0] = 0;
+					result.face[1] = 0;
+					result.face[2] = -step.z;
 				}
 
 				result.pos = origin;

@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
 	tactical::render::Renderer renderer(&camera);
 
-	tactical::ChunkManager chunkManager(&renderer, glm::ivec3(20, 2, 20));
+	tactical::ChunkManager chunkManager(&renderer, glm::vec3(10, 1, 10));
 	//chunkManager.FillChunks();
 	chunkManager.GenerateWorld();
 
@@ -31,7 +31,17 @@ int main(int argc, char* argv[])
 	int lag = 0;
 	int framerate = 0;
 
+	std::vector<tactical::render::DrawableLine> lines;
+
 	tactical::render::DrawableBox pickingBox(tactical::math::AABB(glm::vec3(0.0f), glm::vec3(1.0f)));
+	tactical::render::DrawableLine mouseRay(glm::vec3(0), glm::vec3(1));
+	tactical::render::DrawableLine redAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(-1.0f, -1.0f, 20.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	tactical::render::DrawableLine greenAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(-1.0f, 20.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+	tactical::render::DrawableLine blueAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(20.0f, -1.0f, -1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+
+	lines.push_back(redAxis);
+	lines.push_back(greenAxis);
+	lines.push_back(blueAxis);
 		
 	while (window.IsOpen() == true) {
 		if (window.GetEventHandler()->GetKeyboardState()->key_1)
@@ -40,6 +50,7 @@ int main(int argc, char* argv[])
 		if (window.GetEventHandler()->GetKeyboardState()->key_2)
 			renderer.ToggleNormalRendering();
 
+		
 
 		int current = clock.getElapsedTime().asMilliseconds();
 		int elapsed = current - previous;
@@ -58,6 +69,10 @@ int main(int argc, char* argv[])
 										   glm::vec2(window.GetEventHandler()->GetWindowSizeState()->width,
 													 window.GetEventHandler()->GetWindowSizeState()->height));
 
+		if (window.GetEventHandler()->GetMouseState()->mouse_button_left)
+			lines.push_back(tactical::render::DrawableLine(pickingRay.GetOrigin(), 20.0f * pickingRay.GetDirection() + pickingRay.GetOrigin()));
+		
+
 		tactical::math::RayCastResult pickingResult= chunkManager.GetRayVoxelIntersection(pickingRay, camera.GetPosition(), 50.0f);
 
 		renderer.GetShader("basic_light")->Enable();
@@ -66,25 +81,36 @@ int main(int argc, char* argv[])
 		renderer.GetShader("basic_light")->SetUniform3fv("camera_pos", camera.GetPosition());
 		chunkManager.Draw("basic_light");
 
+		renderer.GetShader("picking")->Enable();
+		renderer.GetShader("picking")->SetUniformMat4fv("view", camera.GetViewMatrix());
+		for (auto line : lines)
+			line.Draw(*renderer.GetShader("picking"));
+
 		if (pickingResult.hit) {
 			pickingBox.SetPosition(glm::floor(pickingResult.pos));
-			renderer.GetShader("picking")->Enable();
-
-			renderer.GetShader("picking")->SetUniformMat4fv("view", camera.GetViewMatrix());
 			pickingBox.Draw(*renderer.GetShader("picking"));
 		}
 
 		if (renderer.NormalRendering()) {
 			renderer.GetShader("normal")->Enable();
-
 			renderer.GetShader("normal")->SetUniformMat4fv("view", camera.GetViewMatrix());
 			chunkManager.Draw("normal");
 		}
 
 		framerate++;
 		if (clock.getElapsedTime().asMilliseconds() > 999) {
+			LOG << LOGTYPE::LOG_INFO << "Viewport: " + glm::to_string(glm::vec2(window.GetEventHandler()->GetWindowSizeState()->width,
+																					   window.GetEventHandler()->GetWindowSizeState()->height));
 			LOG << LOGTYPE::LOG_INFO << "Camera position: " + glm::to_string(camera.GetPosition());
-			LOG << LOGTYPE::LOG_INFO << "Picking position: " + glm::to_string(pickingBox.GetPosition());
+			LOG << LOGTYPE::LOG_INFO << "Mouse position (screen coords): " + glm::to_string(glm::vec2(window.GetEventHandler()->GetMouseState()->mouse_x,
+																									  window.GetEventHandler()->GetMouseState()->mouse_y));
+			LOG << LOGTYPE::LOG_INFO << "Picking ray direction: " + glm::to_string(pickingRay.GetDirection());
+			LOG << LOGTYPE::LOG_INFO << "Ray hit position: " + glm::to_string(pickingResult.pos);
+
+			LOG << LOGTYPE::LOG_INFO << "Drawn line start: " + glm::to_string(mouseRay.GetStart());
+			LOG << LOGTYPE::LOG_INFO << "Drawn line end: " + glm::to_string(mouseRay.GetEnd());
+
+			if (pickingResult.hit) LOG << LOGTYPE::LOG_INFO << "Picking position: " + glm::to_string(pickingBox.GetPosition());
 			std::cout << "FPS: " << framerate << std::endl;
 			clock.restart();
 			framerate = 0;

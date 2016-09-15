@@ -16,36 +16,36 @@ namespace tactical
 
 	class render::Shader;
 
-	using ChunkMap = std::unordered_map<glm::ivec3, std::shared_ptr<Chunk>,
-			std::hash<glm::ivec3>, std::equal_to<glm::ivec3>> ;
-	using ChunkIterator = std::unordered_map<glm::ivec3, std::shared_ptr<Chunk>,
-			std::hash<glm::ivec3>, std::equal_to<glm::ivec3>>::iterator;
+	using ChunkMap = std::unordered_map<glm::vec3, std::shared_ptr<Chunk>,
+			std::hash<glm::vec3>, std::equal_to<glm::vec3>> ;
+	using ChunkIterator = std::unordered_map<glm::vec3, std::shared_ptr<Chunk>,
+			std::hash<glm::vec3>, std::equal_to<glm::vec3>>::iterator;
 
 	class ChunkManager
 	{
 	public:
-		ChunkManager(render::Renderer* pRenderer, const glm::ivec3& worldDimension, int seed = 0);
+		ChunkManager(render::Renderer* pRenderer, const glm::vec3& worldDimension, int seed = 0);
 		~ChunkManager();
 
 		void FillChunks();
 		void GenerateWorld();
 
-		void UpdateChunks(const glm::ivec3& currentPos);
+		void UpdateChunks(const glm::vec3& currentPos);
 
 		void Draw(std::string shaderID);
 
 		inline void SetChunkSize(int size) { m_chunkSize = size; }
 		inline int GetChunkSize() const { return m_chunkSize; }
 
-		inline std::shared_ptr<Chunk> GetChunk(const glm::ivec3& pos) 
+		inline std::shared_ptr<Chunk> GetChunk(const glm::vec3& pos) 
 		{
 			if (m_chunks[pos] != nullptr)
 				return m_chunks[pos];
 			return nullptr;
 		}
 
-		void SetCurrentChunk(const glm::ivec3& pos);
-		inline glm::ivec3 GetCurrentChunk() { return m_currentChunk; }
+		void SetCurrentChunk(const glm::vec3& pos);
+		inline glm::vec3 GetCurrentChunk() { return m_currentChunk; }
 
 		inline void SetChunkLoadingRadius(int radius) { m_chunkLoadingRadius = radius; }
 		inline int GetChunkLoadingRadius() const { return m_chunkLoadingRadius; }
@@ -59,13 +59,10 @@ namespace tactical
 		ChunkManager();
 		void Initialize();
 		
-		bool IsWithinRadius(const glm::ivec3& position);
+		bool IsWithinRadius(const glm::vec3& position);
 		void Draw(std::shared_ptr<Chunk> chunk, render::Shader& shader);
 
-		// Returns coordinates of the chunk a point is in, if any
-		glm::ivec3 WorldCoordsToGridCoords(const glm::ivec3& pos);
-
-		glm::ivec3 GridCoordsToWorldCoords(const glm::ivec3& pos);
+		glm::vec3 GridCoordsToWorldCoords(const glm::vec3& pos);
 
 		ChunkMap m_chunks;
 
@@ -74,8 +71,8 @@ namespace tactical
 		int m_chunkSize;
 		int m_maxWorldHeight;
 		int m_chunkLoadingRadius; // in number of chunks, not in coordinates
-		glm::ivec3 m_currentChunk;
-		glm::ivec3 m_worldDimensions;
+		glm::vec3 m_currentChunk;
+		glm::vec3 m_worldDimensions;
 
 		render::Renderer* m_pRenderer;
 

@@ -53,6 +53,30 @@ namespace tactical
 			}
 
 			template<typename Vertex>
+			static void SetColor(const glm::vec4& color, std::vector<Vertex>& vertices, const std::vector<uint>& indices)
+			{
+				for (uint i = 0; i < vertices.size(); ++i) {
+					vertices[i].m_color = color;
+				}
+			}
+
+			template<typename Vertex>
+			static void AddLine(const glm::vec3& v1, const glm::vec3& v2, std::vector<Vertex>& vertices, std::vector<uint>& indices)
+			{
+				Vertex pointA, pointB;
+
+				pointA.m_position = v1;
+				pointB.m_position = v2;
+
+				uint offset = (uint)vertices.size();
+				indices.push_back(offset);
+				indices.push_back(offset + 1);
+
+				vertices.push_back(pointA);
+				vertices.push_back(pointB);
+			}
+
+			template<typename Vertex>
 			static void AddQuad(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3,
 				const glm::vec3& v4, std::vector<Vertex>& vertices, std::vector<uint>& indices)
 			{

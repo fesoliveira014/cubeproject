@@ -58,10 +58,8 @@ namespace tactical
 		{
 			float x = (2.0f * mouse.x) / viewport.x - 1.0f;
 			float y = 1.0f - (2.0f * mouse.y) / viewport.y;
-			float z = -1.0f;
 
-			glm::vec3 normalized(x, y, z);
-			glm::vec4 clip(normalized, 1.0f);
+			glm::vec4 clip = glm::vec4(x, y, -1.0f, 1.0f);
 
 			glm::vec4 eye = glm::inverse(m_projection) * clip;
 			eye = glm::vec4(eye.x, eye.y, -1.0f, 0.0f);

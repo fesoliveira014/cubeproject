@@ -31,6 +31,7 @@
 #include "glm\gtc\noise.hpp"
 #include "glm\gtc\quaternion.hpp"
 #include "glm\gtx\string_cast.hpp"
+#include "glm\gtx\common.hpp" 
 
 #include "Types.h"
 

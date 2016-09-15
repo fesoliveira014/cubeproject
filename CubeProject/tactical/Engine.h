@@ -17,6 +17,7 @@
 #include "tactical/render/camera/FPSCamera.h"
 #include "tactical/render/Renderer.h"
 #include "tactical/render/geometry/DrawableBox.h"
+#include "tactical/render/geometry/DrawableLine.h"
 
 #include "tactical/volume/Voxel.h"
 #include "tactical/volume/Chunk.h"
