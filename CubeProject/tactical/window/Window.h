@@ -10,7 +10,7 @@ namespace tactical
 {
 	namespace window 
 	{
-		class Window 
+		class Window
 		{
 		public:
 			Window(int width, int height, std::string title);
@@ -22,6 +22,9 @@ namespace tactical
 			EventHandler* GetEventHandler() { return &m_eventHandler; }
 
 			bool IsOpen() { return m_open; }
+
+			void SetTitle(std::string title);
+			std::string GetTitle() { return m_title; }
 
 		protected:
 			bool Initialize();

@@ -38,4 +38,6 @@
 #define RADIANS(x) x*glm::pi<float>()/180.0f
 #define FASTFLOOR(x) ( ((x)>0) ? ((int)x) : (((int)x)-1) )
 
+#define TACTICAL_MS_PER_UPDATE 10.0
+
 #endif

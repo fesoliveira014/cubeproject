@@ -118,6 +118,12 @@ namespace tactical
 			m_eventHandler.m_mouseState.mouse_x = sf::Mouse::getPosition(*m_window).x;
 			m_eventHandler.m_mouseState.mouse_y = sf::Mouse::getPosition(*m_window).y;
 		}
+
+		void Window::SetTitle(std::string title)
+		{
+			m_title = title;
+			m_window->setTitle(title);
+		}
 	}
 }
 

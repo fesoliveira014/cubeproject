@@ -193,7 +193,7 @@ namespace tactical
 		result.hit = false;
 
 		if (!m_chunks.empty()) 
-			result = math::PickVoxel(ray, m_chunks, 64, m_chunkSize);
+			result = math::PickVoxel2(ray, m_chunks, 64, m_chunkSize);
 
 		return result;
 	}

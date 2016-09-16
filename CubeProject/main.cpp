@@ -24,13 +24,6 @@ int main(int argc, char* argv[])
 
 	LOG << LOGTYPE::LOG_INFO << "Initializing systems...";
 
-	sf::Clock clock;
-	clock.restart();
-
-	int previous = clock.getElapsedTime().asMilliseconds();
-	int lag = 0;
-	int framerate = 0;
-
 	std::vector<tactical::render::DrawableLine> lines;
 
 	tactical::render::DrawableBox pickingBox(tactical::math::AABB(glm::vec3(0.0f), glm::vec3(1.0f)));
@@ -42,20 +35,17 @@ int main(int argc, char* argv[])
 	lines.push_back(redAxis);
 	lines.push_back(greenAxis);
 	lines.push_back(blueAxis);
-		
+
+	sf::Clock clock;
+	clock.restart();
+	int framerate = 0;
+	
 	while (window.IsOpen() == true) {
 		if (window.GetEventHandler()->GetKeyboardState()->key_1)
 			renderer.TogglePolygonMode();
 
 		if (window.GetEventHandler()->GetKeyboardState()->key_2)
 			renderer.ToggleNormalRendering();
-
-		
-
-		int current = clock.getElapsedTime().asMilliseconds();
-		int elapsed = current - previous;
-		previous = current;
-		lag += elapsed;
 
 		window.Clear();
 
@@ -69,11 +59,23 @@ int main(int argc, char* argv[])
 										   glm::vec2(window.GetEventHandler()->GetWindowSizeState()->width,
 													 window.GetEventHandler()->GetWindowSizeState()->height));
 
-		if (window.GetEventHandler()->GetMouseState()->mouse_button_left)
+		if (window.GetEventHandler()->GetMouseState()->mouse_button_middle)
 			lines.push_back(tactical::render::DrawableLine(pickingRay.GetOrigin(), 20.0f * pickingRay.GetDirection() + pickingRay.GetOrigin()));
 		
 
 		tactical::math::RayCastResult pickingResult= chunkManager.GetRayVoxelIntersection(pickingRay, camera.GetPosition(), 50.0f);
+
+		if (window.GetEventHandler()->GetMouseState()->mouse_button_left) {
+			if (pickingResult.hit) {
+				// add face normal to position to get new block pos
+				// check if block is inside a chunk
+					// eventually we can create a new chunk, for now we wont
+				// if block is inside chunk, set block to 1 and mark chunk as dirty
+					// on update, if a chunk is dirty, update its mesh
+					// check if any neighbor needs update
+					// if so, mark it as dirty and repeat
+			}
+		}
 
 		renderer.GetShader("basic_light")->Enable();
 
@@ -87,7 +89,7 @@ int main(int argc, char* argv[])
 			line.Draw(*renderer.GetShader("picking"));
 
 		if (pickingResult.hit) {
-			pickingBox.SetPosition(glm::floor(pickingResult.pos));
+			pickingBox.SetPosition(pickingResult.pos);
 			pickingBox.Draw(*renderer.GetShader("picking"));
 		}
 
@@ -99,19 +101,11 @@ int main(int argc, char* argv[])
 
 		framerate++;
 		if (clock.getElapsedTime().asMilliseconds() > 999) {
-			LOG << LOGTYPE::LOG_INFO << "Viewport: " + glm::to_string(glm::vec2(window.GetEventHandler()->GetWindowSizeState()->width,
-																					   window.GetEventHandler()->GetWindowSizeState()->height));
-			LOG << LOGTYPE::LOG_INFO << "Camera position: " + glm::to_string(camera.GetPosition());
-			LOG << LOGTYPE::LOG_INFO << "Mouse position (screen coords): " + glm::to_string(glm::vec2(window.GetEventHandler()->GetMouseState()->mouse_x,
-																									  window.GetEventHandler()->GetMouseState()->mouse_y));
-			LOG << LOGTYPE::LOG_INFO << "Picking ray direction: " + glm::to_string(pickingRay.GetDirection());
-			LOG << LOGTYPE::LOG_INFO << "Ray hit position: " + glm::to_string(pickingResult.pos);
-
-			LOG << LOGTYPE::LOG_INFO << "Drawn line start: " + glm::to_string(mouseRay.GetStart());
-			LOG << LOGTYPE::LOG_INFO << "Drawn line end: " + glm::to_string(mouseRay.GetEnd());
+			window.SetTitle("Viewport: " + glm::to_string(glm::ivec2(window.GetEventHandler()->GetWindowSizeState()->width,
+				window.GetEventHandler()->GetWindowSizeState()->height)) +
+				" FPS: " + std::to_string(framerate));
 
 			if (pickingResult.hit) LOG << LOGTYPE::LOG_INFO << "Picking position: " + glm::to_string(pickingBox.GetPosition());
-			std::cout << "FPS: " << framerate << std::endl;
 			clock.restart();
 			framerate = 0;
 		}
