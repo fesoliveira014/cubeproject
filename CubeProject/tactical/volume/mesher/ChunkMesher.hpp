@@ -126,12 +126,12 @@ namespace tactical
 									}
 
 									// check definition of AddQuad to see how each face is stored (Geometry.hpp)
-									render::geometry::AddQuad<render::Vertex3f3f>(
+									render::geometry::AddQuad<render::Vertex3f3f4f>(
 										glm::vec3(x[0], x[1], x[2]),
 										glm::vec3(x[0] + du[0], x[1] + du[1], x[2] + du[2]),
 										glm::vec3(x[0] + du[0] + dv[0], x[1] + du[1] + dv[1], x[2] + du[2] + dv[2]),
 										glm::vec3(x[0] + dv[0], x[1] + dv[1], x[2] + dv[2]),
-										chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
+										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, c);
 
 									// cleanup for next iteration
 									for (int l = 0; l < height; ++l) {
@@ -152,19 +152,20 @@ namespace tactical
 					}
 				}
 
-				render::geometry::CalculateNormals<render::Vertex3f3f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
+				render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
 
 				std::vector<render::VertexAttribute> attributes;
 				attributes.push_back(render::VertexAttribute(0, 3, GLType::FLOAT));
 				attributes.push_back(render::VertexAttribute(1, 3, GLType::FLOAT));
+				attributes.push_back(render::VertexAttribute(3, 4, GLType::FLOAT));
 
 				chunk.GetMesh()->vao = new render::VertexArray();
 				chunk.GetMesh()->ibo = new render::IndexBuffer(chunk.GetMesh()->indices.data(),
 					(GLsizei)chunk.GetMesh()->indices.size());
 				chunk.GetMesh()->vao->AddBuffer(new render::Buffer(chunk.GetMesh()->vertices.data(),
-					(GLsizei)chunk.GetMesh()->vertices.size() * sizeof(render::Vertex3f3f), attributes));
+					(GLsizei)chunk.GetMesh()->vertices.size() * sizeof(render::Vertex3f3f4f), attributes));
 
-				chunk.UpdatedGeometry();
+				chunk.Updated();
 				delete mask;
 			}
 

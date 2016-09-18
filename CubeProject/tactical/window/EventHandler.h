@@ -29,12 +29,22 @@ namespace tactical
 			bool key_shift;
 		};
 
+		struct KeyEvent {
+			bool key_pressed;
+			bool key_released;
+		};
+
 		struct MouseState {
 			bool mouse_button_left;
 			bool mouse_button_right;
 			bool mouse_button_middle;
 			double mouse_x;
 			double mouse_y;
+		};
+
+		struct MouseEvent {
+			bool mouse_button_pressed;
+			bool mouse_button_released;
 		};
 
 		struct WindowSizeState {
@@ -56,11 +66,15 @@ namespace tactical
 			KeyboardState*   GetKeyboardState();
 			MouseState*		 GetMouseState();
 			WindowSizeState* GetWindowSizeState();
+			MouseEvent*		 GetMouseEvent();
+			KeyEvent*		 GetKeyEvent();
 
 		protected:
 			KeyboardState m_keyboardState;
-			MouseState m_mouseState;
+			KeyEvent m_keyEvent;
 			WindowSizeState m_windowSizeState;
+			MouseState m_mouseState;
+			MouseEvent m_mouseEvent;
 
 			//sf::Clock m_timer;
 		};

@@ -42,7 +42,10 @@ namespace tactical
 
 			void Update();
 			void UpdateVisibility();
-			void UpdatedGeometry() { m_voxels.Updated(); }
+			
+			bool NeedsUpdate() { return m_voxels.IsModified(); }
+			void Updated() { m_voxels.Updated(); }
+
 
 			// Methods to fill and empty the chunk
 			void Fill();
@@ -64,7 +67,7 @@ namespace tactical
 			inline void SetMaxHeight(int maxHeight) { m_maxHeight = maxHeight; }
 			inline int GetMaxHeight() const { return m_maxHeight; }
 
-			inline render::Mesh<render::Vertex3f3f>* GetMesh() { return &m_mesh; }
+			inline render::Mesh<render::Vertex3f3f4f>* GetMesh() { return &m_mesh; }
 
 			// Iterators
 			inline VolumeIterator begin() { return m_voxels.begin(); }
@@ -110,9 +113,8 @@ namespace tactical
 
 			bool m_isVisible;
 			bool m_isActive;
-			bool m_needsUpdate;
 
-			render::Mesh<render::Vertex3f3f> m_mesh;
+			render::Mesh<render::Vertex3f3f4f> m_mesh;
 
 			std::shared_ptr<Chunk> m_neighbors[6]; // 0 - top, 1 - bottom, 2 - right, 3 - left, 4 - front, 5 - back
 		};

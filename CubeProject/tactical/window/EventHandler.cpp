@@ -33,5 +33,15 @@ namespace tactical
 		{
 			return &m_windowSizeState;
 		}
+
+		MouseEvent* EventHandler::GetMouseEvent()
+		{
+			return &m_mouseEvent;
+		}
+
+		KeyEvent* EventHandler::GetKeyEvent()
+		{
+			return &m_keyEvent;
+		}
 	}
 }

@@ -60,8 +60,15 @@ namespace tactical
 				}
 			}
 
+			m_eventHandler.m_mouseEvent.mouse_button_pressed = false;
+			m_eventHandler.m_mouseEvent.mouse_button_released = false;
+			m_eventHandler.m_keyEvent.key_pressed = false;
+			m_eventHandler.m_keyEvent.key_released = false;
+
 			sf::Event event;
 			while (m_window->pollEvent(event)) {
+				
+
 				if (event.type == sf::Event::Closed)
 					m_open = false;
 				if (event.type == sf::Event::Resized) {
@@ -78,6 +85,22 @@ namespace tactical
 
 				if (event.type == sf::Event::LostFocus) {
 
+				}
+
+				if (event.type == sf::Event::MouseButtonPressed) {
+					m_eventHandler.m_mouseEvent.mouse_button_pressed = true;
+				}
+
+				if (event.type == sf::Event::MouseButtonReleased) {
+					m_eventHandler.m_mouseEvent.mouse_button_released = true;
+				}
+
+				if (event.type == sf::Event::KeyPressed) {
+					m_eventHandler.m_keyEvent.key_pressed = true;
+				}
+
+				if (event.type == sf::Event::KeyReleased) {
+					m_eventHandler.m_keyEvent.key_released = true;
 				}
 			}
 

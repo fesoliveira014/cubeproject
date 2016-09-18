@@ -213,6 +213,9 @@
     <ClCompile Include="tactical\render\geometry\DrawableLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tactical\math\fastNoise\FastNoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tactical\utils\Logger.h">
@@ -467,6 +470,9 @@
     <ClInclude Include="tactical\render\geometry\DrawableLine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tactical\math\fastNoise\FastNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.glsl" />
@@ -476,5 +482,6 @@
     <None Include="shaders\normal_frag.glsl" />
     <None Include="shaders\picking_vert.glsl" />
     <None Include="shaders\picking_frag.glsl" />
+    <None Include="tactical\math\fastNoise\LICENSE" />
   </ItemGroup>
 </Project>

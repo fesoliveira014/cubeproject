@@ -1,6 +1,7 @@
 #pragma comment(lib, "glew32.lib")
 
 #include "tactical/Engine.h"
+
 //#define TEST
 
 int main(int argc, char* argv[])
@@ -18,9 +19,10 @@ int main(int argc, char* argv[])
 
 	tactical::render::Renderer renderer(&camera);
 
-	tactical::ChunkManager chunkManager(&renderer, glm::vec3(10, 1, 10));
+	tactical::ChunkManager chunkManager(&renderer, glm::vec3(20, 1, 20));
 	//chunkManager.FillChunks();
 	chunkManager.GenerateWorld();
+	//chunkManager.FillWithPyramids();
 
 	LOG << LOGTYPE::LOG_INFO << "Initializing systems...";
 
@@ -41,11 +43,13 @@ int main(int argc, char* argv[])
 	int framerate = 0;
 	
 	while (window.IsOpen() == true) {
-		if (window.GetEventHandler()->GetKeyboardState()->key_1)
-			renderer.TogglePolygonMode();
+		if (window.GetEventHandler()->GetKeyEvent()->key_pressed) {
+			if (window.GetEventHandler()->GetKeyboardState()->key_1)
+				renderer.TogglePolygonMode();
 
-		if (window.GetEventHandler()->GetKeyboardState()->key_2)
-			renderer.ToggleNormalRendering();
+			if (window.GetEventHandler()->GetKeyboardState()->key_2)
+				renderer.ToggleNormalRendering();
+		}
 
 		window.Clear();
 
@@ -59,22 +63,25 @@ int main(int argc, char* argv[])
 										   glm::vec2(window.GetEventHandler()->GetWindowSizeState()->width,
 													 window.GetEventHandler()->GetWindowSizeState()->height));
 
-		if (window.GetEventHandler()->GetMouseState()->mouse_button_middle)
-			lines.push_back(tactical::render::DrawableLine(pickingRay.GetOrigin(), 20.0f * pickingRay.GetDirection() + pickingRay.GetOrigin()));
-		
-
 		tactical::math::RayCastResult pickingResult= chunkManager.GetRayVoxelIntersection(pickingRay, camera.GetPosition(), 50.0f);
 
-		if (window.GetEventHandler()->GetMouseState()->mouse_button_left) {
-			if (pickingResult.hit) {
-				// add face normal to position to get new block pos
-				// check if block is inside a chunk
-					// eventually we can create a new chunk, for now we wont
-				// if block is inside chunk, set block to 1 and mark chunk as dirty
-					// on update, if a chunk is dirty, update its mesh
-					// check if any neighbor needs update
-					// if so, mark it as dirty and repeat
+		if (window.GetEventHandler()->GetMouseEvent()->mouse_button_pressed) {
+			if (window.GetEventHandler()->GetMouseState()->mouse_button_left) {
+				if (pickingResult.hit) {
+					glm::vec3 pos = pickingResult.pos;
+					if (window.GetEventHandler()->GetKeyboardState()->key_shift) {
+						chunkManager.SetVoxel(pos, 0);
+					}
+					else {
+						pos += pickingResult.face;
+						chunkManager.SetVoxel(pos, 1);
+					}
+				}
 			}
+
+			if (window.GetEventHandler()->GetMouseState()->mouse_button_middle)
+				lines.push_back(tactical::render::DrawableLine(pickingRay.GetOrigin(), 20.0f * pickingRay.GetDirection() + pickingRay.GetOrigin()));
+
 		}
 
 		renderer.GetShader("basic_light")->Enable();

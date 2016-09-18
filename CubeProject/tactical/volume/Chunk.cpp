@@ -184,7 +184,6 @@ namespace tactical
 		void Chunk::Load()
 		{
 			m_isActive = true;
-			m_needsUpdate = true;
 		}
 
 		void Chunk::Unload()

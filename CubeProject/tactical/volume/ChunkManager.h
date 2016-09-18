@@ -6,6 +6,7 @@
 #include "Chunk.h"
 #include  "mesher\ChunkMesher.hpp"
 #include "../math/noise/noise.h"
+#include "../math/fastNoise/FastNoise.h"
 #include "../math/Picking.h"
 
 #include  "../render/Renderer.h"
@@ -28,6 +29,7 @@ namespace tactical
 		~ChunkManager();
 
 		void FillChunks();
+		void FillWithPyramids();
 		void GenerateWorld();
 
 		void UpdateChunks(const glm::vec3& currentPos);
@@ -55,6 +57,12 @@ namespace tactical
 		inline ChunkIterator begin() { return m_chunks.begin(); }
 		inline ChunkIterator end() { return m_chunks.end(); }
 
+		glm::vec3 ChunkManager::World2Chunk(const glm::vec3& pos);
+		glm::vec3 ChunkManager::World2Voxel(const glm::vec3& pos);
+		byte ChunkManager::GetVoxel(const glm::vec3& pos);
+
+		void SetVoxel(const glm::vec3& pos, byte type);
+
 	private:
 		ChunkManager();
 		void Initialize();
@@ -63,6 +71,8 @@ namespace tactical
 		void Draw(std::shared_ptr<Chunk> chunk, render::Shader& shader);
 
 		glm::vec3 GridCoordsToWorldCoords(const glm::vec3& pos);
+
+		void GeneratePyramid(Chunk &chunk);
 
 		ChunkMap m_chunks;
 
@@ -75,6 +85,8 @@ namespace tactical
 		glm::vec3 m_worldDimensions;
 
 		render::Renderer* m_pRenderer;
+
+		FastNoise m_fastnoise;
 
 		// these will be moved to a terrain engine in the future. 
 		noise::module::RidgedMulti m_mountains;

@@ -21,5 +21,6 @@ void main()
 	gl_Position = projection * view * model * vec4(position, 1.0f);
 	vs_out.position = vec3(model * vec4(position, 1.0f));
 	vs_out.normal = mat3(transpose(inverse(model))) * normal;
-	vs_out.color = vec4(0.4f, 0.4f, 0.4f, 1.0f);
+
+	vs_out.color = color;
 }

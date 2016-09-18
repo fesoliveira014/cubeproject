@@ -88,7 +88,7 @@ namespace tactical
 			else m_moveState.down = false;
 
 			if (mouseState->mouse_button_right) m_cameraState = CameraState::ROTATE;
-			else if (mouseState->mouse_button_left) m_cameraState = CameraState::PAN;
+			//else if (mouseState->mouse_button_left) m_cameraState = CameraState::PAN;
 			else m_cameraState = CameraState::STILL;
 			
 			glm::vec2 mousePos = glm::vec2(mouseState->mouse_x, mouseState->mouse_y);

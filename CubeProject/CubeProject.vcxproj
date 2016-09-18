@@ -169,6 +169,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="tactical\math\AABB.cpp" />
+    <ClCompile Include="tactical\math\fastNoise\FastNoise.cpp" />
     <ClCompile Include="tactical\math\Frustum.cpp" />
     <ClCompile Include="tactical\math\noise\latlon.cpp" />
     <ClCompile Include="tactical\math\noise\model\cylinder.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="tactical\Common.h" />
     <ClInclude Include="tactical\Engine.h" />
     <ClInclude Include="tactical\math\AABB.h" />
+    <ClInclude Include="tactical\math\fastNoise\FastNoise.h" />
     <ClInclude Include="tactical\math\Frustum.h" />
     <ClInclude Include="tactical\math\Math.h" />
     <ClInclude Include="tactical\math\noise\basictypes.h" />
@@ -329,6 +331,7 @@
     <None Include="shaders\picking_frag.glsl" />
     <None Include="shaders\picking_vert.glsl" />
     <None Include="shaders\vertex.glsl" />
+    <None Include="tactical\math\fastNoise\LICENSE" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

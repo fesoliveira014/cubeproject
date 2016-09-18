@@ -125,6 +125,36 @@ namespace tactical
 			}
 
 			template<typename Vertex>
+			static void AddQuad(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3,
+				const glm::vec3& v4, std::vector<Vertex>& vertices, std::vector<uint>& indices,
+				byte type)
+			{
+				glm::vec4 color;
+
+				switch (type) {
+
+				case 2:
+					color = glm::vec4(0.2f, 0.6f, 0.2f, 1.0f);
+					break;
+				case 3:
+					color = glm::vec4(0.901f, 1.0f, 1.0f, 1.0f);
+					break;
+				case 4:
+					color = glm::vec4(0.0, 0.2f, 0.6f, 1.0f);
+					break;
+				case 5:
+					color = glm::vec4(0.2, 0.2f, 0.2f, 1.0f);
+					break;
+				case 1:
+				default:
+					color = glm::vec4(0.4f, 0.4f, 0.4f, 1.0f);
+					break;
+				}
+
+				AddQuad<Vertex>(v1, v2, v3, v4, vertices, indices, color);
+			}
+
+			template<typename Vertex>
 			static void AddTriangle(const glm::vec3& v1, const glm::vec3& v2, const glm::vec3& v3,
 				std::vector<Vertex>& vertices, std::vector<uint>& indices)
 			{
