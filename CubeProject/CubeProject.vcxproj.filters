@@ -207,9 +207,6 @@
     <ClCompile Include="tactical\render\buffer\GBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tactical\utils\debug\Helpers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="tactical\render\geometry\DrawableLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -462,9 +459,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tactical\volume\mesher\ChunkMesher.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tactical\utils\debug\Helpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tactical\render\geometry\DrawableLine.h">
