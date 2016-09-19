@@ -28,6 +28,7 @@ namespace tactical
 			bool IsEmpty();
 			bool IsFull();
 
+			void SetModified() { m_modified = true; }
 			bool IsModified();
 			void Updated();
 

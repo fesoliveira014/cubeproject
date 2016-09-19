@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
 	tactical::render::Renderer renderer(&camera);
 
-	tactical::ChunkManager chunkManager(&renderer, glm::vec3(20, 1, 20));
+	tactical::ChunkManager chunkManager(&renderer, glm::vec3(32, 1, 32));
 	//chunkManager.FillChunks();
 	chunkManager.GenerateWorld();
 	//chunkManager.FillWithPyramids();

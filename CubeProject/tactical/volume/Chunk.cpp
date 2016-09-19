@@ -75,6 +75,25 @@ namespace tactical
 			pos.y = (position.y < m_size) && (position.y >= 0) ? position.y : position.y - m_position.y;
 			pos.z = (position.z < m_size) && (position.z >= 0) ? position.z : position.z - m_position.z;
 
+			if (pos.y == m_size - 1 && m_neighbors[0] != nullptr && m_neighbors[0]->GetVoxel(pos.x, 0, pos.z)) {
+				m_neighbors[0]->SetDirty();
+			}
+			if (pos.y == 0 && m_neighbors[1] != nullptr && m_neighbors[1]->GetVoxel(pos.x, m_size - 1, pos.z)) {
+				m_neighbors[1]->SetDirty();
+			}
+			if (pos.x == m_size - 1 && m_neighbors[2] != nullptr && m_neighbors[2]->GetVoxel(0, pos.y, pos.z)) {
+				m_neighbors[2]->SetDirty();
+			}
+			if (pos.x == 0 && m_neighbors[3] != nullptr && m_neighbors[3]->GetVoxel(m_size - 1, pos.y, pos.z)) {
+				m_neighbors[3]->SetDirty();
+			}
+			if (pos.z == 0 && m_neighbors[4] != nullptr && m_neighbors[4]->GetVoxel(pos.x, pos.y, m_size - 1)) {
+				m_neighbors[4]->SetDirty();
+			}
+			if (pos.z == m_size - 1 && m_neighbors[5] != nullptr && m_neighbors[5]->GetVoxel(pos.x, pos.y, 0)) {
+				m_neighbors[5]->SetDirty();
+			}
+
 			m_voxels.Set(pos, type);
 		}
 

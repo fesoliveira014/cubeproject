@@ -5,7 +5,7 @@ namespace tactical
 	using namespace volume;
 
 	ChunkManager::ChunkManager(render::Renderer* pRenderer, const glm::vec3& worldDimension, int seed) :
-		m_chunkSize(32),
+		m_chunkSize(16),
 		m_maxWorldHeight(64),
 		m_chunkLoadingRadius(4),
 		m_worldDimensions(worldDimension),
@@ -98,27 +98,29 @@ namespace tactical
 
 		m_flat.SetSourceModule(0, m_baseFlat);
 		m_flat.SetScale(0.125);
-		m_flat.SetBias(-0.75);
+		m_flat.SetBias(0.75);
 
-		m_perlin.SetFrequency(0.25);
+		m_perlin.SetFrequency(0.02);
 		m_perlin.SetPersistence(0.5);
-		m_perlin.SetOctaveCount(6);
+		m_perlin.SetOctaveCount(8);
 
 		m_selector.SetSourceModule(0, m_flat);
 		m_selector.SetSourceModule(1, m_mountains);
 		m_selector.SetControlModule(m_perlin);
-		m_selector.SetBounds(0.0, 1000.0);
+		m_selector.SetBounds(0.0, 100.0);
 		m_selector.SetEdgeFalloff(0.125);
 
 		m_final.SetSourceModule(0, m_selector);
 		m_final.SetFrequency(4.0f);
 		m_final.SetPower(0.125f);
 
+		
+
 		noise::utils::NoiseMapBuilderPlane heightMapBuilder;
 		heightMapBuilder.SetSourceModule(m_final);
 		heightMapBuilder.SetDestNoiseMap(m_heightMap);
 		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
-		heightMapBuilder.SetBounds(1.0, 4.0, 1.0, 4.0);
+		heightMapBuilder.SetBounds(0.0, 12.8, 0.0, 12.8);
 		heightMapBuilder.Build();
 
 		m_fastnoise.SetSeed(1337);
@@ -194,10 +196,7 @@ namespace tactical
 	}
 
 	void ChunkManager::GenerateWorld()
-	{
-		noise::model::Plane planeModel;
-		planeModel.SetModule(m_final);
-
+	{	
 		if (!m_chunks.empty()) {
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
 				for (int k = 0; k < m_chunkSize; ++k) {

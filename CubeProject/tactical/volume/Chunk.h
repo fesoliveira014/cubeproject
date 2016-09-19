@@ -43,9 +43,11 @@ namespace tactical
 			void Update();
 			void UpdateVisibility();
 			
+			void SetDirty() { m_voxels.SetModified(); }
 			bool NeedsUpdate() { return m_voxels.IsModified(); }
 			void Updated() { m_voxels.Updated(); }
 
+			Volume* GetVolume() { return &m_voxels; }
 
 			// Methods to fill and empty the chunk
 			void Fill();
@@ -116,7 +118,7 @@ namespace tactical
 
 			render::Mesh<render::Vertex3f3f4f> m_mesh;
 
-			std::shared_ptr<Chunk> m_neighbors[6]; // 0 - top, 1 - bottom, 2 - right, 3 - left, 4 - front, 5 - back
+			std::shared_ptr<Chunk> m_neighbors[6]; // 0 - top, 1 - bottom, 2 - left, 3 - right, 4 - front, 5 - back
 		};
 	}
 }

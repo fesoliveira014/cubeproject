@@ -176,7 +176,93 @@ namespace tactical
 
 			inline static void NaiveWithCulling(Chunk& chunk)
 			{
-				// TODO
+				delete chunk.GetMesh()->vao;
+				delete chunk.GetMesh()->ibo;
+				chunk.GetMesh()->vertices.clear();
+				chunk.GetMesh()->indices.clear();
+
+
+				for (int k = 0; k < chunk.GetSize(); ++k) {
+					for (int j = 0; j < chunk.GetSize(); ++j) {
+						for (int i = 0; i < chunk.GetSize(); ++i) {
+							glm::vec3 pos(i, j, k);
+							byte type = chunk.GetVoxel(pos);
+
+							// check top face
+							if (type != 0) {
+								if (chunk.GetVolume()->TopVisible(pos)) {
+									render::geometry::AddQuad<render::Vertex3f3f4f>(
+										pos + glm::vec3(1, 1, 1),
+										pos + glm::vec3(1, 1, 0),
+										pos + glm::vec3(0, 1, 0),
+										pos + glm::vec3(0, 1, 1),
+										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
+								}
+
+								if (chunk.GetVolume()->BottomVisible(pos)) {
+									render::geometry::AddQuad<render::Vertex3f3f4f>(
+										pos + glm::vec3(1, 0, 0),
+										pos + glm::vec3(1, 0, 1),
+										pos + glm::vec3(0, 0, 1),
+										pos + glm::vec3(0, 0, 0),
+										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
+								}
+
+								if (chunk.GetVolume()->RightVisible(pos)) {
+									render::geometry::AddQuad<render::Vertex3f3f4f>(
+										pos + glm::vec3(0, 1, 0),
+										pos + glm::vec3(0, 0, 0),
+										pos + glm::vec3(0, 0, 1),
+										pos + glm::vec3(0, 1, 1),
+										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
+								}
+
+								if (chunk.GetVolume()->LeftVisible(pos)) {
+									render::geometry::AddQuad<render::Vertex3f3f4f>(
+										pos + glm::vec3(1, 1, 1),
+										pos + glm::vec3(1, 0, 1),
+										pos + glm::vec3(1, 0, 0),
+										pos + glm::vec3(1, 1, 0),
+										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
+								}
+
+								if (chunk.GetVolume()->FrontVisible(pos)) {
+									render::geometry::AddQuad<render::Vertex3f3f4f>(
+										pos + glm::vec3(0, 0, 0),
+										pos + glm::vec3(0, 1, 0),
+										pos + glm::vec3(1, 1, 0),
+										pos + glm::vec3(1, 0, 0),
+										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
+								}
+
+								if (chunk.GetVolume()->BackVisible(pos)) {
+									render::geometry::AddQuad<render::Vertex3f3f4f>(
+										pos + glm::vec3(0, 1, 1),
+										pos + glm::vec3(0, 0, 1),
+										pos + glm::vec3(1, 0, 1),
+										pos + glm::vec3(1, 1, 1),
+										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
+								}
+							}
+						}
+					}
+				}
+
+
+				render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
+
+				std::vector<render::VertexAttribute> attributes;
+				attributes.push_back(render::VertexAttribute(0, 3, GLType::FLOAT));
+				attributes.push_back(render::VertexAttribute(1, 3, GLType::FLOAT));
+				attributes.push_back(render::VertexAttribute(3, 4, GLType::FLOAT));
+
+				chunk.GetMesh()->vao = new render::VertexArray();
+				chunk.GetMesh()->ibo = new render::IndexBuffer(chunk.GetMesh()->indices.data(),
+					(GLsizei)chunk.GetMesh()->indices.size());
+				chunk.GetMesh()->vao->AddBuffer(new render::Buffer(chunk.GetMesh()->vertices.data(),
+					(GLsizei)chunk.GetMesh()->vertices.size() * sizeof(render::Vertex3f3f4f), attributes));
+
+				chunk.Updated();
 			}
 
 			inline static void GenerateChunkMesh(Chunk& chunk, MesherType type)

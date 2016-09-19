@@ -120,22 +120,22 @@ namespace tactical
 
 		bool Volume::LeftVisible(const glm::vec3& position)
 		{
-			return !IsSolid(glm::vec3(position.x - 1, position.y, position.z));
+			return !IsSolid(glm::vec3(position.x + 1, position.y, position.z));
 		}
 
 		bool Volume::RightVisible(const glm::vec3& position)
 		{
-			return !IsSolid(glm::vec3(position.x + 1, position.y, position.z));
+			return !IsSolid(glm::vec3(position.x - 1, position.y, position.z));
 		}
 
 		bool Volume::FrontVisible(const glm::vec3& position)
 		{
-			return !IsSolid(glm::vec3(position.x, position.y, position.z + 1));
+			return !IsSolid(glm::vec3(position.x, position.y, position.z - 1));
 		}
 
 		bool Volume::BackVisible(const glm::vec3& position)
 		{
-			return !IsSolid(glm::vec3(position.x, position.y, position.z - 1));
+			return !IsSolid(glm::vec3(position.x, position.y, position.z + 1));
 		}
 
 
