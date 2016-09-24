@@ -1,11 +1,11 @@
-#pragma comment(lib, "glew32.lib")
+#pragma comment(lib, "glew32s.lib")
 
 #include "tactical/Engine.h"
 
 //#define TEST
 
 int main(int argc, char* argv[])
-{
+{  
 	tactical::utils::Logger *logger = tactical::utils::Logger::GetInstance();
 	logger->SetConsoleLogging(true);
 

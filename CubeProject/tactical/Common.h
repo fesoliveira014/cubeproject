@@ -18,6 +18,8 @@
 #include <random>
 #include <thread>
 
+
+#define GLEW_STATIC
 #include "glew\glew.h"
 
 #include "SFML\Window.hpp"
