@@ -95,7 +95,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SOIL.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL.lib;glew32s.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Common\SOIL\lib;..\Common\SFML(2015)\lib;..\Common\glew-1.12.0\lib\Release\x64;..\Common\assimp\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
@@ -116,7 +116,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SOIL.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL.lib;glew32s.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Common\SOIL\lib;..\Common\SFML(2015)\lib;..\Common\glew-1.12.0\lib\Release\x64;..\Common\assimp\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
@@ -137,7 +137,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SOIL.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL.lib;glew32s.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Common\SOIL\lib;..\Common\SFML(2015)\lib;..\Common\glew-1.12.0\lib\Release\x64;..\Common\assimp\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
@@ -163,7 +163,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\Common\SOIL\lib;..\Common\SFML(2015)\lib;..\Common\glew-1.12.0\lib\Release\x64;..\Common\assimp\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SOIL.lib;sfml-window-s.lib;sfml-system-s.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL.lib;glew32s.lib;sfml-window-s.lib;sfml-system-s.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PreventDllBinding>false</PreventDllBinding>
     </Link>
   </ItemDefinitionGroup>
