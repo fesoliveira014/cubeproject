@@ -61,7 +61,9 @@ namespace tactical
 		glm::vec3 ChunkManager::World2Voxel(const glm::vec3& pos);
 		byte ChunkManager::GetVoxel(const glm::vec3& pos);
 
+
 		void SetVoxel(const glm::vec3& pos, byte type);
+		void SetVoxel(float x, float y, float z, byte type) { SetVoxel(glm::vec3(x, y, z), 1); }
 
 	private:
 		ChunkManager();

@@ -31,7 +31,7 @@ namespace tactical
 
 		void Chunk::Draw(render::Shader& shader)
 		{
-			if (m_isVisible) {
+			if (m_isVisible && m_mesh.vao != nullptr) {
 				glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position);
 
 				m_mesh.vao->Bind();

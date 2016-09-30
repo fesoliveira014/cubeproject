@@ -98,16 +98,16 @@ namespace tactical
 
 		m_flat.SetSourceModule(0, m_baseFlat);
 		m_flat.SetScale(0.125);
-		m_flat.SetBias(0.75);
+		m_flat.SetBias(-0.75);
 
-		m_perlin.SetFrequency(0.02);
-		m_perlin.SetPersistence(0.5);
+		m_perlin.SetFrequency(0.75);
+		m_perlin.SetPersistence(0.25);
 		m_perlin.SetOctaveCount(8);
 
 		m_selector.SetSourceModule(0, m_flat);
 		m_selector.SetSourceModule(1, m_mountains);
 		m_selector.SetControlModule(m_perlin);
-		m_selector.SetBounds(0.0, 100.0);
+		m_selector.SetBounds(0.0, 1000.0);
 		m_selector.SetEdgeFalloff(0.125);
 
 		m_final.SetSourceModule(0, m_selector);
@@ -120,7 +120,7 @@ namespace tactical
 		heightMapBuilder.SetSourceModule(m_final);
 		heightMapBuilder.SetDestNoiseMap(m_heightMap);
 		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
-		heightMapBuilder.SetBounds(0.0, 12.8, 0.0, 12.8);
+		heightMapBuilder.SetBounds(6.0, 8.0, 1.0, 3.0);
 		heightMapBuilder.Build();
 
 		m_fastnoise.SetSeed(1337);
@@ -172,10 +172,32 @@ namespace tactical
 				GeneratePyramid(*iter->second);
 			}
 		}
+		
+		//for (int j = 0; j < (m_chunkSize / 2); ++j) {
+		//	for (int k = 0; k < (m_worldDimensions.z * m_chunkSize / 2); ++k) {
+		//		for (int i = 0; i < (m_worldDimensions.x * m_chunkSize / 2); ++i) {
+		//			if ((i >= j && k >= j)) {
+		//				SetVoxel(i, j, k, 1);
+		//				SetVoxel(m_chunkSize * (i+1) - 1 - i, j, k, 1);
+		//				SetVoxel(m_chunkSize  * (i + 1) - 1 - i, j, m_chunkSize * (k + 1) - 1 - k, 1);
+		//				SetVoxel(i, j, m_chunkSize * (k + 1) - 1 - k, 1);
+		//			}
+		//			/*if ((m_chunkSize - i >= j && k >= j)) {
+		//			chunk.SetVoxel(i, j, k, 1);
+
+		//			}*/
+		//		}
+		//	}
+		//}
+
+		
 	}
 
 	void ChunkManager::GeneratePyramid(Chunk &chunk)
 	{
+		if (chunk.GetPosition().y >= m_chunkSize)
+			return;
+
 		for (int j = 0; j < m_chunkSize / 2; ++j) {
 			for (int k = 0; k < m_chunkSize / 2; ++k) {
 				for (int i = 0; i < m_chunkSize / 2; ++i) {
@@ -183,9 +205,7 @@ namespace tactical
 						chunk.SetVoxel(i, j, k, 1);
 						chunk.SetVoxel(m_chunkSize - 1 - i, j, k, 1);
 						chunk.SetVoxel(m_chunkSize - 1 - i, j, m_chunkSize - 1 - k, 1);
-						chunk.SetVoxel(i, j, m_chunkSize - 1 - k, 1);
-						
-					}
+						chunk.SetVoxel(i, j, m_chunkSize - 1 - k, 1);					}
 					/*if ((m_chunkSize - i >= j && k >= j)) {
 						chunk.SetVoxel(i, j, k, 1);
 						
@@ -198,35 +218,59 @@ namespace tactical
 	void ChunkManager::GenerateWorld()
 	{	
 		if (!m_chunks.empty()) {
-			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				for (int k = 0; k < m_chunkSize; ++k) {
-					
-					for (int i = 0; i < m_chunkSize; ++i) {
-						int x = (int)(*iter).second->GetPosition().x;
-						int y = (int)(*iter).second->GetPosition().y;
-						int z = (int)(*iter).second->GetPosition().z;
+			//for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+			//	for (int k = 0; k < m_chunkSize; ++k) {
+			//		
+			//		for (int i = 0; i < m_chunkSize; ++i) {
+			//			int x = (int)(*iter).second->GetPosition().x;
+			//			int y = (int)(*iter).second->GetPosition().y;
+			//			int z = (int)(*iter).second->GetPosition().z;
 
-						double noise =  m_heightMap.GetValue((i + x), (k + z));
-						//float noise = m_fastnoise.GetGradientFractal(i + x, k + z);
+			//			double noise =  m_heightMap.GetValue((i + x), (k + z));
+			//			//float noise = m_fastnoise.GetGradientFractal(i + x, k + z);
+			//			noise = (noise + 1) * 0.5f;
+			//			int height = (int)(m_worldDimensions.y * noise);
+			//			height = height <= 0 ? 1 : height > m_chunkSize ? m_chunkSize : height;
+
+
+			//			for (int j = 0; j < height; ++j) {
+			//				if (j < 1)
+			//					(*iter).second->SetVoxel(glm::vec3(i,j,k), 4);
+			//				else if (j >= 1 && j < 16)
+			//					(*iter).second->SetVoxel(glm::vec3(i, j, k), 2);
+			//				else if (j >= 16 && j < 27)
+			//					(*iter).second->SetVoxel(glm::vec3(i, j, k), 5);
+			//				else if (j >= 27)
+			//					(*iter).second->SetVoxel(glm::vec3(i, j, k), 3);
+
+			//			}
+			//		}
+			//	}
+			//}
+
+			
+				for (int k = 0; k < m_worldDimensions.z * m_chunkSize; ++k) {
+					for (int i = 0; i < m_worldDimensions.x * m_chunkSize; ++i) {
+						double noise = m_heightMap.GetValue(i, k);
 						noise = (noise + 1) * 0.5f;
-						int height = (int)((m_worldDimensions.y - 1) * m_chunkSize - y) + m_chunkSize * noise;
-						height = height <= 0 ? 1 : height > m_chunkSize ? m_chunkSize : height;
 
+						int height = (int)(m_worldDimensions.y * m_chunkSize * noise) - 1;
+						height = height <= 0 ? 1 : height > m_worldDimensions.y * m_chunkSize - 1 ? m_worldDimensions.y * m_chunkSize : height;
+						//height = height - height % 4 + 1;
 
 						for (int j = 0; j < height; ++j) {
 							if (j < 1)
-								(*iter).second->SetVoxel(glm::vec3(i,j,k), 4);
+								SetVoxel(glm::vec3(i, j, k), 4);
 							else if (j >= 1 && j < 16)
-								(*iter).second->SetVoxel(glm::vec3(i, j, k), 2);
-							else if (j >= 16 && j < 27)
-								(*iter).second->SetVoxel(glm::vec3(i, j, k), 5);
-							else if (j >= 27)
-								(*iter).second->SetVoxel(glm::vec3(i, j, k), 3);
-
+								SetVoxel(glm::vec3(i, j, k), 2);
+							else if (j >= 16 && j < m_worldDimensions.y * m_chunkSize - 5)
+								SetVoxel(glm::vec3(i, j, k), 5);
+							else if (j >= m_chunkSize * m_worldDimensions.y - 5)
+								SetVoxel(glm::vec3(i, j, k), 3);
 						}
 					}
 				}
-			}
+			
 		}
 	}
 

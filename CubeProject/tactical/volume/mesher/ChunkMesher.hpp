@@ -188,9 +188,12 @@ namespace tactical
 							glm::vec3 pos(i, j, k);
 							byte type = chunk.GetVoxel(pos);
 
+							render::geometry::Face face;
+
 							// check top face
 							if (type != 0) {
-								if (chunk.GetVolume()->TopVisible(pos)) {
+								face.face = render::geometry::Face::TOP;
+								if (chunk.IsFaceVisible(pos, face)) {
 									render::geometry::AddQuad<render::Vertex3f3f4f>(
 										pos + glm::vec3(1, 1, 1),
 										pos + glm::vec3(1, 1, 0),
@@ -199,7 +202,8 @@ namespace tactical
 										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
 								}
 
-								if (chunk.GetVolume()->BottomVisible(pos)) {
+								face.face = render::geometry::Face::BOTTOM;
+								if (chunk.IsFaceVisible(pos, face)) {
 									render::geometry::AddQuad<render::Vertex3f3f4f>(
 										pos + glm::vec3(1, 0, 0),
 										pos + glm::vec3(1, 0, 1),
@@ -208,7 +212,8 @@ namespace tactical
 										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
 								}
 
-								if (chunk.GetVolume()->RightVisible(pos)) {
+								face.face = render::geometry::Face::LEFT;
+								if (chunk.IsFaceVisible(pos, face)) {
 									render::geometry::AddQuad<render::Vertex3f3f4f>(
 										pos + glm::vec3(0, 1, 0),
 										pos + glm::vec3(0, 0, 0),
@@ -217,7 +222,8 @@ namespace tactical
 										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
 								}
 
-								if (chunk.GetVolume()->LeftVisible(pos)) {
+								face.face = render::geometry::Face::RIGHT;
+								if (chunk.IsFaceVisible(pos, face)) {
 									render::geometry::AddQuad<render::Vertex3f3f4f>(
 										pos + glm::vec3(1, 1, 1),
 										pos + glm::vec3(1, 0, 1),
@@ -226,7 +232,8 @@ namespace tactical
 										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
 								}
 
-								if (chunk.GetVolume()->FrontVisible(pos)) {
+								face.face = render::geometry::Face::FRONT;
+								if (chunk.IsFaceVisible(pos, face)) {
 									render::geometry::AddQuad<render::Vertex3f3f4f>(
 										pos + glm::vec3(0, 0, 0),
 										pos + glm::vec3(0, 1, 0),
@@ -235,7 +242,8 @@ namespace tactical
 										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, type);
 								}
 
-								if (chunk.GetVolume()->BackVisible(pos)) {
+								face.face = render::geometry::Face::BACK;
+								if (chunk.IsFaceVisible(pos, face)) {
 									render::geometry::AddQuad<render::Vertex3f3f4f>(
 										pos + glm::vec3(0, 1, 1),
 										pos + glm::vec3(0, 0, 1),
