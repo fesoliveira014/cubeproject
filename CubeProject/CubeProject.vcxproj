@@ -218,6 +218,7 @@
     <ClCompile Include="tactical\render\camera\Camera.cpp" />
     <ClCompile Include="tactical\render\camera\FPSCamera.cpp" />
     <ClCompile Include="tactical\render\buffer\GBuffer.cpp" />
+    <ClCompile Include="tactical\render\camera\IsometricCamera.cpp" />
     <ClCompile Include="tactical\render\geometry\DrawableBox.cpp" />
     <ClCompile Include="tactical\render\geometry\DrawableLine.cpp" />
     <ClCompile Include="tactical\render\geometry\Geometry.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="tactical\render\buffer\VertexAttribute.h" />
     <ClInclude Include="tactical\render\camera\Camera.h" />
     <ClInclude Include="tactical\render\camera\FPSCamera.h" />
+    <ClInclude Include="tactical\render\camera\IsometricCamera.h" />
     <ClInclude Include="tactical\render\geometry\DrawableBox.h" />
     <ClInclude Include="tactical\render\geometry\DrawableLine.h" />
     <ClInclude Include="tactical\render\geometry\Geometry.h" />

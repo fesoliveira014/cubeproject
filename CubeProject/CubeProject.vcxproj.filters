@@ -213,6 +213,9 @@
     <ClCompile Include="tactical\math\fastNoise\FastNoise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tactical\render\camera\IsometricCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tactical\utils\Logger.h">
@@ -465,6 +468,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tactical\math\fastNoise\FastNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\render\camera\IsometricCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

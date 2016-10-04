@@ -32,7 +32,7 @@ namespace tactical
 
 			m_translation = glm::vec3(0.0f);
 
-			// calculate forwad, up, right and target vectors
+			// calculate forward, up, right and target vectors
 			m_forward = glm::vec3(rotationMatrix * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
 			m_target = m_position + m_forward;
 

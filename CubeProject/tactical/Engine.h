@@ -15,6 +15,7 @@
 #include "tactical/render/structures/Vertex.h"
 #include "tactical/render/camera/Camera.h"
 #include "tactical/render/camera/FPSCamera.h"
+#include "tactical/render/camera/IsometricCamera.h"
 #include "tactical/render/Renderer.h"
 #include "tactical/render/geometry/DrawableBox.h"
 #include "tactical/render/geometry/DrawableLine.h"
