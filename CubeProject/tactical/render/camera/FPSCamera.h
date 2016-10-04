@@ -10,7 +10,7 @@ namespace tactical
 			FPSCamera(const glm::mat4& projection, const glm::vec3& position, const glm::vec3& target);
 			~FPSCamera();
 
-			void Update() override;
+			void Update(float deltaTime) override;
 
 		private:
 			//void MousePan(const glm::vec2& delta);

@@ -7,7 +7,7 @@ namespace tactical
 		FPSCamera::FPSCamera(const glm::mat4& projection, const glm::vec3& position, const glm::vec3& target)
 			: Camera(projection, position, target)
 		{
-			m_speed = 0.025f;
+			m_speed = 2.5f;
 			m_panSpeed = 0.01f;
 			m_rotationSpeed = 0.005f;
 
@@ -19,11 +19,14 @@ namespace tactical
 			
 		}
 
-		void FPSCamera::Update()
+		void FPSCamera::Update(float deltaTime)
 		{
 			// update state variables and deltas
 			UpdateStates();
-			Move(m_speed);
+
+      float velocity = m_speed * deltaTime;
+      Move(velocity);
+
 			MouseRotate(m_delta);
 
 			// get rotation matrix from yaw and pitch and execute translation

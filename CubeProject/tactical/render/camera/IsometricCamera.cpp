@@ -9,7 +9,7 @@ namespace tactical
     {
       m_yaw = -45.0f;
       m_pitch = -35.264f;
-      m_speed = 0.025f;
+      m_speed = 2.5f;
       m_worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
     }
 
@@ -17,10 +17,12 @@ namespace tactical
     {
     }
 
-    void IsometricCamera::Update()
+    void IsometricCamera::Update(float deltaTime)
     {
       UpdateStates();
-      Move(m_speed);
+
+      float velocity = m_speed * deltaTime;
+      Move(velocity);
 
       // get rotation matrix from yaw and pitch and execute translation
       glm::mat4 rotationMatrix = glm::yawPitchRoll(m_yaw, m_pitch, 0.0f);

@@ -34,7 +34,7 @@ namespace tactical
 			Camera(glm::mat4 projection, glm::vec3 position, glm::vec3 target);
 			virtual ~Camera();
 
-			virtual void Update() = 0;
+			virtual void Update(float deltaTime) = 0;
 
 			void Rotate(const float yaw, const float pitch, const float roll = 0.0f);
 

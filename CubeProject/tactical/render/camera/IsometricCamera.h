@@ -12,7 +12,7 @@ namespace tactical
       IsometricCamera(const glm::mat4& projection, const glm::vec3& position, const glm::vec3& target);
       ~IsometricCamera();
 
-      void Update() override;
+      void Update(float deltaTime) override;
     private:
       void Move(float speed);
       void UpdateStates();

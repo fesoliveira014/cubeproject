@@ -15,9 +15,9 @@ int main(int argc, char* argv[])
 	glm::mat4 ortho = glm::ortho(-32.0f, 32.0f, -32.0f, 32.0f, -1000.0f, 1000.0f);
 
   // Isometric camera
-  tactical::render::IsometricCamera camera(ortho, glm::vec3(0.0f, 32.0f, 32.0f), glm::vec3(0.0f, -32.0f, -32.0f));
+  //tactical::render::IsometricCamera camera(ortho, glm::vec3(0.0f, 32.0f, 32.0f), glm::vec3(0.0f, -32.0f, -32.0f));
   // FPS camera
-	//tactical::render::FPSCamera camera(persp, glm::vec3(0.0f, 64.0f, 0.0f), glm::vec3(0.0f,-64.0f, 0.0f));
+	tactical::render::FPSCamera camera(persp, glm::vec3(0.0f, 64.0f, 0.0f), glm::vec3(0.0f,-64.0f, 0.0f));
 
 	camera.LinkTo(window);
 
@@ -45,7 +45,11 @@ int main(int argc, char* argv[])
 	sf::Clock clock;
 	clock.restart();
 	int framerate = 0;
-	
+
+  // Deltatime
+  sf::Clock deltaClock; // Clock to get time between current frame and last frame
+  deltaClock.restart();
+  	
 	while (window.IsOpen() == true) {
 		if (window.GetEventHandler()->GetKeyEvent()->key_pressed) {
 			if (window.GetEventHandler()->GetKeyboardState()->key_1)
@@ -57,7 +61,9 @@ int main(int argc, char* argv[])
 
 		window.Clear();
 
-		camera.Update();
+    float deltaTime = deltaClock.restart().asSeconds(); // Get time elapsed since last camera update
+    	camera.Update(deltaTime); // Pass dt as argument to adjust velocity so that the speed isn't FPS-based
+
 		chunkManager.UpdateChunks(camera.GetPosition());
 		renderer.Update();
 
