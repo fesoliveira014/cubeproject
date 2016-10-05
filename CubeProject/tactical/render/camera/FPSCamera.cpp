@@ -7,7 +7,7 @@ namespace tactical
 		FPSCamera::FPSCamera(const glm::mat4& projection, const glm::vec3& position, const glm::vec3& target)
 			: Camera(projection, position, target)
 		{
-			m_speed = 2.5f;
+			m_speed = 6.0f;
 			m_panSpeed = 0.01f;
 			m_rotationSpeed = 0.005f;
 
@@ -20,7 +20,7 @@ namespace tactical
 		}
 
 		void FPSCamera::Update(float deltaTime)
-		{
+		{      
 			// update state variables and deltas
 			UpdateStates();
 
@@ -29,29 +29,19 @@ namespace tactical
 
 			MouseRotate(m_delta);
 
-			// get rotation matrix from yaw and pitch and execute translation
-			glm::mat4 rotationMatrix = glm::yawPitchRoll(m_yaw, m_pitch, 0.0f);
 			m_position += m_translation;
-
 			m_translation = glm::vec3(0.0f);
 
-			// calculate forward, up, right and target vectors
-			m_forward = glm::vec3(rotationMatrix * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f));
-			m_target = m_position + m_forward;
-
-			m_up = glm::vec3(rotationMatrix * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f));
-			m_right = glm::cross(m_up, m_forward);
-
-			// use position, target and up vectors to calculate view matrix
-			m_view = glm::lookAt(m_position, m_target, m_up);
+			// update orthonormal basis
+      UpdateBasis();
 		}
 
 		void FPSCamera::Move(float speed)
 		{
 			if (m_moveState.forward) Walk(speed);
 			if (m_moveState.back) Walk(-speed);
-			if (m_moveState.left) Strafe(speed);
-			if (m_moveState.right) Strafe(-speed);
+			if (m_moveState.left) Strafe(-speed);
+			if (m_moveState.right) Strafe(speed);
 			if (m_moveState.up) Lift(speed);
 			if (m_moveState.down) Lift(-speed);
 
@@ -62,7 +52,7 @@ namespace tactical
 		}
 
 		void FPSCamera::MouseRotate(const glm::vec2& delta)
-		{
+		{			
 			if (m_cameraState == CameraState::ROTATE)
 				Rotate(m_rotationSpeed * delta.x, m_rotationSpeed * delta.y);
 		}

@@ -61,10 +61,12 @@ namespace tactical
 
 		protected:
 			void UpdateViewport();
+      void UpdateBasis();
 
 			inline void Walk(const float distance) { m_translation += m_forward * distance; }
 			inline void Strafe(const float distance) { m_translation += m_right * distance; }
 			inline void Lift(const float distance) { m_translation += m_up * distance; }
+      
 
 			glm::vec3 m_position;
 			glm::vec3 m_target;

@@ -2,70 +2,79 @@
 
 namespace tactical
 {
-  namespace render
-  {
-    IsometricCamera::IsometricCamera(const glm::mat4& projection, const glm::vec3& position, const glm::vec3& target)
-      : Camera(projection, position, target)
-    {
-      m_yaw = -45.0f;
-      m_pitch = -35.264f;
-      m_speed = 2.5f;
-      m_worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
-    }
+	namespace render
+	{
+		IsometricCamera::IsometricCamera(const glm::mat4& projection, const glm::vec3& position, const glm::vec3& target)
+			: Camera(projection, position, target)
+		{
+			m_pitch = glm::radians(45.0f);
+			// needs to yaw -90 degrees because of the quadradnt the scene is being drawed,
+			// plus -arctan(1/sqr(2)) =~ -35.264 degrees
+			m_yaw = glm::radians(-125.264f);
+			m_speed = 6.0f;
+			m_rotationSpeed = 0.003f;
+		}
 
-    IsometricCamera::~IsometricCamera()
-    {
-    }
+		IsometricCamera::~IsometricCamera()
+		{
+		}
 
-    void IsometricCamera::Update(float deltaTime)
-    {
-      UpdateStates();
+		void IsometricCamera::Update(float deltaTime)
+		{
+			UpdateStates();
 
-      float velocity = m_speed * deltaTime;
-      Move(velocity);
+			float velocity = m_speed * deltaTime;
+			Move(velocity);
 
-      // get rotation matrix from yaw and pitch and execute translation
-      glm::mat4 rotationMatrix = glm::yawPitchRoll(m_yaw, m_pitch, 0.0f);
-      m_position += m_translation;
+			MouseRotate(m_delta);
 
-      m_translation = glm::vec3(0.0f);
+			m_position += m_translation;
+			m_translation = glm::vec3(0.0f);
 
-      glm::vec3 front;
-      front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-      front.y = sin(glm::radians(m_pitch));
-      front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-      m_forward = glm::normalize(front);
-      m_target = m_position + m_forward;
+			// update orthonormal basis
+			UpdateBasis();
+		}
 
-      m_right = glm::normalize(glm::cross(m_forward, m_worldUp));
-      m_up = glm::normalize(glm::cross(m_right, m_forward));
+		void IsometricCamera::Move(float speed)
+		{
+			if (m_moveState.up) Lift(speed);
+			if (m_moveState.down) Lift(-speed);
+			if (m_moveState.left) Strafe(-speed);
+			if (m_moveState.right) Strafe(speed);
+		}
 
-      m_view = glm::lookAt(m_position, m_target, m_up);
-    }
+		void IsometricCamera::MouseRotate(const glm::vec2& delta)
+		{			
+			if (m_cameraState == CameraState::ROTATE) {				
+				Rotate(m_rotationSpeed * delta.x, 0.0f);				
+			}
+				
+		}
 
-    void IsometricCamera::Move(float speed)
-    {
-      if (m_moveState.up) Lift(speed);
-      if (m_moveState.down) Lift(-speed);
-      if (m_moveState.left) Strafe(-speed);
-      if (m_moveState.right) Strafe(speed);
-    }
+		void IsometricCamera::UpdateStates()
+		{
+			window::KeyboardState* keyState = m_eventHandler->GetKeyboardState();
+			window::MouseState* mouseState = m_eventHandler->GetMouseState();
 
-    void IsometricCamera::UpdateStates()
-    {
-      window::KeyboardState* keyState = m_eventHandler->GetKeyboardState();
+			if (keyState->key_w) m_moveState.up = true;
+			else m_moveState.up = false;
 
-      if (keyState->key_w) m_moveState.up = true;
-      else m_moveState.up = false;
+			if (keyState->key_s) m_moveState.down = true;
+			else m_moveState.down = false;
 
-      if (keyState->key_s) m_moveState.down = true;
-      else m_moveState.down = false;
+			if (keyState->key_a) m_moveState.left = true;
+			else m_moveState.left = false;
 
-      if (keyState->key_a) m_moveState.left = true;
-      else m_moveState.left = false;
+			if (keyState->key_d) m_moveState.right = true;
+			else m_moveState.right = false;
 
-      if (keyState->key_d) m_moveState.right = true;
-      else m_moveState.right = false;
-    }
-  }
+			if (mouseState->mouse_button_right) m_cameraState = CameraState::ROTATE;
+			
+			else m_cameraState = CameraState::STILL;
+
+			glm::vec2 mousePos = glm::vec2(mouseState->mouse_x, 0.0f);
+			m_delta = glm::vec2(m_initialMousePosition.x - mousePos.x, 0.0f);
+			m_initialMousePosition = mousePos;
+		}
+	}
 }
