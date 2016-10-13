@@ -6,12 +6,28 @@ uniform vec3 light_pos;
 uniform vec3 light_color;
 uniform vec3 camera_pos;
 
+uniform int fog_enabled = 0;
+
 in DATA
 {
 	vec3 position;
 	vec3 normal;
 	vec4 color;
 } fs_in;
+
+	
+
+vec3 applyFog(vec3  rgb,      // original color of the pixel
+              float dist, // camera to point distance
+              vec3  rayDir)   // camera to point vector
+{
+	float b = dist*0.01;
+    float fogAmount = 1.0 - exp(-b*b);
+//    float sunAmount = max( dot( rayDir, sunDir ), 0.0 );
+    vec3  fogColor  = vec3(0.5,0.6,0.7); // bluish
+    vec3 finalColor = rgb*fogAmount;
+    return mix( rgb, fogColor, fogAmount );
+}  
 
 void main()
 {
@@ -33,6 +49,13 @@ void main()
 	vec3 specular =	specular_strength * spec * light_color;
 	// todo
 
-	vec3 result = (ambient + diffuse + specular) * vec3(fs_in.color);
+	vec3 lightResult = (ambient + diffuse + specular) * vec3(fs_in.color);
+
+	vec3 result = lightResult;
+
+	if (fog_enabled == 1) {
+		result = applyFog(lightResult, distance(camera_pos, fs_in.position), camera_pos);
+	}
+
 	color = vec4(result, 1.0f);
 }

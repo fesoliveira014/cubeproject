@@ -7,7 +7,7 @@ namespace tactical
 		FPSCamera::FPSCamera(const glm::mat4& projection, const glm::vec3& position, const glm::vec3& target)
 			: Camera(projection, position, target)
 		{
-			m_speed = 6.0f;
+			m_speed = 20.0f;
 			m_panSpeed = 0.01f;
 			m_rotationSpeed = 0.005f;
 

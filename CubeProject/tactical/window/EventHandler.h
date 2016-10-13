@@ -18,6 +18,7 @@ namespace tactical
 			bool key_c;
 			bool key_q;
 			bool key_e;
+			bool key_f;
 
 			bool key_1;
 			bool key_2;

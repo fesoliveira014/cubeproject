@@ -6,7 +6,7 @@ namespace tactical
 
 	ChunkManager::ChunkManager(render::Renderer* pRenderer, const glm::vec3& worldDimension, int seed) :
 		m_chunkSize(16),
-		m_maxWorldHeight(64),
+		m_maxWorldHeight(128),
 		m_chunkLoadingRadius(4),
 		m_worldDimensions(worldDimension),
 		m_pRenderer(pRenderer)
@@ -120,17 +120,17 @@ namespace tactical
 		heightMapBuilder.SetSourceModule(m_final);
 		heightMapBuilder.SetDestNoiseMap(m_heightMap);
 		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
-		heightMapBuilder.SetBounds(6.0, 8.0, 1.0, 3.0);
+		heightMapBuilder.SetBounds(7.0, 8.0, 2.0, 3.0);
 		heightMapBuilder.Build();
 
-		m_fastnoise.SetSeed(1337);
+		/*m_fastnoise.SetSeed(1337);
 		m_fastnoise.SetFrequency(0.08f);
 		m_fastnoise.SetInterp(FastNoise::Interp::Hermite);
 		m_fastnoise.SetNoiseType(FastNoise::NoiseType::GradientFractal);
 		m_fastnoise.SetFractalOctaves(4);
 		m_fastnoise.SetFractalLacunarity(2.0f);
 		m_fastnoise.SetFractalType(FastNoise::FractalType::FBM);
-		m_fastnoise.SetFractalGain(0.5f);
+		m_fastnoise.SetFractalGain(0.5f);*/
 
 
 		m_meshNeedsUpdate = true;
@@ -150,7 +150,7 @@ namespace tactical
 		if (!m_chunks.empty() && m_meshNeedsUpdate) {
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
 				if ((*iter).second->NeedsUpdate())
-					mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
+					mesher::GenerateChunkMesh(*(*iter).second, mesher::NAIVE_WITH_CULLING);
 			}
 			m_meshNeedsUpdate = false;
 		}
@@ -285,7 +285,7 @@ namespace tactical
 		result.hit = false;
 
 		if (!m_chunks.empty()) 
-			result = math::PickVoxel(ray, m_chunks, 64, m_chunkSize);
+			result = math::PickVoxel(ray, m_chunks, 128, m_chunkSize);
 
 		return result;
 	}

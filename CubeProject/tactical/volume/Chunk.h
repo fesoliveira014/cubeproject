@@ -69,6 +69,8 @@ namespace tactical
 			inline void SetMaxHeight(int maxHeight) { m_maxHeight = maxHeight; }
 			inline int GetMaxHeight() const { return m_maxHeight; }
 
+			byte GetAmbientOcclusion(const glm::vec3& vertice);
+
 			inline render::Mesh<render::Vertex3f3f4f>* GetMesh() { return &m_mesh; }
 
 			// Iterators

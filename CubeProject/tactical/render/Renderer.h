@@ -63,6 +63,14 @@ namespace tactical
 			void ToggleNormalRendering() { m_showNormals = !m_showNormals; }
 			bool NormalRendering() { return m_showNormals; }
 
+			void ToggleFog() 
+			{ 
+				m_renderFog = !m_renderFog; 
+
+				m_shaders["basic_light"]->Enable();
+				m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
+			}
+
 			void Update();
 
 			void EnableShader(std::string shaderID) { m_shaders[shaderID]->Enable(); }
@@ -79,6 +87,7 @@ namespace tactical
 
 			PolygonMode m_polygonMode;
 			bool m_showNormals;
+			bool m_renderFog;
 			math::Frustum m_frustum;
 		};
 	}

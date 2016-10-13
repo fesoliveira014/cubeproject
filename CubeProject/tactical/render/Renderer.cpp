@@ -12,6 +12,7 @@ namespace tactical
 			m_shaders["normal"] = new Shader("shaders/normal_vertex.glsl", "shaders/normal_frag.glsl", "shaders/normal_geom.glsl");
 			m_shaders["picking"] = new Shader("shaders/picking_vert.glsl", "shaders/picking_frag.glsl", nullptr);
 			m_polygonMode = POLYGON;
+			m_renderFog = false;
 
 			m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
@@ -19,6 +20,7 @@ namespace tactical
 			m_shaders["basic_light"]->SetUniform3fv("light_pos", glm::vec3(-6.0f, 70.0f, 21.0f));
 			m_shaders["basic_light"]->SetUniform3fv("light_color", glm::vec3(1.0f, 1.0f, 1.0f));
 			m_shaders["basic_light"]->SetUniform3fv("camera_pos", camera->GetPosition());
+			m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
 
 			m_shaders["normal"]->Enable();
 			m_shaders["normal"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());

@@ -34,7 +34,6 @@ namespace tactical
 
 		void Camera::Rotate(const float yaw, const float pitch, const float roll)
 		{
-			LOG << LOGTYPE::LOG_INFO << std::to_string(yaw);
 			if (pitch > 0.10f) { m_pitch += .10f; }
 			else if (pitch < -0.10f) { m_pitch -= .10f; }
 			else { m_pitch += pitch; }
@@ -55,21 +54,21 @@ namespace tactical
 			m_eventHandler = windowHandler.GetEventHandler();
 		}
 
-	  void Camera::UpdateBasis()
-	  {
-      glm::mat4 rotationMatrix = glm::yawPitchRoll(m_yaw, m_pitch, 0.0f);
-      // calculate forward, up, right and target vectors
-      m_forward = glm::normalize(glm::vec3(rotationMatrix * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)));
-      m_target = m_position + m_forward;
+		void Camera::UpdateBasis()
+		{
+		glm::mat4 rotationMatrix = glm::yawPitchRoll(m_yaw, m_pitch, 0.0f);
+		// calculate forward, up, right and target vectors
+		m_forward = glm::normalize(glm::vec3(rotationMatrix * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f)));
+		m_target = m_position + m_forward;
 
-      m_up = glm::normalize(glm::vec3(rotationMatrix * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f)));
-      m_right = glm::normalize(glm::cross(m_forward, m_up));
+		m_up = glm::normalize(glm::vec3(rotationMatrix * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f)));
+		m_right = glm::normalize(glm::cross(m_forward, m_up));
 
-      // use position, target and up vectors to calculate view matrix
-      m_view = glm::lookAt(m_position, m_target, m_up);
-	  }
+		// use position, target and up vectors to calculate view matrix
+		m_view = glm::lookAt(m_position, m_target, m_up);
+		}
 
-	  math::Ray& Camera::CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport)
+		math::Ray& Camera::CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport)
 		{
 			float x = (2.0f * mouse.x) / viewport.x - 1.0f;
 			float y = 1.0f - (2.0f * mouse.y) / viewport.y;

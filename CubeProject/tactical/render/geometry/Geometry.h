@@ -134,7 +134,7 @@ namespace tactical
 				switch (type) {
 
 				case 2:
-					color = glm::vec4(0.2f, 0.6f, 0.2f, 1.0f);
+					color = glm::vec4(0.2f, 0.6f, 0.2f, 0.5f);
 					break;
 				case 3:
 					color = glm::vec4(0.901f, 1.0f, 1.0f, 1.0f);

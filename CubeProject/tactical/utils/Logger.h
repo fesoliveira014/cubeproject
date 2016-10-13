@@ -5,6 +5,9 @@
 
 #define LOG (*tactical::utils::Logger::GetInstance())
 #define LOGTYPE tactical::utils::Logger::logType
+#define LOG_INFO(str) LOG << LOGTYPE::LOG_INFO << str
+#define LOG_WARNING(str) LOG << LOGTYPE::LOG_WARNING << str
+#define LOG_ERROR(str) LOG << LOGTYPE::LOG_ERROR << str
 
 namespace tactical 
 {
