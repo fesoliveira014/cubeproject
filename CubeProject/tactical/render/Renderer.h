@@ -10,6 +10,7 @@
 #include "buffer\IndexBuffer.h"
 #include "buffer\VertexArray.h"
 #include "buffer\VertexAttribute.h"
+#include "buffer\Framebuffer.h"
 
 #include "IRenderable2D.h"
 #include "IRenderable3D.h"
@@ -78,12 +79,18 @@ namespace tactical
 
 			Shader* GetShader(std::string shaderID) { return m_shaders[shaderID]; }
 
+			void LinkTo(window::Window& windowHandler);
+
 		private:
 			Renderer();
+			
+			void SetupFramebuffers();
 
 		private:
 			Camera* m_pCamera;
+			std::shared_ptr<window::EventHandler> m_eventHandler;
 			std::unordered_map<std::string, Shader*> m_shaders;
+			std::unordered_map<std::string, Framebuffer*> m_framebuffers;
 
 			PolygonMode m_polygonMode;
 			bool m_showNormals;

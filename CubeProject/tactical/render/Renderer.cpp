@@ -30,6 +30,8 @@ namespace tactical
 			m_shaders["picking"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["picking"]->SetUniformMat4fv("model", glm::mat4(1.0f));
 
+			m_framebuffers["depthMap"] = new Framebuffer();
+
 			glEnable(GL_CULL_FACE);
 			glCullFace(GL_BACK);
 			glFrontFace(GL_CCW);
@@ -49,6 +51,21 @@ namespace tactical
 			}
 
 			m_pCamera = nullptr;
+		}
+		
+		void Renderer::SetupFramebuffers()
+		{
+			int height = m_eventHandler->GetWindowSizeState()->height;
+			int width = m_eventHandler->GetWindowSizeState()->width;
+
+			FramebufferTexture depthMap(GL_TEXTURE_2D, width, height, GL_DEPTH_COMPONENT, GL_FLOAT);
+			depthMap.SetParameteri(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			depthMap.SetParameteri(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			depthMap.SetParameteri(GL_TEXTURE_WRAP_S, GL_REPEAT);
+			depthMap.SetParameteri(GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+			m_framebuffers["depthMap"]->AttachColourbuffer(depthMap, GL_DEPTH_ATTACHMENT);
+			m_framebuffers["depthMap"]->CheckStatus();
 		}
 
 		void Renderer::Render(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID)
@@ -77,6 +94,11 @@ namespace tactical
 		void Renderer::Update()
 		{
 			m_frustum.Update(m_pCamera->GetProjectionMatrix(), m_pCamera->GetViewMatrix());
+		}
+
+		void Renderer::LinkTo(window::Window& windowHandler)
+		{
+			m_eventHandler = windowHandler.GetEventHandler();
 		}
 	}
 }

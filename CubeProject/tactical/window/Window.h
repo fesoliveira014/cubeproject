@@ -19,7 +19,7 @@ namespace tactical
 			void Clear();
 			void Update();
 
-			EventHandler* GetEventHandler() { return &m_eventHandler; }
+			std::shared_ptr<EventHandler> GetEventHandler() { return std::make_shared<EventHandler>(m_eventHandler); }
 
 			bool IsOpen() { return m_open; }
 

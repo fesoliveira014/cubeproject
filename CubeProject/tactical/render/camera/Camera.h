@@ -60,8 +60,7 @@ namespace tactical
 			void LinkTo(window::Window& windowHandler);
 
 		protected:
-			void UpdateViewport();
-      void UpdateBasis();
+			void UpdateBasis();
 
 			inline void Walk(const float distance) { m_translation += m_forward * distance; }
 			inline void Strafe(const float distance) { m_translation += m_right * distance; }
@@ -81,7 +80,7 @@ namespace tactical
 			CameraState m_cameraState;
 			MoveState m_moveState;
 
-			window::EventHandler* m_eventHandler;
+			std::shared_ptr<window::EventHandler> m_eventHandler;
 		};
 	}
 }
