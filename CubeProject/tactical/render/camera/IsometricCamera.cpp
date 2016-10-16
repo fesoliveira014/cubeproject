@@ -63,11 +63,17 @@ namespace tactical
             if (m_eventHandler->GetMouseEvent()->mouse_wheel_scrolled) {
                 auto delta = static_cast<GLfloat>(m_eventHandler->GetMouseState()->mouse_scroll_delta);
 
-                m_zoom += delta;
-                if (m_zoom <= 0.0f)
-                    m_zoom = 0.1f;
-                if (m_zoom > 4.0f)
-                    m_zoom = 4.0f;
+                if (delta > 0)
+                    m_zoom += 0.25f;
+                if (delta < 0)
+                    m_zoom -= 0.25f;
+
+                if (m_zoom <= 0.125f)
+                    m_zoom = 0.125f;
+                if (m_zoom >= 8.0f)
+                    m_zoom = 8.0f;
+
+                std::cout << "Camera Zoom: " << (GLfloat)-IsometricCamera::width / 2 * m_zoom << std::endl;
             }
         }
 
