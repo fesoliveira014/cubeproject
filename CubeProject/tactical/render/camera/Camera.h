@@ -9,80 +9,79 @@
 
 namespace tactical
 {
-	namespace render
-	{
-		class Camera
-		{
-		public:
-			enum class CameraState
-			{
-				STILL = 0,
-				ROTATE,
-				PAN
-			};
+    namespace render
+    {
+        class Camera
+        {
+        public:
+            enum class CameraState
+            {
+                STILL = 0,
+                ROTATE,
+                PAN,
+            };
 
-			struct MoveState
-			{
-				bool forward;
-				bool back;
-				bool left;
-				bool right;
-				bool up;
-				bool down;
-			};
+            struct MoveState
+            {
+                bool forward;
+                bool back;
+                bool left;
+                bool right;
+                bool up;
+                bool down;
+            };
 
-			Camera(glm::mat4 projection, glm::vec3 position, glm::vec3 target);
-			virtual ~Camera();
+            Camera(glm::mat4 projection, glm::vec3 position, glm::vec3 target);
+            virtual ~Camera();
 
-			virtual void Update(float deltaTime) = 0;
+            virtual void Update(float deltaTime) = 0;
 
-			void Rotate(const float yaw, const float pitch, const float roll = 0.0f);
+            void Rotate(const float yaw, const float pitch, const float roll = 0.0f);
 
-			inline void Translate(const glm::vec3& translation) { m_translation += translation; }
-			inline void Translate(float x, float y, float z) { m_translation += glm::vec3(x, y, z); }
+            inline void Translate(const glm::vec3& translation) { m_translation += translation; }
+            inline void Translate(float x, float y, float z) { m_translation += glm::vec3(x, y, z); }
 
-			math::Ray& CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport);
+            math::Ray& CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport);
 
-			inline const glm::mat4 GetProjectionMatrix() const { return m_projection; }
-			inline const glm::mat4 GetViewMatrix() const { return m_view; }
-			
-			inline void SetProjectionMatrix(const glm::mat4& projection) { m_projection = projection; }
+            inline const glm::mat4 GetProjectionMatrix() const { return m_projection; }
+            inline const glm::mat4 GetViewMatrix() const { return m_view; }
 
-			inline void SetPosition(const glm::vec3& position) { m_position = position; }
-			inline void SetPosition(float x, float y, float z) { m_position = glm::vec3(x, y, z); }
-			inline const glm::vec3 GetPosition() const { return m_position; }
+            inline void SetProjectionMatrix(const glm::mat4& projection) { m_projection = projection; }
 
-			inline const glm::vec3 GetUpDirection() const { return m_up; }
-			inline const glm::vec3 GetRightDirection() const { return m_right; }
-			inline const glm::vec3 GetForwardDirection() const { return m_forward; }
-			inline const glm::vec3 GetTarget() const { return m_target; }
+            inline void SetPosition(const glm::vec3& position) { m_position = position; }
+            inline void SetPosition(float x, float y, float z) { m_position = glm::vec3(x, y, z); }
+            inline const glm::vec3 GetPosition() const { return m_position; }
 
-			void LinkTo(window::Window& windowHandler);
+            inline const glm::vec3 GetUpDirection() const { return m_up; }
+            inline const glm::vec3 GetRightDirection() const { return m_right; }
+            inline const glm::vec3 GetForwardDirection() const { return m_forward; }
+            inline const glm::vec3 GetTarget() const { return m_target; }
 
-		protected:
-			void UpdateBasis();
+            void LinkTo(window::Window& windowHandler);
 
-			inline void Walk(const float distance) { m_translation += m_forward * distance; }
-			inline void Strafe(const float distance) { m_translation += m_right * distance; }
-			inline void Lift(const float distance) { m_translation += m_up * distance; }
-      
+        protected:
+            void UpdateBasis();
 
-			glm::vec3 m_position;
-			glm::vec3 m_target;
-			glm::vec3 m_up, m_right, m_forward;
-			glm::vec3 m_translation;
+            inline void Walk(const float distance) { m_translation += m_forward * distance; }
+            inline void Strafe(const float distance) { m_translation += m_right * distance; }
+            inline void Lift(const float distance) { m_translation += m_up * distance; }
 
-			glm::mat4 m_projection;
-			glm::mat4 m_view;
+            glm::vec3 m_position;
+            glm::vec3 m_target;
+            glm::vec3 m_up, m_right, m_forward;
+            glm::vec3 m_translation;
 
-			float m_yaw, m_pitch;
+            glm::mat4 m_projection;
+            glm::mat4 m_view;
 
-			CameraState m_cameraState;
-			MoveState m_moveState;
+            float m_yaw, m_pitch;
 
-			std::shared_ptr<window::EventHandler> m_eventHandler;
-		};
-	}
+            CameraState m_cameraState;
+            MoveState m_moveState;
+
+            std::shared_ptr<window::EventHandler> m_eventHandler;
+        };
+    }
 }
 
 #endif

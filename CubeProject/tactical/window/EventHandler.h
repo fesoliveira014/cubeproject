@@ -41,11 +41,13 @@ namespace tactical
 			bool mouse_button_middle;
 			double mouse_x;
 			double mouse_y;
+            double mouse_scroll_delta;
 		};
 
 		struct MouseEvent {
 			bool mouse_button_pressed;
 			bool mouse_button_released;
+            bool mouse_wheel_scrolled;
 		};
 
 		struct WindowSizeState {
