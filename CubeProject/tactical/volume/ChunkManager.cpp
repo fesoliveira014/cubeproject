@@ -120,7 +120,7 @@ namespace tactical
 		heightMapBuilder.SetSourceModule(m_final);
 		heightMapBuilder.SetDestNoiseMap(m_heightMap);
 		heightMapBuilder.SetDestSize(m_worldDimensions.x * m_chunkSize, m_worldDimensions.z * m_chunkSize);
-		heightMapBuilder.SetBounds(7.0, 8.0, 2.0, 3.0);
+		heightMapBuilder.SetBounds(15.0, 16.0, 4.0, 5.0);
 		heightMapBuilder.Build();
 
 		/*m_fastnoise.SetSeed(1337);
@@ -150,7 +150,7 @@ namespace tactical
 		if (!m_chunks.empty() && m_meshNeedsUpdate) {
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
 				if ((*iter).second->NeedsUpdate())
-					mesher::GenerateChunkMesh(*(*iter).second, mesher::NAIVE_WITH_CULLING);
+					mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
 			}
 			m_meshNeedsUpdate = false;
 		}

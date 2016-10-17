@@ -12,9 +12,15 @@ int main(int argc, char* argv[])
     tactical::window::Window window(1600, 900, "Game window");
 
     glm::mat4 persp = glm::perspective(45.0f, window.GetEventHandler()->GetWindowSizeState()->aspectRatio, 0.1f, 1000.0f);
+	glm::mat4 ortho = glm::ortho(
+		-window.GetEventHandler()->GetWindowSizeState()->aspectRatio * tactical::render::ISOMETRIC_WIDTH / 2,
+		window.GetEventHandler()->GetWindowSizeState()->aspectRatio * tactical::render::ISOMETRIC_WIDTH / 2,
+		-tactical::render::ISOMETRIC_HEIGHT / 2,
+		tactical::render::ISOMETRIC_HEIGHT / 2,
+		-1000.0f, 1000.0f);
 
     // Isometric camera
-    tactical::render::IsometricCamera camera{};
+    tactical::render::IsometricCamera camera(ortho);
     // FPS camera
     //tactical::render::FPSCamera camera(persp, glm::vec3(0.0f, 64.0f, 0.0f), glm::vec3(0.0f, -64.0f, 0.0f));
 

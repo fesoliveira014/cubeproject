@@ -20,7 +20,7 @@ namespace tactical
             // needs to yaw -90 degrees because of the quadradnt the scene is being drawed,
             // plus -arctan(1/sqr(2)) =~ -35.264 degrees
             m_yaw = glm::radians(-125.264f);
-            m_speed = 6.0f;
+            m_speed = 20.0f;
             m_rotationSpeed = 0.003f;
             m_zoom = 1.0f;
         }
@@ -49,6 +49,11 @@ namespace tactical
             if (m_moveState.down) Lift(-speed);
             if (m_moveState.left) Strafe(-speed);
             if (m_moveState.right) Strafe(speed);
+
+			if (m_cameraState == CameraState::PAN) {
+				Lift(speed * 2 * m_delta.y);
+				Strafe(speed * 2 * m_delta.x);
+			}
         }
 
         void IsometricCamera::MouseRotate(const glm::vec2& delta)
@@ -79,10 +84,11 @@ namespace tactical
 
         void IsometricCamera::UpdateProjection()
         {
-            m_projection = glm::ortho((GLfloat)-IsometricCamera::width / 2 * m_zoom,
-                (GLfloat)IsometricCamera::width / 2 * m_zoom,
-                (GLfloat)-IsometricCamera::height / 2 * m_zoom,
-                (GLfloat)IsometricCamera::height / 2 * m_zoom,
+            m_projection = glm::ortho(
+				-m_eventHandler->GetWindowSizeState()->aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
+                m_eventHandler->GetWindowSizeState()->aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
+                -(ISOMETRIC_HEIGHT / 2) * m_zoom,
+                (ISOMETRIC_HEIGHT / 2) * m_zoom,
                 -1000.0f, 1000.0f);
         }
 
@@ -104,11 +110,12 @@ namespace tactical
             else m_moveState.right = false;
 
             if (mouseState->mouse_button_right) m_cameraState = CameraState::ROTATE;
+			else if (mouseState->mouse_button_left) m_cameraState = CameraState::PAN;
 
             else m_cameraState = CameraState::STILL;
 
-            glm::vec2 mousePos = glm::vec2(mouseState->mouse_x, 0.0f);
-            m_delta = glm::vec2(m_initialMousePosition.x - mousePos.x, 0.0f);
+            glm::vec2 mousePos = glm::vec2(mouseState->mouse_x, mouseState->mouse_y);
+            m_delta = glm::vec2(m_initialMousePosition.x - mousePos.x, mousePos.y - m_initialMousePosition.y);
             m_initialMousePosition = mousePos;
         }
     }
