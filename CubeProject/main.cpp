@@ -98,11 +98,13 @@ int main(int argc, char* argv[])
         renderer.GetShader("basic_light")->Enable();
 
         renderer.GetShader("basic_light")->SetUniformMat4fv("view", camera.GetViewMatrix());
+        renderer.GetShader("basic_light")->SetUniformMat4fv("projection", camera.GetProjectionMatrix());
         renderer.GetShader("basic_light")->SetUniform3fv("camera_pos", camera.GetPosition());
         chunkManager.Draw("basic_light");
 
         renderer.GetShader("picking")->Enable();
         renderer.GetShader("picking")->SetUniformMat4fv("view", camera.GetViewMatrix());
+        renderer.GetShader("picking")->SetUniformMat4fv("projection", camera.GetProjectionMatrix());
         for (auto line : lines)
             line.Draw(*renderer.GetShader("picking"));
 
@@ -114,6 +116,7 @@ int main(int argc, char* argv[])
         if (renderer.NormalRendering()) {
             renderer.GetShader("normal")->Enable();
             renderer.GetShader("normal")->SetUniformMat4fv("view", camera.GetViewMatrix());
+            renderer.GetShader("normal")->SetUniformMat4fv("projection", camera.GetProjectionMatrix());
             chunkManager.Draw("normal");
         }
 
