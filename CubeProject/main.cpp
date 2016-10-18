@@ -31,16 +31,18 @@ int main(int argc, char* argv[])
 
     tactical::render::Renderer renderer(activeCamera);
 
-    tactical::ChunkManager chunkManager(&renderer, glm::vec3(20, 8, 20));
+    tactical::ChunkManager chunkManager(&renderer, glm::vec3(1, 1, 1));
     //chunkManager.FillChunks();
-    chunkManager.GenerateWorld();
-    //chunkManager.FillWithPyramids();
+    //chunkManager.GenerateWorld();
+    chunkManager.FillWithPyramids();
 
     LOG_INFO("Initializing systems...");
 
     std::vector<tactical::render::DrawableLine> lines;
 
-    tactical::render::DrawableBox pickingBox(tactical::math::AABB(glm::vec3(0.0f), glm::vec3(1.0f)));
+    tactical::entity::DrawableBox pickingBox(tactical::math::AABB(glm::vec3(0.0f), glm::vec3(1.0f)));
+	//pickingBox.Scale(glm::vec3(1.01f));
+
     tactical::render::DrawableLine mouseRay(glm::vec3(0), glm::vec3(1));
     tactical::render::DrawableLine redAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(-1.0f, -1.0f, 20.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
     tactical::render::DrawableLine greenAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(-1.0f, 20.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));

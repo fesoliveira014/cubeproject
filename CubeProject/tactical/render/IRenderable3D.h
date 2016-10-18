@@ -14,9 +14,10 @@ namespace tactical
 		{
 		public:
 			virtual void Draw(Shader& shader) = 0;
-			math::AABB GetBoundingBox() { return m_boudingBox; }
+			math::AABB GetBoundingBox() { return m_boundingBox; }
+
 		protected:
-			math::AABB m_boudingBox;
+			math::AABB m_boundingBox;
 		};
 	}
 }

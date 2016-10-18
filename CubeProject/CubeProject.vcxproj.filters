@@ -198,9 +198,6 @@
     <ClCompile Include="tactical\render\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tactical\render\geometry\DrawableBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="tactical\render\buffer\Framebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -214,6 +211,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tactical\render\camera\IsometricCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\entity\DrawableBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tactical\entity\interface\IEntity3D.impl">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -446,9 +449,6 @@
     <ClInclude Include="tactical\render\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tactical\render\geometry\DrawableBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="tactical\math\Picking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -471,6 +471,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tactical\render\camera\IsometricCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\entity\interface\IEntity3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\entity\DrawableBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

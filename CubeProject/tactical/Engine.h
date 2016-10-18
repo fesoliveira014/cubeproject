@@ -17,8 +17,10 @@
 #include "tactical/render/camera/FPSCamera.h"
 #include "tactical/render/camera/IsometricCamera.h"
 #include "tactical/render/Renderer.h"
-#include "tactical/render/geometry/DrawableBox.h"
 #include "tactical/render/geometry/DrawableLine.h"
+
+#include "tactical/entity/interface/IEntity3D.h"
+#include "tactical/entity/DrawableBox.h"
 
 #include "tactical/volume/Voxel.h"
 #include "tactical/volume/Chunk.h"

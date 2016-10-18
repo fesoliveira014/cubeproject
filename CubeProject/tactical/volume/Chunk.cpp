@@ -14,7 +14,7 @@ namespace tactical
 			m_isActive = true;
 			m_isVisible = true;
 
-			m_boudingBox = math::AABB(m_position, 
+			m_boundingBox = math::AABB(m_position, 
 				glm::vec3(m_position.x + m_size, m_position.y + m_size, m_position.z + m_size));
 
 			for (int i = 0; i < 6; i++)
