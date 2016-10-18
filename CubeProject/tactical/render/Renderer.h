@@ -81,6 +81,8 @@ namespace tactical
 
 			void LinkTo(window::Window& windowHandler);
 
+			void SetCamera(Camera* camera) { m_pCamera = camera; }
+
 		private:
 			Renderer();
 			

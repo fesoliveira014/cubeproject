@@ -32,6 +32,11 @@ namespace tactical
             m_eventHandler = nullptr;
         }
 
+		void Camera::Update(float deltaTime)
+		{
+
+		}
+
         void Camera::Rotate(const float yaw, const float pitch, const float roll)
         {
             if (pitch > 0.10f) { m_pitch += .10f; }

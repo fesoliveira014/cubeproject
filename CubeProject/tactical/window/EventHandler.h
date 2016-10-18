@@ -23,6 +23,12 @@ namespace tactical
 			bool key_1;
 			bool key_2;
 			bool key_3;
+			bool key_4;
+			bool key_5;
+			bool key_6;
+			bool key_7;
+			bool key_8;
+			bool key_9;
 
 			bool key_esc;
 			bool key_enter;

@@ -19,7 +19,7 @@ namespace tactical
 			m_shaders["basic_light"]->SetUniformMat4fv("model", glm::mat4(1.0f));
 			m_shaders["basic_light"]->SetUniform3fv("light_pos", glm::vec3(-6.0f, 70.0f, 21.0f));
 			m_shaders["basic_light"]->SetUniform3fv("light_color", glm::vec3(1.0f, 1.0f, 1.0f));
-			m_shaders["basic_light"]->SetUniform3fv("camera_pos", camera->GetPosition());
+			m_shaders["basic_light"]->SetUniform3fv("camera_pos", m_pCamera->GetPosition());
 			m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
 
 			m_shaders["normal"]->Enable();

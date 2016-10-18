@@ -121,6 +121,12 @@ namespace tactical
             m_eventHandler->m_keyboardState.key_1 = sf::Keyboard::isKeyPressed(sf::Keyboard::Num1);
             m_eventHandler->m_keyboardState.key_2 = sf::Keyboard::isKeyPressed(sf::Keyboard::Num2);
             m_eventHandler->m_keyboardState.key_3 = sf::Keyboard::isKeyPressed(sf::Keyboard::Num3);
+			m_eventHandler->m_keyboardState.key_4 = sf::Keyboard::isKeyPressed(sf::Keyboard::Num4);
+			m_eventHandler->m_keyboardState.key_5 = sf::Keyboard::isKeyPressed(sf::Keyboard::Num5);
+			m_eventHandler->m_keyboardState.key_6 = sf::Keyboard::isKeyPressed(sf::Keyboard::Num6);
+			m_eventHandler->m_keyboardState.key_7 = sf::Keyboard::isKeyPressed(sf::Keyboard::Num7);
+			m_eventHandler->m_keyboardState.key_8 = sf::Keyboard::isKeyPressed(sf::Keyboard::Num8);
+			m_eventHandler->m_keyboardState.key_9 = sf::Keyboard::isKeyPressed(sf::Keyboard::Num9);
 
             m_eventHandler->m_keyboardState.key_a = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
             m_eventHandler->m_keyboardState.key_s = sf::Keyboard::isKeyPressed(sf::Keyboard::S);

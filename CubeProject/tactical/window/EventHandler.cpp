@@ -6,7 +6,29 @@ namespace tactical
 	{
 		EventHandler::EventHandler()
 		{
-			//m_timer.restart();
+			m_keyboardState.key_1 = false;
+			m_keyboardState.key_2 = false;
+			m_keyboardState.key_3 = false;
+			m_keyboardState.key_4 = false;
+			m_keyboardState.key_5 = false;
+			m_keyboardState.key_6 = false;
+			m_keyboardState.key_7 = false;
+			m_keyboardState.key_8 = false;
+			m_keyboardState.key_9 = false;
+
+			m_keyboardState.key_a = false;
+			m_keyboardState.key_s = false;
+			m_keyboardState.key_d = false;
+			m_keyboardState.key_w = false;
+			m_keyboardState.key_q = false;
+			m_keyboardState.key_e = false;
+			m_keyboardState.key_f = false;
+			m_keyboardState.key_c = false;
+
+			m_keyboardState.key_enter = false;
+			m_keyboardState.key_esc   = false;
+			m_keyboardState.key_shift = false;
+			m_keyboardState.key_space = false;
 		}
 
 		EventHandler::~EventHandler()

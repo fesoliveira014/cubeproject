@@ -20,13 +20,16 @@ int main(int argc, char* argv[])
 		-1000.0f, 1000.0f);
 
     // Isometric camera
-    tactical::render::IsometricCamera camera(ortho);
+    tactical::render::IsometricCamera isoCamera(ortho);
     // FPS camera
-    //tactical::render::FPSCamera camera(persp, glm::vec3(0.0f, 64.0f, 0.0f), glm::vec3(0.0f, -64.0f, 0.0f));
+    tactical::render::FPSCamera fpsCamera(persp, glm::vec3(0.0f, 64.0f, 0.0f), glm::vec3(0.0f, -64.0f, 0.0f));
 
-    camera.LinkTo(window);
+	isoCamera.LinkTo(window);
+	fpsCamera.LinkTo(window);
+	
+	tactical::render::Camera* activeCamera = &fpsCamera;
 
-    tactical::render::Renderer renderer(&camera);
+    tactical::render::Renderer renderer(activeCamera);
 
     tactical::ChunkManager chunkManager(&renderer, glm::vec3(20, 8, 20));
     //chunkManager.FillChunks();
@@ -55,6 +58,8 @@ int main(int argc, char* argv[])
     sf::Clock deltaClock; // Clock to get time between current frame and last frame
     deltaClock.restart();
 
+	bool cameraChanged = false;
+
     while (window.IsOpen() == true) {
         if (window.GetEventHandler()->GetKeyEvent()->key_pressed) {
             if (window.GetEventHandler()->GetKeyboardState()->key_1)
@@ -63,6 +68,12 @@ int main(int argc, char* argv[])
             if (window.GetEventHandler()->GetKeyboardState()->key_2)
                 renderer.ToggleNormalRendering();
 
+			if (window.GetEventHandler()->GetKeyboardState()->key_3)
+				activeCamera = &fpsCamera, cameraChanged = true;
+
+			if (window.GetEventHandler()->GetKeyboardState()->key_4)
+				activeCamera = &isoCamera, cameraChanged = true;
+
             if (window.GetEventHandler()->GetKeyboardState()->key_f)
                 renderer.ToggleFog();
         }
@@ -70,18 +81,22 @@ int main(int argc, char* argv[])
         window.Clear();
 
         float deltaTime = deltaClock.restart().asSeconds(); // Get time elapsed since last camera update
-        camera.Update(deltaTime); // Pass dt as argument to adjust velocity so that the speed isn't FPS-based
 
-        chunkManager.UpdateChunks(camera.GetPosition());
+		// Pass dt as argument to adjust velocity so that the speed isn't FPS-based
+		fpsCamera.Update(deltaTime);
+		isoCamera.Update(deltaTime);
+
+        chunkManager.UpdateChunks(activeCamera->GetPosition());
+		if (cameraChanged) renderer.SetCamera(activeCamera), cameraChanged = false;
         renderer.Update();
 
-        tactical::math::Ray pickingRay = camera.CastPickingRay(camera.GetPosition(),
+        tactical::math::Ray pickingRay = activeCamera->CastPickingRay(activeCamera->GetPosition(),
             glm::vec2(window.GetEventHandler()->GetMouseState()->mouse_x,
                 window.GetEventHandler()->GetMouseState()->mouse_y),
             glm::vec2(window.GetEventHandler()->GetWindowSizeState()->width,
                 window.GetEventHandler()->GetWindowSizeState()->height));
 
-        tactical::math::RayCastResult pickingResult = chunkManager.GetRayVoxelIntersection(pickingRay, camera.GetPosition(), 50.0f);
+        tactical::math::RayCastResult pickingResult = chunkManager.GetRayVoxelIntersection(pickingRay, activeCamera->GetPosition(), 50.0f);
 
         if (window.GetEventHandler()->GetMouseEvent()->mouse_button_pressed) {
             if (window.GetEventHandler()->GetMouseState()->mouse_button_left) {
@@ -103,14 +118,14 @@ int main(int argc, char* argv[])
 
         renderer.GetShader("basic_light")->Enable();
 
-        renderer.GetShader("basic_light")->SetUniformMat4fv("view", camera.GetViewMatrix());
-        renderer.GetShader("basic_light")->SetUniformMat4fv("projection", camera.GetProjectionMatrix());
-        renderer.GetShader("basic_light")->SetUniform3fv("camera_pos", camera.GetPosition());
+        renderer.GetShader("basic_light")->SetUniformMat4fv("view", activeCamera->GetViewMatrix());
+        renderer.GetShader("basic_light")->SetUniformMat4fv("projection", activeCamera->GetProjectionMatrix());
+        renderer.GetShader("basic_light")->SetUniform3fv("camera_pos", activeCamera->GetPosition());
         chunkManager.Draw("basic_light");
 
         renderer.GetShader("picking")->Enable();
-        renderer.GetShader("picking")->SetUniformMat4fv("view", camera.GetViewMatrix());
-        renderer.GetShader("picking")->SetUniformMat4fv("projection", camera.GetProjectionMatrix());
+        renderer.GetShader("picking")->SetUniformMat4fv("view", activeCamera->GetViewMatrix());
+        renderer.GetShader("picking")->SetUniformMat4fv("projection", activeCamera->GetProjectionMatrix());
         for (auto line : lines)
             line.Draw(*renderer.GetShader("picking"));
 
@@ -121,8 +136,8 @@ int main(int argc, char* argv[])
 
         if (renderer.NormalRendering()) {
             renderer.GetShader("normal")->Enable();
-            renderer.GetShader("normal")->SetUniformMat4fv("view", camera.GetViewMatrix());
-            renderer.GetShader("normal")->SetUniformMat4fv("projection", camera.GetProjectionMatrix());
+            renderer.GetShader("normal")->SetUniformMat4fv("view", activeCamera->GetViewMatrix());
+            renderer.GetShader("normal")->SetUniformMat4fv("projection", activeCamera->GetProjectionMatrix());
             chunkManager.Draw("normal");
         }
 
