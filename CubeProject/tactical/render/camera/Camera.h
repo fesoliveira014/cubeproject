@@ -50,7 +50,7 @@ namespace tactical
 
             inline void SetPosition(const glm::vec3& position) { m_position = position; }
             inline void SetPosition(float x, float y, float z) { m_position = glm::vec3(x, y, z); }
-            inline const glm::vec3 GetPosition() const { return m_position; }
+            virtual inline glm::vec3 GetPosition() { return m_position; }
 
             inline const glm::vec3 GetUpDirection() const { return m_up; }
             inline const glm::vec3 GetRightDirection() const { return m_right; }

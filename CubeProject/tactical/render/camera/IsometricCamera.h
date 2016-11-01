@@ -21,10 +21,11 @@ namespace tactical
 
         private:
             void Initialize();
+            glm::vec3 GetPosition() override;
             void Move(float speed);
             void MouseRotate(const glm::vec2& delta);
             void UpdateZoom();
-            void IsometricCamera::UpdateProjection();
+            void UpdateProjection();
             void UpdateStates();
 
             glm::vec2 m_initialMousePosition, m_delta;

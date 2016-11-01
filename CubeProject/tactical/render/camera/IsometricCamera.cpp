@@ -25,6 +25,20 @@ namespace tactical
             m_zoom = 1.0f;
         }
 
+        glm::vec3 IsometricCamera::GetPosition()
+        {
+            return m_position;
+
+            // TODO: return center point of ortho cam in a distance of -1000.0f from the m_position, along the target vector of the cam
+
+            glm::vec3 initialPos(-1000.0f, 0.0f, 0.0f);
+            glm::vec3 pos = initialPos + m_position;            
+            glm::mat4 rotationMatrix = glm::yawPitchRoll(m_yaw, m_pitch, 0.0f);
+            pos = glm::vec3(rotationMatrix * glm::vec4(pos, 0));            
+
+            return pos;            
+        }
+
         void IsometricCamera::Update(float deltaTime)
         {
             UpdateStates();
