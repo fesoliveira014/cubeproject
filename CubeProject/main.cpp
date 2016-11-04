@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 		window.GetEventHandler()->GetWindowSizeState()->aspectRatio * tactical::render::ISOMETRIC_WIDTH / 2,
 		-tactical::render::ISOMETRIC_HEIGHT / 2,
 		tactical::render::ISOMETRIC_HEIGHT / 2,
-		-tactical::render::ISOMETRIC_PLANE_DISTANCE, tactical::render::ISOMETRIC_PLANE_DISTANCE);
+		-tactical::render::ISOMETRIC_DISTANCE / 2, tactical::render::ISOMETRIC_DISTANCE / 2);
 
     // Isometric camera
     tactical::render::IsometricCamera isoCamera(ortho);

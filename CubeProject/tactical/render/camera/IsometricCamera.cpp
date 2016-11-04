@@ -27,7 +27,7 @@ namespace tactical
 
         glm::vec3 IsometricCamera::GetPosition()
         {
-            return -0.99f * ISOMETRIC_PLANE_DISTANCE * m_forward + m_position;
+            return -0.99f * ISOMETRIC_DISTANCE / 2 * m_forward + m_position;
         }
 
         void IsometricCamera::Update(float deltaTime)
@@ -95,7 +95,7 @@ namespace tactical
                 aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
                 -(ISOMETRIC_HEIGHT / 2) * m_zoom,
                 (ISOMETRIC_HEIGHT / 2) * m_zoom,
-                -1000.0f, 1000.0f);
+                -ISOMETRIC_DISTANCE / 2, ISOMETRIC_DISTANCE / 2);
         }
 
         void IsometricCamera::UpdateStates()
