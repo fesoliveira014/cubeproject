@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 		window.GetEventHandler()->GetWindowSizeState()->aspectRatio * tactical::render::ISOMETRIC_WIDTH / 2,
 		-tactical::render::ISOMETRIC_HEIGHT / 2,
 		tactical::render::ISOMETRIC_HEIGHT / 2,
-		-1000.0f, 1000.0f);
+		-tactical::render::ISOMETRIC_PLANE_DISTANCE, tactical::render::ISOMETRIC_PLANE_DISTANCE);
 
     // Isometric camera
     tactical::render::IsometricCamera isoCamera(ortho);
@@ -48,9 +48,9 @@ int main(int argc, char* argv[])
     tactical::render::DrawableLine greenAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(-1.0f, 20.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
     tactical::render::DrawableLine blueAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(20.0f, -1.0f, -1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
-    lines.push_back(redAxis);
-    lines.push_back(greenAxis);
-    lines.push_back(blueAxis);
+    lines.push_back(redAxis); // z axis
+    lines.push_back(greenAxis); // y axis
+    lines.push_back(blueAxis); // x axis
 
     sf::Clock clock;
     clock.restart();

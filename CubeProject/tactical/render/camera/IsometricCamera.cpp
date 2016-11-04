@@ -27,16 +27,7 @@ namespace tactical
 
         glm::vec3 IsometricCamera::GetPosition()
         {
-            return m_position;
-
-            // TODO: return center point of ortho cam in a distance of -1000.0f from the m_position, along the target vector of the cam
-
-            glm::vec3 initialPos(-1000.0f, 0.0f, 0.0f);
-            glm::vec3 pos = initialPos + m_position;            
-            glm::mat4 rotationMatrix = glm::yawPitchRoll(m_yaw, m_pitch, 0.0f);
-            pos = glm::vec3(rotationMatrix * glm::vec4(pos, 0));            
-
-            return pos;            
+            return -0.99f * ISOMETRIC_PLANE_DISTANCE * m_forward + m_position;
         }
 
         void IsometricCamera::Update(float deltaTime)
@@ -64,10 +55,10 @@ namespace tactical
             if (m_moveState.left) Strafe(-speed);
             if (m_moveState.right) Strafe(speed);
 
-			if (m_cameraState == CameraState::PAN) {
-				Lift(speed * 2 * m_delta.y);
-				Strafe(speed * 2 * m_delta.x);
-			}
+            if (m_cameraState == CameraState::PAN) {
+                Lift(speed * 2 * m_delta.y);
+                Strafe(speed * 2 * m_delta.x);
+            }
         }
 
         void IsometricCamera::MouseRotate(const glm::vec2& delta)
@@ -98,9 +89,10 @@ namespace tactical
 
         void IsometricCamera::UpdateProjection()
         {
+            float aspectRatio = m_eventHandler->GetWindowSizeState()->aspectRatio;
             m_projection = glm::ortho(
-				-m_eventHandler->GetWindowSizeState()->aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
-                m_eventHandler->GetWindowSizeState()->aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
+                -aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
+                aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
                 -(ISOMETRIC_HEIGHT / 2) * m_zoom,
                 (ISOMETRIC_HEIGHT / 2) * m_zoom,
                 -1000.0f, 1000.0f);
@@ -124,7 +116,7 @@ namespace tactical
             else m_moveState.right = false;
 
             if (mouseState->mouse_button_right) m_cameraState = CameraState::ROTATE;
-			else if (mouseState->mouse_button_left) m_cameraState = CameraState::PAN;
+            else if (mouseState->mouse_button_left) m_cameraState = CameraState::PAN;
 
             else m_cameraState = CameraState::STILL;
 

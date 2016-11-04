@@ -8,6 +8,7 @@ namespace tactical
     {
 		constexpr static float ISOMETRIC_WIDTH = 64.0f;
 		constexpr static float ISOMETRIC_HEIGHT = 64.0f;
+        constexpr static float ISOMETRIC_PLANE_DISTANCE = 1000.0f;
 
         class IsometricCamera : public Camera
         {

@@ -75,14 +75,17 @@ namespace tactical
 
         math::Ray& Camera::CastPickingRay(const glm::vec3& origin, const glm::vec2& mouse, const glm::vec2& viewport)
         {
+            // Screen space to Clip space
             float x = (2.0f * mouse.x) / viewport.x - 1.0f;
             float y = 1.0f - (2.0f * mouse.y) / viewport.y;
 
             glm::vec4 clip = glm::vec4(x, y, -1.0f, 1.0f);
 
+            // Clip space to  View space
             glm::vec4 eye = glm::inverse(m_projection) * clip;
             eye = glm::vec4(eye.x, eye.y, -1.0f, 0.0f);
 
+            // View space to World space
             glm::vec3 world = glm::vec3(glm::inverse(m_view) * eye);
             world = glm::normalize(world);
 
