@@ -29,7 +29,7 @@ struct SpotLight {
 	vec3 position;
 	vec3 direction;
 	vec4 color;
-  
+
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -165,38 +165,40 @@ vec3 computeSpotLight(SpotLight light)
 
 void main()
 {
-	// // ambient light
-	// float ambient_strength = 0.8;
-	// vec3 ambient = ambient_strength * light_color;
+	// ambient light
+	float ambient_strength = 0.8;
+	vec3 ambient = ambient_strength * light_color;
 
-	// // deffuse light
-	// vec3 normal = normalize(fs_in.normal);
-	// vec3 light_dir = normalize(light_pos - fs_in.position);
-	// float diff = max(dot(normal, light_dir), 0.0);
-	// vec3 diffuse = 0.5 * diff * light_color;
+	// deffuse light
+	vec3 normal = normalize(fs_in.normal);
+	vec3 light_dir = normalize(light_pos - fs_in.position);
+	float diff = max(dot(normal, light_dir), 0.0);
+	vec3 diffuse = 0.5 * diff * light_color;
 
-	// // specular light
-	// float specular_strength = 0.2;
-	// vec3 camera_dir = normalize(camera_pos - fs_in.position);
-	// vec3 reflect_dir = reflect(-light_dir, normal);  
-	// float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), 32);
-	// vec3 specular =	specular_strength * spec * light_color;
+	// specular light
+	float specular_strength = 0.2;
+	vec3 camera_dir = normalize(camera_pos - fs_in.position);
+	vec3 reflect_dir = reflect(-light_dir, normal);  
+	float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), 32);
+	vec3 specular =	specular_strength * spec * light_color;
 	// // todo
 
 	vec3 light;
 
-	switch (light_type) {
-		default:
-		case 0:
-			light = computeDirectionalLight(dirLight);
-			break;
-		case 1:
-			light = computePointLight(pointLight);
-			break;
-		case 2:
-			light = computeSpotLight(spotLight);
-			break;
-	}
+	// switch (light_type) {
+	// 	default:
+	// 	case 0:
+	// 		light = computeDirectionalLight(dirLight);
+	// 		break;
+	// 	case 1:
+	// 		light = computePointLight(pointLight);
+	// 		break;
+	// 	case 2:
+	// 		light = computeSpotLight(spotLight);
+	// 		break;
+	// }
+
+	light = ambient + diffuse + specular;
 
 	vec3 lightResult = light * vec3(fs_in.color);
 
