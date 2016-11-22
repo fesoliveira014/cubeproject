@@ -20,17 +20,25 @@ namespace tactical {
 			void RotateY(float angle);
 			void RotateZ(float angle);
 
-			void Translate(const glm::vec3 &pos);
 			void Scale(const glm::vec3 &scale);
 
 			inline const glm::mat4 GetModelMatrix() { return m_model; }
 
 			inline const glm::vec3 GetPosition() { return m_position; }
-			inline void SetPosition(const glm::vec3 &pos) { m_position = pos; }
+			inline void SetPosition(const glm::vec3 &pos) 
+			{ 
+				m_position = pos; 
+			}
+
+			inline const float GetAngle() { return m_angle; }
+			inline void SetAngle(const float angle) { m_angle = angle; }
 
 		protected:
-			glm::vec3 m_position;
-			glm::mat4 m_model;
+			virtual void CalculateTransform() = 0;
+
+			float m_angle;
+			glm::vec3 m_position, m_scale, m_axis;
+			glm::mat4 m_model, m_rotation;
 
 			render::Mesh<V> m_mesh;
 		};

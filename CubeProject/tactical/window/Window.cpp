@@ -12,8 +12,6 @@ namespace tactical
             m_title = title;
 
             m_open = Initialize();
-
-            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         }
 
         Window::~Window()
@@ -52,14 +50,6 @@ namespace tactical
 
         void Window::Update()
         {
-            GLenum errorGL = glGetError();
-            if (errorGL != GL_NO_ERROR) {
-                while (errorGL != GL_NO_ERROR) {
-                    LOG << LOGTYPE::LOG_WARNING << "OpenGL error: " + std::to_string(errorGL);
-                    errorGL = glGetError();
-                }
-            }
-
             m_eventHandler->m_mouseEvent.mouse_button_pressed = false;
             m_eventHandler->m_mouseEvent.mouse_button_released = false;
             m_eventHandler->m_mouseEvent.mouse_wheel_scrolled = false;

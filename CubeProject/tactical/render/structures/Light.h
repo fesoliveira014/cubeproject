@@ -7,18 +7,34 @@ namespace tactical
 {
 	namespace render
 	{
+		struct Phong
+		{
+			glm::vec3 ambient;
+			glm::vec3 diffuse;
+			glm::vec3 specular;
+		};
+
 		struct Light
 		{
 			glm::vec3 position;
-			glm::vec4 colour;
-		
+			glm::vec4 color;
+
+			glm::vec3 ambient;
+			glm::vec3 diffuse;
+			glm::vec3 specular;
+
 			Light() 
 			{ 
 				position = glm::vec3(0); 
-				colour = glm::vec4(1.0f);
+				color = glm::vec4(1.0f);
+
+				ambient = glm::vec3(0.2f);
+				diffuse = glm::vec3(0.5f);
+				specular = glm::vec3(1.0f);
 			}
 
-			Light(const glm::vec3& p, const glm::vec4& c) : position(p), colour(c) {}
+			Light(const glm::vec3& p, const glm::vec4& c, const Phong& phong) 
+				: position(p), color(c), ambient(phong.ambient), diffuse(phong.diffuse), specular(phong.specular) {}
 		};
 
 		struct DirectionalLight : public Light
@@ -31,52 +47,53 @@ namespace tactical
 				direction = glm::vec3(1.0f);
 			}
 
-			DirectionalLight(const glm::vec3& p, const glm::vec4& c, const glm::vec3& d) :
+			DirectionalLight(const glm::vec3& p, const glm::vec4& c, const Phong& phong, const glm::vec3& d) :
 				direction(d)
 			{
-				Light(p, c);
+				Light(p, c, phong);
 			}
 
 		};
 
 		struct PointLight : public Light
 		{
-			float attenuationConstant;
-			float attenuationLinear;
-			float attenuationQuadratic;
+			float constant;
+			float linear;
+			float quadratic;
 
 			PointLight()
 			{
 				Light();
 
-				attenuationConstant = 1.0f;
-				attenuationLinear = 0.09f;
-				attenuationQuadratic = 0.032f;
+				constant = 1.0f;
+				linear = 0.09f;
+				quadratic = 0.032f;
 			}
 
-			PointLight(const glm::vec3& p, const glm::vec4& c, const float k, const float l, const float q) :
-				attenuationConstant(k), attenuationLinear(l), attenuationQuadratic(q)
+			PointLight(const glm::vec3& p, const glm::vec4& c, const Phong& phong, const float k, const float l, const float q) :
+				constant(k), linear(l), quadratic(q)
 			{
-				Light(p, c);
+				Light(p, c, phong);
 			}
 		};
 
-		struct SpotLight : public Light
+		struct SpotLight : public PointLight
 		{
 			glm::vec3 direction;
 			float cutOff;
+			float outerCutOff;
 
 			SpotLight()
 			{
-				Light();
+				PointLight();
 				direction = glm::vec3(1.0f);
 				cutOff = glm::radians(12.5f);
 			}
 
-			SpotLight(const glm::vec3& p, const glm::vec4& c, const glm::vec3& d, const float cut)
-				: direction(d), cutOff(cut)
+			SpotLight(const glm::vec3& p, const glm::vec4& c, const Phong& phong, const float k, const float l, const float q, const glm::vec3& d, const float cut, const float outCut)
+				: direction(d), cutOff(cut), outerCutOff(outCut)
 			{
-				Light(p, c);
+				PointLight(p, c, phong, k, l, q);
 			}
 		};
 	}

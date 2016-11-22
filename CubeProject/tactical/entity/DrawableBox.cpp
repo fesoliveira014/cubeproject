@@ -20,6 +20,12 @@ namespace tactical
 			m_model = glm::mat4(1.0f);
 		}
 
+		void DrawableBox::CalculateTransform()
+		{
+			m_model = glm::translate(glm::mat4(1.0f), m_position - glm::vec3(0.005f));
+			m_model = glm::scale(m_model, glm::vec3(1.01));
+		}
+
 		void DrawableBox::Draw(render::Shader & shader)
 		{
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_position-glm::vec3(0.005f));

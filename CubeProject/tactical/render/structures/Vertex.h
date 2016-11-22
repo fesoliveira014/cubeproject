@@ -7,6 +7,15 @@ namespace tactical
 {
 	namespace render
 	{
+		enum AttributePosition 
+		{
+			POSITION = 0,
+			NORMAL,
+			UV,
+			COLOR,
+			TOTAL
+		};
+
 		struct Vertex3f
 		{
 			glm::vec3 m_position;

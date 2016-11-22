@@ -215,6 +215,7 @@
     <ClCompile Include="tactical\math\noise\noiseutils.cpp" />
     <ClCompile Include="tactical\math\Plane.cpp" />
     <ClCompile Include="tactical\math\Ray.cpp" />
+    <ClCompile Include="tactical\entity\Prism.cpp" />
     <ClCompile Include="tactical\render\buffer\Framebuffer.cpp" />
     <ClCompile Include="tactical\render\camera\Camera.cpp" />
     <ClCompile Include="tactical\render\camera\FPSCamera.cpp" />
@@ -238,6 +239,8 @@
     <ClCompile Include="tactical\window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="tactical\entity\Prism.h" />
+    <ClInclude Include="tactical\IApp.h" />
     <ClInclude Include="tactical\Common.h" />
     <ClInclude Include="tactical\Engine.h" />
     <ClInclude Include="tactical\entity\interface\IEntity3D.h" />
@@ -310,6 +313,7 @@
     <ClInclude Include="tactical\render\IRenderable3D.h" />
     <ClInclude Include="tactical\render\Renderer.h" />
     <ClInclude Include="tactical\render\structures\Light.h" />
+    <ClInclude Include="tactical\render\structures\Material.h" />
     <ClInclude Include="tactical\render\structures\Mesh.h" />
     <ClInclude Include="tactical\render\structures\Shader.h" />
     <ClInclude Include="tactical\render\structures\Vertex.h" />

@@ -36,6 +36,7 @@ namespace tactical
 			GLuint GetUniformLocation(std::string uniform);
 
 			void SetUniformBool(std::string name, bool value);
+			void SetUniform1i(std::string name, int value);
 			void SetUniform1f(std::string name, float value);
 			void SetUniform2fv(std::string name, const glm::vec2 &vec2);
 			void SetUniform3fv(std::string name, const glm::vec3 &vec3);

@@ -227,6 +227,11 @@ namespace tactical
 			glUniform1i(m_uniformList[name], static_cast<GLint>(value));
 		}
 
+		void Shader::SetUniform1i(std::string name, int value)
+		{
+			glUniform1i(m_uniformList[name], value);
+		}
+
 		void Shader::SetUniform1f(std::string name, float value)
 		{
 			glUniform1f(m_uniformList[name], value);

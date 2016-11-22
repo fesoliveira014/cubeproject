@@ -31,10 +31,10 @@ int main(int argc, char* argv[])
 
     tactical::render::Renderer renderer(activeCamera);
 
-    tactical::ChunkManager chunkManager(&renderer, glm::vec3(1, 1, 1));
+    tactical::ChunkManager chunkManager(&renderer, glm::vec3(32, 8, 32));
     //chunkManager.FillChunks();
-    //chunkManager.GenerateWorld();
-    chunkManager.FillWithPyramids();
+    chunkManager.GenerateWorld();
+    //chunkManager.FillWithPyramids();
 
     LOG_INFO("Initializing systems...");
 
@@ -42,6 +42,9 @@ int main(int argc, char* argv[])
 
     tactical::entity::DrawableBox pickingBox(tactical::math::AABB(glm::vec3(0.0f), glm::vec3(1.0f)));
 	//pickingBox.Scale(glm::vec3(1.01f));
+
+	tactical::entity::Prism testPrism(glm::vec3(10,10,10));
+	testPrism.Scale(glm::vec3(0.25f));
 
     tactical::render::DrawableLine mouseRay(glm::vec3(0), glm::vec3(1));
     tactical::render::DrawableLine redAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(-1.0f, -1.0f, 20.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -98,6 +101,8 @@ int main(int argc, char* argv[])
             glm::vec2(window.GetEventHandler()->GetWindowSizeState()->width,
                 window.GetEventHandler()->GetWindowSizeState()->height));
 
+		testPrism.RotateY(testPrism.GetAngle() + deltaTime);
+
         tactical::math::RayCastResult pickingResult = chunkManager.GetRayVoxelIntersection(pickingRay, activeCamera->GetPosition(), 50.0f);
 
         if (window.GetEventHandler()->GetMouseEvent()->mouse_button_pressed) {
@@ -128,12 +133,18 @@ int main(int argc, char* argv[])
         renderer.GetShader("picking")->Enable();
         renderer.GetShader("picking")->SetUniformMat4fv("view", activeCamera->GetViewMatrix());
         renderer.GetShader("picking")->SetUniformMat4fv("projection", activeCamera->GetProjectionMatrix());
+
         for (auto line : lines)
             line.Draw(*renderer.GetShader("picking"));
 
         if (pickingResult.hit) {
             pickingBox.SetPosition(pickingResult.pos);
+			testPrism.SetPosition(pickingResult.pos + glm::vec3(0,1,0));
             pickingBox.Draw(*renderer.GetShader("picking"));
+
+			renderer.GetShader("basic_light")->Enable();
+			testPrism.Draw(*renderer.GetShader("basic_light"));
+			
         }
 
         if (renderer.NormalRendering()) {
@@ -149,8 +160,10 @@ int main(int argc, char* argv[])
                 window.GetEventHandler()->GetWindowSizeState()->height)) +
                 " FPS: " + std::to_string(framerate));
 
-            if (pickingResult.hit)
-                LOG_INFO("Picking position: " + glm::to_string(pickingBox.GetPosition()));
+			if (pickingResult.hit) {
+				LOG_INFO("Picking position: " + glm::to_string(pickingBox.GetPosition()));
+				LOG_INFO("Prism position: " + glm::to_string(testPrism.GetPosition()));
+			}
 
             clock.restart();
             framerate = 0;

@@ -18,6 +18,7 @@
 #include "structures\Shader.h"
 #include "structures\Vertex.h"
 #include "structures\Mesh.h"
+#include "structures\Light.h"
 
 #include "../math/AABB.h"
 #include "../math/Frustum.h"
@@ -52,7 +53,7 @@ namespace tactical
 			{
 				if (m_polygonMode == WIREFRAME)
 					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				else 
+				else
 					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			}
 
@@ -64,12 +65,20 @@ namespace tactical
 			void ToggleNormalRendering() { m_showNormals = !m_showNormals; }
 			bool NormalRendering() { return m_showNormals; }
 
-			void ToggleFog() 
-			{ 
-				m_renderFog = !m_renderFog; 
+			void ToggleFog()
+			{
+				m_renderFog = !m_renderFog;
 
 				m_shaders["basic_light"]->Enable();
 				m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
+			}
+
+			void SelectLightType(int type)
+			{
+				m_lightType = type;
+
+				m_shaders["basic_light"]->Enable();
+				m_shaders["basic_light"]->SetUniform1i("light_type", m_lightType);
 			}
 
 			void Update();
@@ -93,6 +102,12 @@ namespace tactical
 			std::shared_ptr<window::EventHandler> m_eventHandler;
 			std::unordered_map<std::string, Shader*> m_shaders;
 			std::unordered_map<std::string, Framebuffer*> m_framebuffers;
+
+			int m_lightType;
+
+			DirectionalLight m_directionalLight;
+			PointLight m_pointLight;
+			SpotLight m_spotLight;
 
 			PolygonMode m_polygonMode;
 			bool m_showNormals;

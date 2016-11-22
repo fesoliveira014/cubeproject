@@ -8,48 +8,35 @@ namespace tactical {
 		template <typename V>
 		void IEntity3D<V>::Rotate(float angle, const glm::vec3 &axis)
 		{
-			m_model = glm::translate(m_model, -m_position);
-			m_model = glm::rotate(m_model, angle, axis);
-			m_model = glm::translate(m_model, m_position);
+			m_angle = angle;
+			m_axis = glm::normalize(axis);
 		}
 
 		template <typename V>
 		void IEntity3D<V>::RotateX(float angle)
 		{
-			m_model = glm::translate(m_model, -m_position);
-			m_model = glm::rotate(m_model, angle, glm::vec3(1, 0, 0));
-			m_model = glm::translate(m_model, m_position);
+			m_angle = angle;
+			m_axis = glm::vec3(1.0f, 0.0f, 0.0f);
 		}
 
 		template <typename V>
 		void IEntity3D<V>::RotateY(float angle)
 		{
-			m_model = glm::translate(m_model, -m_position);
-			m_model = glm::rotate(m_model, angle, glm::vec3(0, 1, 0));
-			m_model = glm::translate(m_model, m_position);
+			m_angle = angle;
+			m_axis = glm::vec3(0.0f, 1.0f, 0.0f);
 		}
 
 		template <typename V>
 		void IEntity3D<V>::RotateZ(float angle)
 		{
-			m_model = glm::translate(m_model, -m_position);
-			m_model = glm::rotate(m_model, angle, glm::vec3(0, 0, 1));
-			m_model = glm::translate(m_model, m_position);
-		}
-
-		template <typename V>
-		void IEntity3D<V>::Translate(const glm::vec3 &pos)
-		{
-			m_position = pos;
-			m_model = glm::translate(m_model, m_position);
+			m_angle = angle;
+			m_axis = glm::vec3(0.0f, 0.0f, 1.0f);
 		}
 
 		template <typename V>
 		void IEntity3D<V>::Scale(const glm::vec3 &scale)
 		{
-			m_model = glm::translate(m_model, -m_position);
-			m_model = glm::scale(m_model, scale);
-			m_model = glm::translate(m_model, m_position);
+			m_scale = scale;
 		}
 	}
 }

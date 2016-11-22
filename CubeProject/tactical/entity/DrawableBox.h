@@ -22,6 +22,7 @@ namespace tactical
 			void SetAABB(const math::AABB& box);
 
 		private:
+			void CalculateTransform();
 			void GenerateMesh();
 
 		};

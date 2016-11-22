@@ -21,6 +21,7 @@
 
 #include "tactical/entity/interface/IEntity3D.h"
 #include "tactical/entity/DrawableBox.h"
+#include "tactical/entity/Prism.h"
 
 #include "tactical/volume/Voxel.h"
 #include "tactical/volume/Chunk.h"

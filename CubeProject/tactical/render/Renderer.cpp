@@ -22,6 +22,41 @@ namespace tactical
 			m_shaders["basic_light"]->SetUniform3fv("camera_pos", m_pCamera->GetPosition());
 			m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
 
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.position", m_directionalLight.position);
+			m_shaders["basic_light"]->SetUniform4fv("dirLight.color", m_directionalLight.color);
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.direction", m_directionalLight.direction);
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.ambient", m_directionalLight.ambient);
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.diffuse", m_directionalLight.diffuse);
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.specular", m_directionalLight.specular);
+
+			m_shaders["basic_light"]->SetUniform3fv("pointLight.position",  m_pointLight.position);
+			m_shaders["basic_light"]->SetUniform4fv("pointLight.color",     m_pointLight.color);
+			m_shaders["basic_light"]->SetUniform3fv("pointLight.ambient",   m_pointLight.ambient);
+			m_shaders["basic_light"]->SetUniform3fv("pointLight.diffuse",   m_pointLight.diffuse);
+			m_shaders["basic_light"]->SetUniform3fv("pointLight.specular",  m_pointLight.specular);
+			m_shaders["basic_light"]->SetUniform1f("pointLight.constant",   m_pointLight.constant);
+			m_shaders["basic_light"]->SetUniform1f("pointLight.linear",     m_pointLight.linear);
+			m_shaders["basic_light"]->SetUniform1f("pointLight.quadratic",  m_pointLight.quadratic);
+
+			m_shaders["basic_light"]->SetUniform3fv("spotLight.position",    m_spotLight.position);
+			m_shaders["basic_light"]->SetUniform4fv("spotLight.color",       m_spotLight.color);
+			m_shaders["basic_light"]->SetUniform3fv("spotLight.direction",   m_spotLight.direction);
+			m_shaders["basic_light"]->SetUniform3fv("spotLight.ambient",     m_spotLight.ambient);
+			m_shaders["basic_light"]->SetUniform3fv("spotLight.diffuse",     m_spotLight.diffuse);
+			m_shaders["basic_light"]->SetUniform3fv("spotLight.specular",    m_spotLight.specular);
+			m_shaders["basic_light"]->SetUniform1f("spotLight.constant",     m_spotLight.constant);
+			m_shaders["basic_light"]->SetUniform1f("spotLight.linear",       m_spotLight.linear);
+			m_shaders["basic_light"]->SetUniform1f("spotLight.quadratic",	 m_spotLight.quadratic);
+			m_shaders["basic_light"]->SetUniform1f("spotLight.cutOff",       m_spotLight.cutOff);
+			m_shaders["basic_light"]->SetUniform1f("spotLight.outerCutOff",  m_spotLight.outerCutOff);
+
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.position", m_directionalLight.position);
+			m_shaders["basic_light"]->SetUniform4fv("dirLight.color", m_directionalLight.color);
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.direction", m_directionalLight.direction);
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.ambient", m_directionalLight.ambient);
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.diffuse", m_directionalLight.diffuse);
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.specular", m_directionalLight.specular);
+
 			m_shaders["normal"]->Enable();
 			m_shaders["normal"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["normal"]->SetUniformMat4fv("model", glm::mat4(1.0f));
@@ -29,6 +64,8 @@ namespace tactical
 			m_shaders["picking"]->Enable();
 			m_shaders["picking"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["picking"]->SetUniformMat4fv("model", glm::mat4(1.0f));
+
+			m_lightType = 0;
 
 			m_framebuffers["depthMap"] = new Framebuffer();
 
@@ -41,6 +78,8 @@ namespace tactical
 
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+			glClearColor(135.0f / 255.0f, 206.0f / 255.0f, 250.0f / 255.0f, 1.0f);
 		}
 
 		Renderer::~Renderer()
@@ -93,6 +132,14 @@ namespace tactical
 
 		void Renderer::Update()
 		{
+			GLenum errorGL = glGetError();
+			if (errorGL != GL_NO_ERROR) {
+				while (errorGL != GL_NO_ERROR) {
+					LOG << LOGTYPE::LOG_WARNING << "OpenGL error: " + std::to_string(errorGL);
+					errorGL = glGetError();
+				}
+			}
+
 			m_frustum.Update(m_pCamera->GetProjectionMatrix(), m_pCamera->GetViewMatrix());
 		}
 

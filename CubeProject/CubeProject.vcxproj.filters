@@ -219,6 +219,9 @@
     <ClCompile Include="tactical\entity\interface\IEntity3D.impl">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tactical\entity\Prism.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tactical\utils\Logger.h">
@@ -477,6 +480,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tactical\entity\DrawableBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\IApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\entity\Prism.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\render\structures\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

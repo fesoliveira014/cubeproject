@@ -67,10 +67,10 @@ namespace tactical
             if (keyState->key_s) m_moveState.back = true;
             else m_moveState.back = false;
 
-            if (keyState->key_q) m_moveState.left = true;
+            if (keyState->key_a) m_moveState.left = true;
             else m_moveState.left = false;
 
-            if (keyState->key_e) m_moveState.right = true;
+            if (keyState->key_d) m_moveState.right = true;
             else m_moveState.right = false;
 
             if (keyState->key_space) m_moveState.up = true;
