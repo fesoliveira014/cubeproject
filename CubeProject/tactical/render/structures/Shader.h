@@ -60,6 +60,7 @@ namespace tactical
 			GLuint m_program;
 
 			std::map<std::string, GLuint> m_attributeList;
+			std::map<std::string, std::vector<std::string>> m_structs;
 			std::map<std::string, GLuint> m_uniformList;
 
 			bool m_shaderOK, m_isEnabled;

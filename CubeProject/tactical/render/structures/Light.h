@@ -28,9 +28,9 @@ namespace tactical
 				position = glm::vec3(0); 
 				color = glm::vec4(1.0f);
 
-				ambient = glm::vec3(0.2f);
+				ambient = glm::vec3(0.8f);
 				diffuse = glm::vec3(0.5f);
-				specular = glm::vec3(1.0f);
+				specular = glm::vec3(0.2f);
 			}
 
 			Light(const glm::vec3& p, const glm::vec4& c, const Phong& phong) 

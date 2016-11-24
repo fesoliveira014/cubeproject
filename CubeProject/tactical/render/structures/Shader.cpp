@@ -139,15 +139,51 @@ namespace tactical
 
 		void Shader::ParseUniforms()
 		{
+			bool readingStruct = false;
+			std::string currentStruct = "", uniform = "";
+
+
 			for (std::string source : m_sources) {
 				std::istringstream sourceStream(source);
 				for (std::string line; std::getline(sourceStream, line);) {
+					int index = line.find_first_not_of(" \t");
+					if (index >= 0)
+						line = line.substr(index, line.size() - index);
+
 					std::vector<std::string> tokens = utils::split(line, ' ');
 					if (!tokens.empty()) {
-						if (!tokens[0].compare(std::string("uniform"))) {
-							if (tokens[2].back() == ';')
-								tokens[2].pop_back();
-							AddUniform(tokens[2]);
+						if (readingStruct) {
+							if (!tokens[0].compare("//"))
+								continue;
+							if (!tokens[0].compare("};")) {
+								readingStruct = false;
+								currentStruct = "";
+							}
+							else if (tokens[0].compare("")) {
+								if (tokens[1].back() == ';')
+									tokens[1].pop_back();
+								m_structs[currentStruct].push_back(tokens[1]);
+							}
+						}
+						else if (!tokens[0].compare(std::string("uniform"))) {
+							uniform = tokens[2];
+							if (uniform.back() == ';')
+								uniform.pop_back();
+
+							if (m_structs.find(tokens[1]) != m_structs.end()) {
+								LOG_INFO("Adding uniform attributes for struct " + tokens[1]);
+								for (auto attribute : m_structs[tokens[1]]) {
+									LOG_INFO("	Attribute: " + attribute);
+									AddUniform(uniform + "." + attribute);
+								}
+							}
+							else 
+								AddUniform(uniform);
+						}
+						else if (!tokens[0].compare("struct")) {
+							m_structs[tokens[1]] = std::vector<std::string>();
+							readingStruct = true;
+							currentStruct = tokens[1];
 						}
 					}
 				}

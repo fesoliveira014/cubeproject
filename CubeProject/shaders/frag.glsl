@@ -18,7 +18,7 @@ struct PointLight {
   
     vec3 ambient;
     vec3 diffuse;
-    vec3 specular;	
+    vec3 specular;
 
     float constant;
     float linear;
@@ -36,7 +36,7 @@ struct SpotLight {
 
     float constant;
     float linear;
-    float quadratic;	
+    float quadratic;
 
     float cutOff;
     float outerCutOff;
@@ -50,8 +50,8 @@ struct Material {
 }; 
 
 
-uniform vec3 light_pos;
-uniform vec3 light_color;
+// uniform vec3 light_pos;
+// uniform vec3 light_color;
 uniform vec3 camera_pos;
 
 uniform int fog_enabled = 0;
@@ -62,7 +62,7 @@ uniform int light_type = 0;
 uniform DirectionalLight dirLight;
 uniform PointLight pointLight;
 uniform SpotLight spotLight;
-uniform Material material;
+//uniform Material material;
 
 in DATA
 {
@@ -93,13 +93,13 @@ vec3 computeDirectionalLight(DirectionalLight light)
 
 	vec3 light_dir = normalize(-light.direction);
 	float diff = max(dot(normal, light_dir), 0.0);
-	vec3 diffuse = diff * vec3(light.color);
+	vec3 diffuse = light.diffuse * diff * vec3(light.color);
 
 	// specular light
 	vec3 camera_dir = normalize(camera_pos - fs_in.position);
 	vec3 reflect_dir = reflect(-light_dir, normal);  
 	float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), 32);
-	vec3 specular =	light.specular * spec * light_color;
+	vec3 specular =	light.specular * spec * vec3(light.color);
 	// todo
 
 	return (ambient + diffuse + specular);
@@ -166,39 +166,39 @@ vec3 computeSpotLight(SpotLight light)
 void main()
 {
 	// ambient light
-	float ambient_strength = 0.8;
-	vec3 ambient = ambient_strength * light_color;
+	// float ambient_strength = 0.8;
+	// vec3 ambient = ambient_strength * light_color;
 
-	// deffuse light
-	vec3 normal = normalize(fs_in.normal);
-	vec3 light_dir = normalize(light_pos - fs_in.position);
-	float diff = max(dot(normal, light_dir), 0.0);
-	vec3 diffuse = 0.5 * diff * light_color;
+	// // deffuse light
+	// vec3 normal = normalize(fs_in.normal);
+	// vec3 light_dir = normalize(light_pos - fs_in.position);
+	// float diff = max(dot(normal, light_dir), 0.0);
+	// vec3 diffuse = 0.5 * diff * light_color;
 
-	// specular light
-	float specular_strength = 0.2;
-	vec3 camera_dir = normalize(camera_pos - fs_in.position);
-	vec3 reflect_dir = reflect(-light_dir, normal);  
-	float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), 32);
-	vec3 specular =	specular_strength * spec * light_color;
+	// // specular light
+	// float specular_strength = 0.2;
+	// vec3 camera_dir = normalize(camera_pos - fs_in.position);
+	// vec3 reflect_dir = reflect(-light_dir, normal);  
+	// float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), 32);
+	// vec3 specular =	specular_strength * spec * light_color;
 	// // todo
 
 	vec3 light;
 
-	// switch (light_type) {
-	// 	default:
-	// 	case 0:
-	// 		light = computeDirectionalLight(dirLight);
-	// 		break;
-	// 	case 1:
-	// 		light = computePointLight(pointLight);
-	// 		break;
-	// 	case 2:
-	// 		light = computeSpotLight(spotLight);
-	// 		break;
-	// }
+	switch (light_type) {
+		default:
+		case 0:
+			light = computeDirectionalLight(dirLight);
+			break;
+		case 1:
+			light = computePointLight(pointLight);
+			break;
+		case 2:
+			light = computeSpotLight(spotLight);
+			break;
+	}
 
-	light = ambient + diffuse + specular;
+	// light = ambient + diffuse + specular;
 
 	vec3 lightResult = light * vec3(fs_in.color);
 
