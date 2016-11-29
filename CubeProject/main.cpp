@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 
     tactical::render::Renderer renderer(activeCamera);
 
-    tactical::ChunkManager chunkManager(&renderer, glm::vec3(32, 8, 32));
+    tactical::ChunkManager chunkManager(&renderer, glm::vec3(16, 4, 16));
     //chunkManager.FillChunks();
     chunkManager.GenerateWorld();
     //chunkManager.FillWithPyramids();
@@ -79,6 +79,15 @@ int main(int argc, char* argv[])
 			if (window.GetEventHandler()->GetKeyboardState()->key_4)
 				activeCamera = &isoCamera, cameraChanged = true;
 
+			if (window.GetEventHandler()->GetKeyboardState()->key_5)
+				renderer.SelectLightType(0);
+
+			if (window.GetEventHandler()->GetKeyboardState()->key_6)
+				renderer.SelectLightType(1);
+
+			if (window.GetEventHandler()->GetKeyboardState()->key_7)
+				renderer.SelectLightType(2);
+
             if (window.GetEventHandler()->GetKeyboardState()->key_f)
                 renderer.ToggleFog();
         }
@@ -94,6 +103,9 @@ int main(int argc, char* argv[])
         chunkManager.UpdateChunks(activeCamera->GetPosition());
 		if (cameraChanged) renderer.SetCamera(activeCamera), cameraChanged = false;
         renderer.Update();
+
+		renderer.SetPointLightPosition(activeCamera->GetPosition());
+		renderer.SetSpotLightPositionAndDirection(activeCamera->GetPosition(), activeCamera->GetForwardDirection());
 
         tactical::math::Ray pickingRay = activeCamera->CastPickingRay(activeCamera->GetPosition(),
             glm::vec2(window.GetEventHandler()->GetMouseState()->mouse_x,
@@ -118,9 +130,6 @@ int main(int argc, char* argv[])
                     }
                 }
             }
-
-            if (window.GetEventHandler()->GetMouseState()->mouse_button_middle)
-                lines.push_back(tactical::render::DrawableLine(pickingRay.GetOrigin(), 20.0f * pickingRay.GetDirection() + pickingRay.GetOrigin()));
         }
 
         renderer.GetShader("basic_light")->Enable();

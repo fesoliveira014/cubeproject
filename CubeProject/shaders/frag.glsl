@@ -64,6 +64,8 @@ uniform PointLight pointLight;
 uniform SpotLight spotLight;
 //uniform Material material;
 
+uniform float gamma = 2.2;
+
 in DATA
 {
 	vec3 position;
@@ -97,8 +99,9 @@ vec3 computeDirectionalLight(DirectionalLight light)
 
 	// specular light
 	vec3 camera_dir = normalize(camera_pos - fs_in.position);
-	vec3 reflect_dir = reflect(-light_dir, normal);  
-	float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), 32);
+	//vec3 reflect_dir = reflect(-light_dir, normal);  
+	vec3 halfway_dir = normalize(light_dir + camera_dir);  
+	float spec = pow(max(dot(normal, halfway_dir), 0.0), 16);
 	vec3 specular =	light.specular * spec * vec3(light.color);
 	// todo
 
@@ -117,8 +120,9 @@ vec3 computePointLight(PointLight light)
 
 	// specular light
 	vec3 cameraDir = normalize(camera_pos - fs_in.position);
-	vec3 reflectDir = reflect(-lightDir, normal);
-	float spec = pow(max(dot(cameraDir, reflectDir), 0.0), 32);
+	//vec3 reflectDir = reflect(-lightDir, normal);
+	vec3 halfwayDir = normalize(lightDir + cameraDir);  
+	float spec = pow(max(dot(normal, halfwayDir), 0.0), 16);
 	vec3 specular = light.specular * spec * vec3(light.color);
 
 	float dist = length(light.position - fs_in.position);
@@ -143,8 +147,9 @@ vec3 computeSpotLight(SpotLight light)
 
 	// specular light
 	vec3 cameraDir = normalize(camera_pos - fs_in.position);
-	vec3 reflectDir = reflect(-lightDir, normal);
-	float spec = pow(max(dot(cameraDir, reflectDir), 0.0), 32);
+	//vec3 reflectDir = reflect(-lightDir, normal);
+	vec3 halfwayDir = normalize(lightDir + cameraDir);  
+	float spec = pow(max(dot(normal, halfwayDir), 0.0), 16);
 	vec3 specular = light.specular * spec * vec3(light.color);
 
 	float theta = dot(lightDir, normalize(-light.direction));
@@ -207,6 +212,9 @@ void main()
 	if (fog_enabled == 1) {
 		result = applyFog(lightResult, distance(camera_pos, fs_in.position), camera_pos);
 	}
+
+	float gammaAttenuation = 1 / gamma;
+	result = pow(result, vec3(gammaAttenuation));
 
 	color = vec4(result, 1.0);
 }

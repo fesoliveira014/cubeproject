@@ -45,6 +45,7 @@ namespace tactical
 			~Renderer();
 
 			void Render(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID);
+			void RenderToQuad(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID);
 
 			void TogglePolygonMode();
 			PolygonMode GetPolygonMode() { return m_polygonMode; }
@@ -65,21 +66,14 @@ namespace tactical
 			void ToggleNormalRendering() { m_showNormals = !m_showNormals; }
 			bool NormalRendering() { return m_showNormals; }
 
-			void ToggleFog()
-			{
-				m_renderFog = !m_renderFog;
+			void ToggleFog();
 
-				m_shaders["basic_light"]->Enable();
-				m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
-			}
-
-			void SelectLightType(int type)
-			{
-				m_lightType = type;
-
-				m_shaders["basic_light"]->Enable();
-				m_shaders["basic_light"]->SetUniform1i("light_type", m_lightType);
-			}
+			void SelectLightType(int type);
+			void SetPointLightPosition(const glm::vec3& position);
+			
+			void SetSpotLightPosition(const glm::vec3& position);
+			void SetSpotLightDirection(const glm::vec3& direction);
+			void SetSpotLightPositionAndDirection(const glm::vec3& position, const glm::vec3& direction);
 
 			void Update();
 

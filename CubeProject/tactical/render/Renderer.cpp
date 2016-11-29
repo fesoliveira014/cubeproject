@@ -17,10 +17,9 @@ namespace tactical
 			m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["basic_light"]->SetUniformMat4fv("model", glm::mat4(1.0f));
-			m_shaders["basic_light"]->SetUniform3fv("light_pos", glm::vec3(-6.0f, 70.0f, 21.0f));
-			m_shaders["basic_light"]->SetUniform3fv("light_color", glm::vec3(1.0f, 1.0f, 1.0f));
 			m_shaders["basic_light"]->SetUniform3fv("camera_pos", m_pCamera->GetPosition());
 			m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
+			m_shaders["basic_light"]->SetUniform1f("gamma", 2.2f);
 
 			m_shaders["basic_light"]->SetUniform3fv("dirLight.position", m_directionalLight.position);
 			m_shaders["basic_light"]->SetUniform4fv("dirLight.color", m_directionalLight.color);
@@ -122,6 +121,11 @@ namespace tactical
 			}
 		}
 
+		void Renderer::RenderToQuad(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID)
+		{
+
+		}
+
 		void Renderer::TogglePolygonMode()
 		{
 			if (m_polygonMode == POLYGON)
@@ -147,5 +151,66 @@ namespace tactical
 		{
 			m_eventHandler = windowHandler.GetEventHandler();
 		}
+
+		
+
+		void Renderer::SelectLightType(int type)
+		{
+			switch (type) {
+			default:
+			case 0:
+				m_lightType = 0;
+				break;
+			case 1:
+				m_lightType = 1;
+				break;
+			case 2:
+				m_lightType = 2;
+				break;
+			}
+
+			m_shaders["basic_light"]->Enable();
+			m_shaders["basic_light"]->SetUniform1i("light_type", m_lightType);
+		}
+
+		void Renderer::SetPointLightPosition(const glm::vec3& position) 
+		{
+			m_pointLight.position = position;
+
+			m_shaders["basic_light"]->Enable();
+			m_shaders["basic_light"]->SetUniform3fv("pointLight.position", m_pointLight.position);
+		}
+
+		void Renderer::SetSpotLightPosition(const glm::vec3& position)
+		{
+			m_spotLight.position = position;
+
+			m_shaders["basic_light"]->Enable();
+			m_shaders["basic_light"]->SetUniform3fv("spotLight.position", m_spotLight.position);
+		}
+
+		void Renderer::SetSpotLightDirection(const glm::vec3& direction)
+		{
+			m_spotLight.direction = direction;
+
+			m_shaders["basic_light"]->Enable();
+			m_shaders["basic_light"]->SetUniform3fv("spotLight.direction", m_spotLight.direction);
+		}
+
+		void Renderer::SetSpotLightPositionAndDirection(const glm::vec3& position, const glm::vec3& direction)
+		{
+			SetSpotLightPosition(position);
+			SetSpotLightDirection(direction);
+		}
+
+		void Renderer::ToggleFog()
+		{
+			m_renderFog = !m_renderFog;
+
+			m_shaders["basic_light"]->Enable();
+			m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
+		}
+
+
 	}
 }
