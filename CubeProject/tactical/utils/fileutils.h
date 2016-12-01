@@ -6,8 +6,8 @@
 namespace tactical
 {
 	namespace utils
-	{ namespace {
-		bool read_file(const char* fileName, std::string& outFile)
+	{ 
+		static bool read_file(const char* fileName, std::string& outFile)
 		{
 			std::ifstream f(fileName);
 
@@ -26,7 +26,7 @@ namespace tactical
 			}
 
 			return ret;
-		} }
+		} 
 	}
 }
 

@@ -22,33 +22,30 @@ namespace tactical
 		FALSE  = GL_FALSE
 	};
 
-	namespace 
+	static uint GLTypeSize(GLType type)
 	{
-		uint GLTypeSize(GLType type)
+		switch (type)
 		{
-			switch (type)
-			{
-			case GLType::UBYTE:
-			case GLType::BYTE:
-				return sizeof(GLbyte);
-				break;
+		case GLType::UBYTE:
+		case GLType::BYTE:
+			return sizeof(GLbyte);
+			break;
 
-			case GLType::UINT:
-			case GLType::INT:
-				return sizeof(GLint);
-				break;
+		case GLType::UINT:
+		case GLType::INT:
+			return sizeof(GLint);
+			break;
 
-			case GLType::USHORT:
-			case GLType::SHORT:
-				return sizeof(GLshort);
-				break;
+		case GLType::USHORT:
+		case GLType::SHORT:
+			return sizeof(GLshort);
+			break;
 
-			case GLType::FLOAT:
-				return sizeof(GLfloat);
-			}
-
-			return 0;
+		case GLType::FLOAT:
+			return sizeof(GLfloat);
 		}
+
+		return 0;
 	}
 }
 

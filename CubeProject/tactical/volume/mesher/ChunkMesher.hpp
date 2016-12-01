@@ -165,6 +165,9 @@ namespace tactical
 				chunk.GetMesh()->vao->AddBuffer(new render::Buffer(chunk.GetMesh()->vertices.data(),
 					(GLsizei)chunk.GetMesh()->vertices.size() * sizeof(render::Vertex3f3f4f), attributes));
 
+				chunk.GetMesh()->vertices.clear();
+				chunk.GetMesh()->indices.clear();
+
 				chunk.Updated();
 				delete mask;
 			}
@@ -269,6 +272,9 @@ namespace tactical
 					(GLsizei)chunk.GetMesh()->indices.size());
 				chunk.GetMesh()->vao->AddBuffer(new render::Buffer(chunk.GetMesh()->vertices.data(),
 					(GLsizei)chunk.GetMesh()->vertices.size() * sizeof(render::Vertex3f3f4f), attributes));
+
+				chunk.GetMesh()->vertices.clear();
+				chunk.GetMesh()->indices.clear();
 
 				chunk.Updated();
 			}

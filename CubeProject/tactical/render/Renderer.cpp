@@ -13,6 +13,7 @@ namespace tactical
 			m_shaders["picking"] = new Shader("shaders/picking_vert.glsl", "shaders/picking_frag.glsl", nullptr);
 			m_polygonMode = POLYGON;
 			m_renderFog = false;
+			m_lightType = 0;
 
 			m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
@@ -20,6 +21,7 @@ namespace tactical
 			m_shaders["basic_light"]->SetUniform3fv("camera_pos", m_pCamera->GetPosition());
 			m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
 			m_shaders["basic_light"]->SetUniform1f("gamma", 2.2f);
+			m_shaders["basic_light"]->SetUniform1i("light_type", m_lightType);
 
 			m_shaders["basic_light"]->SetUniform3fv("dirLight.position", m_directionalLight.position);
 			m_shaders["basic_light"]->SetUniform4fv("dirLight.color", m_directionalLight.color);
@@ -64,7 +66,7 @@ namespace tactical
 			m_shaders["picking"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["picking"]->SetUniformMat4fv("model", glm::mat4(1.0f));
 
-			m_lightType = 0;
+			
 
 			m_framebuffers["depthMap"] = new Framebuffer();
 
@@ -169,7 +171,7 @@ namespace tactical
 				break;
 			}
 
-			m_shaders["basic_light"]->Enable();
+			if (!m_shaders["basic_light"]->IsEnabled()) m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniform1i("light_type", m_lightType);
 		}
 
@@ -177,7 +179,7 @@ namespace tactical
 		{
 			m_pointLight.position = position;
 
-			m_shaders["basic_light"]->Enable();
+			if (!m_shaders["basic_light"]->IsEnabled()) m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniform3fv("pointLight.position", m_pointLight.position);
 		}
 
@@ -185,7 +187,7 @@ namespace tactical
 		{
 			m_spotLight.position = position;
 
-			m_shaders["basic_light"]->Enable();
+			if (!m_shaders["basic_light"]->IsEnabled()) m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniform3fv("spotLight.position", m_spotLight.position);
 		}
 
@@ -193,7 +195,7 @@ namespace tactical
 		{
 			m_spotLight.direction = direction;
 
-			m_shaders["basic_light"]->Enable();
+			if (!m_shaders["basic_light"]->IsEnabled()) m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniform3fv("spotLight.direction", m_spotLight.direction);
 		}
 
@@ -207,7 +209,7 @@ namespace tactical
 		{
 			m_renderFog = !m_renderFog;
 
-			m_shaders["basic_light"]->Enable();
+			if (!m_shaders["basic_light"]->IsEnabled()) m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
 		}
 

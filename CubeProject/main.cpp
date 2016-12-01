@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 
     tactical::render::Renderer renderer(activeCamera);
 
-    tactical::ChunkManager chunkManager(&renderer, glm::vec3(16, 4, 16));
+    tactical::ChunkManager chunkManager(&renderer, glm::vec3(4, 1, 4));
     //chunkManager.FillChunks();
     chunkManager.GenerateWorld();
     //chunkManager.FillWithPyramids();
@@ -104,9 +104,6 @@ int main(int argc, char* argv[])
 		if (cameraChanged) renderer.SetCamera(activeCamera), cameraChanged = false;
         renderer.Update();
 
-		renderer.SetPointLightPosition(activeCamera->GetPosition());
-		renderer.SetSpotLightPositionAndDirection(activeCamera->GetPosition(), activeCamera->GetForwardDirection());
-
         tactical::math::Ray pickingRay = activeCamera->CastPickingRay(activeCamera->GetPosition(),
             glm::vec2(window.GetEventHandler()->GetMouseState()->mouse_x,
                 window.GetEventHandler()->GetMouseState()->mouse_y),
@@ -149,10 +146,13 @@ int main(int argc, char* argv[])
         if (pickingResult.hit) {
             pickingBox.SetPosition(pickingResult.pos);
 			testPrism.SetPosition(pickingResult.pos + glm::vec3(0,1,0));
+
             pickingBox.Draw(*renderer.GetShader("picking"));
 
 			renderer.GetShader("basic_light")->Enable();
-			testPrism.Draw(*renderer.GetShader("basic_light"));
+			//testPrism.Draw(*renderer.GetShader("basic_light"));
+			renderer.SetPointLightPosition(pickingResult.pos + glm::vec3(0.5f, 0.0f, 0.5f));
+			renderer.SetSpotLightPositionAndDirection(pickingResult.pos + glm::vec3(0.5f, 0.0f, 0.5f), activeCamera->GetForwardDirection());
 			
         }
 

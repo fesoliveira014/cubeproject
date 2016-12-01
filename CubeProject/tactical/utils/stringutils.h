@@ -4,8 +4,6 @@ namespace tactical
 {
 	namespace utils
 	{
-		namespace
-		{
 #ifdef _WIN32
 			struct MatchPathSeparator
 			{
@@ -34,7 +32,7 @@ namespace tactical
 				Filename(std::string f, std::string ext) : filename(f), extension(ext) {}
 			};
 
-			std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+			static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
 				std::stringstream ss(s);
 				std::string item;
 				while (std::getline(ss, item, delim)) {
@@ -44,13 +42,13 @@ namespace tactical
 			}
 
 
-			std::vector<std::string> split(const std::string &s, char delim) {
+			static std::vector<std::string> split(const std::string &s, char delim) {
 				std::vector<std::string> elems;
 				split(s, delim, elems);
 				return elems;
 			}
 
-			Filename split_name_and_ext(const std::string& s) {
+			static Filename split_name_and_ext(const std::string& s) {
 				std::string filename = std::string(
 					std::find_if(s.rbegin(), s.rend(),
 						MatchPathSeparator()).base(),
@@ -61,5 +59,4 @@ namespace tactical
 
 			}
 		}
-	}
 }

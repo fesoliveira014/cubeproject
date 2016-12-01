@@ -157,6 +157,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SFML_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -166,6 +167,9 @@
       <AdditionalDependencies>SOIL.lib;glew32s.lib;sfml-window-s.lib;sfml-system-s.lib;Winmm.lib;glew32.lib;assimp.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <PreventDllBinding>false</PreventDllBinding>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="tactical\entity\interface\IEntity3D.impl" />
