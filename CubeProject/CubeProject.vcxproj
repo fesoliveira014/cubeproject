@@ -234,6 +234,7 @@
     <ClCompile Include="tactical\render\buffer\VertexArray.cpp" />
     <ClCompile Include="tactical\render\Renderer.cpp" />
     <ClCompile Include="tactical\render\structures\Shader.cpp" />
+    <ClCompile Include="tactical\utils\ThreadPool.cpp" />
     <ClCompile Include="tactical\volume\Chunk.cpp" />
     <ClCompile Include="tactical\volume\ChunkManager.cpp" />
     <ClCompile Include="tactical\volume\Voxel.cpp" />
@@ -324,6 +325,7 @@
     <ClInclude Include="tactical\Types.h" />
     <ClInclude Include="tactical\utils\fileutils.h" />
     <ClInclude Include="tactical\utils\stringutils.h" />
+    <ClInclude Include="tactical\utils\ThreadPool.h" />
     <ClInclude Include="tactical\volume\Chunk.h" />
     <ClInclude Include="tactical\volume\ChunkManager.h" />
     <ClInclude Include="tactical\volume\mesher\ChunkMesher.hpp" />

@@ -11,6 +11,8 @@
 
 #include  "../render/Renderer.h"
 
+#include "../utils/ThreadPool.h"
+
 namespace tactical
 {
 	using namespace volume;
@@ -35,6 +37,7 @@ namespace tactical
 		void UpdateChunks(const glm::vec3& currentPos);
 
 		void Draw(std::string shaderID);
+		void ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end);
 
 		inline void SetChunkSize(int size) { m_chunkSize = size; }
 		inline int GetChunkSize() const { return m_chunkSize; }
@@ -71,6 +74,7 @@ namespace tactical
 		
 		bool IsWithinRadius(const glm::vec3& position);
 		void Draw(std::shared_ptr<Chunk> chunk, render::Shader& shader);
+		std::vector<int> SplitMemToBounds(int mem, int parts);		
 
 		glm::vec3 GridCoordsToWorldCoords(const glm::vec3& pos);
 
@@ -85,10 +89,13 @@ namespace tactical
 		int m_chunkLoadingRadius; // in number of chunks, not in coordinates
 		glm::vec3 m_currentChunk;
 		glm::vec3 m_worldDimensions;
+		std::vector<int> m_bounds;
 
 		render::Renderer* m_pRenderer;
 
 		FastNoise m_fastnoise;
+
+		utils::ThreadPool *m_threadPool;
 
 		// these will be moved to a terrain engine in the future. 
 		noise::module::RidgedMulti m_mountains;

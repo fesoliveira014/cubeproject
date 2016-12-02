@@ -5,7 +5,7 @@
 //#define TEST
 
 int main(int argc, char* argv[])
-{
+{	
     tactical::utils::Logger *logger = tactical::utils::Logger::GetInstance();
     logger->SetConsoleLogging(true);
 

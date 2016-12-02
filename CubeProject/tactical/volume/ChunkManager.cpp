@@ -1,4 +1,12 @@
 #include "ChunkManager.h"
+#include <glm/detail/type_mat.hpp>
+#include <vector>
+#include <mutex>
+#include "../math/AABB.h"
+#include "../math/AABB.h"
+
+
+static std::mutex mutex;
 
 namespace tactical
 {
@@ -30,10 +38,22 @@ namespace tactical
 			delete chunk;
 		};
 
-		glm::vec3 key, neighKey, pos;
+		// Create Thread Pool Pattern
+		m_threadPool = new utils::ThreadPool(NUM_THREADS);
+
+		m_bounds = SplitMemToBounds(m_worldDimensions.x * m_worldDimensions.y * m_worldDimensions.z, 4);
+		// debug
+		LOG << LOGTYPE::LOG_INFO << "m_worldDimensions vector: " + glm::to_string(m_worldDimensions) + 
+			"\nm_worldDimensions mem: " + std::to_string(m_worldDimensions.x * m_worldDimensions.y * m_worldDimensions.z);
+		LOG << LOGTYPE::LOG_INFO << "m_bounds split:";
+		for (auto &i : m_bounds) {
+			LOG << LOGTYPE::LOG_INFO << std::to_string(i);
+		}
+
+		glm::vec3 key, neighKey, pos;		
 		for (int k = 0; k < m_worldDimensions.z; ++k) {
 			for (int j = 0; j < m_worldDimensions.y; ++j) {
-				for (int i = 0; i < m_worldDimensions.x; ++i) {
+				for (int i = 0; i < m_worldDimensions.x; ++i) {					
 					key.x = i; key.y = j; key.z = k;
 					pos = GridCoordsToWorldCoords(key);
 					m_chunks[key] = std::shared_ptr<Chunk> (new Chunk(pos, m_chunkSize, m_maxWorldHeight));
@@ -137,9 +157,35 @@ namespace tactical
 	void ChunkManager::Draw(std::string shaderID)
 	{
 		if (!m_chunks.empty()) {
-			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+
+			// With threads
+			/*
+			int step = m_chunks.size() / NUM_THREADS;
+			ChunkIterator beginIter = m_chunks.begin();
+
+			for (int i = 0; i < NUM_THREADS; ++i) {
+				ChunkIterator endIter = std::next(beginIter, step);
+				if (i == NUM_THREADS - 1)
+					endIter = m_chunks.end();
+
+				m_threadPool->AddTask([&] { ThreadDrawTask(shaderID, beginIter, endIter); });
+				std::advance(beginIter, step);
+			}
+			*/
+
+			// Without threads
+			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {				
 				m_pRenderer->Render(static_cast<std::shared_ptr<render::IRenderable3D>>((*iter).second), shaderID);
 			}
+		}
+	}
+
+
+	void ChunkManager::ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end)
+	{
+		//std::lock_guard<std::mutex> lock(mutex);
+		for (auto iter = begin; iter != end; ++iter) {
+			m_pRenderer->Render(static_cast<std::shared_ptr<render::IRenderable3D>>((*iter).second), shaderID);
 		}
 	}
 
@@ -187,7 +233,6 @@ namespace tactical
 		//		}
 		//	}
 		//}
-
 		
 	}
 
@@ -301,6 +346,26 @@ namespace tactical
 	glm::vec3 ChunkManager::GridCoordsToWorldCoords(const glm::vec3 & pos)
 	{
 		return (float)m_chunkSize * pos;
+	}
+
+	std::vector<int> ChunkManager::SplitMemToBounds(int mem, int parts)
+	{
+		int step = mem / parts;
+		int reminder = mem % parts;		
+		int length = parts + 1;
+		std::vector<int> bounds(length, 0);
+
+		int index = 0;
+		bounds[0] = index;
+		for (int i = 1; i <= parts; ++i) {
+			index += step;
+			if (i == parts)
+				index += reminder;
+			bounds[i] = index;			
+		}
+
+		return bounds;
+
 	}
 
 	glm::vec3 ChunkManager::World2Chunk(const glm::vec3& pos) 

@@ -4,5 +4,6 @@
 #include "Logger.h"
 #include "fileutils.h"
 #include "stringutils.h"
+#include "ThreadPool.h"
 
 #endif
