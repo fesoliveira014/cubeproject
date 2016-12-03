@@ -12,6 +12,8 @@
 #include  "../render/Renderer.h"
 
 #include "../utils/ThreadPool.h"
+#include <vector>
+#include <mutex>
 
 namespace tactical
 {
@@ -37,7 +39,9 @@ namespace tactical
 		void UpdateChunks(const glm::vec3& currentPos);
 
 		void Draw(std::string shaderID);
+
 		void ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end);
+		void ThreadUpdateTask(const glm::vec3& currentPos, ChunkIterator begin, ChunkIterator end);
 
 		inline void SetChunkSize(int size) { m_chunkSize = size; }
 		inline int GetChunkSize() const { return m_chunkSize; }

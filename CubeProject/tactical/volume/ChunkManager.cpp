@@ -1,12 +1,6 @@
 #include "ChunkManager.h"
-#include <glm/detail/type_mat.hpp>
-#include <vector>
-#include <mutex>
-#include "../math/AABB.h"
-#include "../math/AABB.h"
 
-
-static std::mutex mutex;
+//static std::mutex mutex;
 
 namespace tactical
 {
@@ -39,21 +33,12 @@ namespace tactical
 		};
 
 		// Create Thread Pool Pattern
-		m_threadPool = new utils::ThreadPool(NUM_THREADS);
-
-		m_bounds = SplitMemToBounds(m_worldDimensions.x * m_worldDimensions.y * m_worldDimensions.z, 4);
-		// debug
-		LOG << LOGTYPE::LOG_INFO << "m_worldDimensions vector: " + glm::to_string(m_worldDimensions) + 
-			"\nm_worldDimensions mem: " + std::to_string(m_worldDimensions.x * m_worldDimensions.y * m_worldDimensions.z);
-		LOG << LOGTYPE::LOG_INFO << "m_bounds split:";
-		for (auto &i : m_bounds) {
-			LOG << LOGTYPE::LOG_INFO << std::to_string(i);
-		}
+		// m_threadPool = new utils::ThreadPool(NUM_THREADS);
 
 		glm::vec3 key, neighKey, pos;		
 		for (int k = 0; k < m_worldDimensions.z; ++k) {
 			for (int j = 0; j < m_worldDimensions.y; ++j) {
-				for (int i = 0; i < m_worldDimensions.x; ++i) {					
+				for (int i = 0; i < m_worldDimensions.x; ++i) {
 					key.x = i; key.y = j; key.z = k;
 					pos = GridCoordsToWorldCoords(key);
 					m_chunks[key] = std::shared_ptr<Chunk> (new Chunk(pos, m_chunkSize, m_maxWorldHeight));
@@ -158,7 +143,7 @@ namespace tactical
 	{
 		if (!m_chunks.empty()) {
 
-			// With threads
+			// With threads (not working rn because of gl context specific of windows and *nix)
 			/*
 			int step = m_chunks.size() / NUM_THREADS;
 			ChunkIterator beginIter = m_chunks.begin();
@@ -181,6 +166,37 @@ namespace tactical
 	}
 
 
+
+
+	void ChunkManager::UpdateChunks(const glm::vec3& currentPos)
+	{
+		if (!m_chunks.empty() && m_meshNeedsUpdate) {
+
+			// With threads (not working rn because of gl context specific of windows and *nix)
+			/*
+			int step = m_chunks.size() / NUM_THREADS;
+			ChunkIterator beginIter = m_chunks.begin();
+
+			for (int i = 0; i < NUM_THREADS; ++i) {
+				ChunkIterator endIter = std::next(beginIter, step);
+				if (i == NUM_THREADS - 1)
+					endIter = m_chunks.end();
+
+				m_threadPool->AddTask([&] { ThreadUpdateTask(currentPos, beginIter, endIter); });				
+				std::advance(beginIter, step);
+			}
+			*/
+
+			// Without threads			
+			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+				if ((*iter).second->NeedsUpdate())
+					mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
+			}
+			m_meshNeedsUpdate = false;
+			
+		}
+	}
+
 	void ChunkManager::ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end)
 	{
 		//std::lock_guard<std::mutex> lock(mutex);
@@ -189,14 +205,12 @@ namespace tactical
 		}
 	}
 
-	void ChunkManager::UpdateChunks(const glm::vec3& currentPos)
+	void ChunkManager::ThreadUpdateTask(const glm::vec3& currentPos, ChunkIterator begin, ChunkIterator end)
 	{
-		if (!m_chunks.empty() && m_meshNeedsUpdate) {
-			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				if ((*iter).second->NeedsUpdate())
-					mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
-			}
-			m_meshNeedsUpdate = false;
+		//std::lock_guard<std::mutex> lock(mutex);
+		for (auto iter = begin; iter != end; ++iter) {
+			if ((*iter).second->NeedsUpdate())
+				mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
 		}
 	}
 
