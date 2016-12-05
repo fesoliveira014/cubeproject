@@ -187,7 +187,7 @@ namespace tactical
 
 	void ChunkManager::UpdateChunkMesh(Chunk& chunk)
 	{		
-		render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
+		//render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
 
 		std::vector<render::VertexAttribute> attributes;
 		attributes.push_back(render::VertexAttribute(0, 3, GLType::FLOAT));

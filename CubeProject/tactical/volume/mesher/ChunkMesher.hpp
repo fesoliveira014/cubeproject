@@ -156,9 +156,11 @@ namespace tactical
 					}
 				}
 
-				/*
+				// race condition here
+				std::lock_guard<std::mutex> lock(globalMutex);
 				render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
 
+				/*
 				std::vector<render::VertexAttribute> attributes;
 				attributes.push_back(render::VertexAttribute(0, 3, GLType::FLOAT));
 				attributes.push_back(render::VertexAttribute(1, 3, GLType::FLOAT));
@@ -267,9 +269,12 @@ namespace tactical
 					}
 				}
 
-				/*
+				// race condition here
+				std::lock_guard<std::mutex> lock(globalMutex);
 				render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
 
+
+				/*
 				std::vector<render::VertexAttribute> attributes;
 				attributes.push_back(render::VertexAttribute(0, 3, GLType::FLOAT));
 				attributes.push_back(render::VertexAttribute(1, 3, GLType::FLOAT));
