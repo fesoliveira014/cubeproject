@@ -1,7 +1,5 @@
 #include "ChunkManager.h"
 
-//static std::mutex mutex;
-
 namespace tactical
 {
 	using namespace volume;
@@ -11,7 +9,8 @@ namespace tactical
 		m_maxWorldHeight(256),
 		m_chunkLoadingRadius(4),
 		m_worldDimensions(worldDimension),
-		m_pRenderer(pRenderer)
+		m_pRenderer(pRenderer),
+		m_threadPool(NUM_THREADS)
 	{
 		m_currentChunk = glm::vec3(0);
 		Initialize();	
@@ -30,11 +29,8 @@ namespace tactical
 	{
 		auto chunkDeleter = [](Chunk* chunk) {
 			delete chunk;
-		};
-
-		// Create Thread Pool Pattern
-		// m_threadPool = new utils::ThreadPool(NUM_THREADS);
-
+		};		
+		
 		glm::vec3 key, neighKey, pos;		
 		for (int k = 0; k < m_worldDimensions.z; ++k) {
 			for (int j = 0; j < m_worldDimensions.y; ++j) {
@@ -142,77 +138,93 @@ namespace tactical
 	void ChunkManager::Draw(std::string shaderID)
 	{
 		if (!m_chunks.empty()) {
-
-			// With threads (not working rn because of gl context specific of windows and *nix)
-			/*
-			int step = m_chunks.size() / NUM_THREADS;
-			ChunkIterator beginIter = m_chunks.begin();
-
-			for (int i = 0; i < NUM_THREADS; ++i) {
-				ChunkIterator endIter = std::next(beginIter, step);
-				if (i == NUM_THREADS - 1)
-					endIter = m_chunks.end();
-
-				m_threadPool->AddTask([&] { ThreadDrawTask(shaderID, beginIter, endIter); });
-				std::advance(beginIter, step);
-			}
-			*/
-
-			// Without threads
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {				
 				m_pRenderer->Render(static_cast<std::shared_ptr<render::IRenderable3D>>((*iter).second), shaderID);
 			}
 		}
 	}
 
-
-
-
 	void ChunkManager::UpdateChunks(const glm::vec3& currentPos)
 	{
 		if (!m_chunks.empty() && m_meshNeedsUpdate) {
 
-			// With threads (not working rn because of gl context specific of windows and *nix)
-			/*
-			int step = m_chunks.size() / NUM_THREADS;
+			// With threads
+
+			// Thread task blocks of mesher algorithm
+			int step = m_chunks.size() / NUM_THREADS;			
 			ChunkIterator beginIter = m_chunks.begin();
 
 			for (int i = 0; i < NUM_THREADS; ++i) {
 				ChunkIterator endIter = std::next(beginIter, step);
 				if (i == NUM_THREADS - 1)
-					endIter = m_chunks.end();
-
-				m_threadPool->AddTask([&] { ThreadUpdateTask(currentPos, beginIter, endIter); });				
+					endIter = m_chunks.end();				
+				m_threadPool.AddTask([=] { ThreadUpdateTask(currentPos, beginIter, endIter); });
 				std::advance(beginIter, step);
 			}
-			*/
-
-			// Without threads			
+			m_threadPool.waitFinished();
+			// Render chunks that needs to be updated
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				if ((*iter).second->NeedsUpdate())
-					mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
+				if ((*iter).second->NeedsUpdate()) {					
+					UpdateChunkMesh(*(*iter).second);
+				}
 			}
 			m_meshNeedsUpdate = false;
+
+			// Without threads			
+			/*
+			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+				if ((*iter).second->NeedsUpdate()) {
+					mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
+					UpdateChunkMesh(*(*iter).second);
+				}
+					
+			}			
+			m_meshNeedsUpdate = false;
+			*/
 			
 		}
 	}
 
-	void ChunkManager::ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end)
+	void ChunkManager::UpdateChunkMesh(Chunk& chunk)
+	{		
+		render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
+
+		std::vector<render::VertexAttribute> attributes;
+		attributes.push_back(render::VertexAttribute(0, 3, GLType::FLOAT));
+		attributes.push_back(render::VertexAttribute(1, 3, GLType::FLOAT));
+		attributes.push_back(render::VertexAttribute(3, 4, GLType::FLOAT));
+
+		chunk.GetMesh()->vao = new render::VertexArray();
+		chunk.GetMesh()->ibo = new render::IndexBuffer(chunk.GetMesh()->indices.data(),
+			(GLsizei)chunk.GetMesh()->indices.size());
+		chunk.GetMesh()->vao->AddBuffer(new render::Buffer(chunk.GetMesh()->vertices.data(),
+			(GLsizei)chunk.GetMesh()->vertices.size() * sizeof(render::Vertex3f3f4f), attributes));
+
+		chunk.GetMesh()->vertices.clear();
+		chunk.GetMesh()->indices.clear();
+
+		chunk.Updated();
+
+	}
+
+	void ChunkManager::ThreadUpdateTask(const glm::vec3& currentPos, const ChunkIterator begin, const ChunkIterator end)
 	{
-		//std::lock_guard<std::mutex> lock(mutex);
+		for (auto iter = begin; iter != end; ++iter) {
+			if ((*iter).second->NeedsUpdate()) {
+				mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
+				LOG << LOGTYPE::LOG_INFO << "Updating ChunkMesh of position " + glm::to_string((*iter).second->GetPosition());
+			}
+		}
+	}
+
+	void ChunkManager::ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end)
+	{		
 		for (auto iter = begin; iter != end; ++iter) {
 			m_pRenderer->Render(static_cast<std::shared_ptr<render::IRenderable3D>>((*iter).second), shaderID);
 		}
 	}
 
-	void ChunkManager::ThreadUpdateTask(const glm::vec3& currentPos, ChunkIterator begin, ChunkIterator end)
-	{
-		//std::lock_guard<std::mutex> lock(mutex);
-		for (auto iter = begin; iter != end; ++iter) {
-			if ((*iter).second->NeedsUpdate())
-				mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
-		}
-	}
+
 
 	void ChunkManager::FillChunks()
 	{
@@ -412,7 +424,7 @@ namespace tactical
 	};
 
 	void ChunkManager::SetVoxel(const glm::vec3& pos, byte type)
-	{
+	{		
 		// find chunk index associated with position
 		glm::vec3 chunkIndex = World2Chunk(pos);
 

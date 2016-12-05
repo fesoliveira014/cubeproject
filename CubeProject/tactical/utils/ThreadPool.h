@@ -15,13 +15,17 @@ namespace tactical
 		public:
 			ThreadPool(int numThreads);
 			~ThreadPool();
+			void waitFinished();
 			template<class F, class... Args>
 			auto AddTask(F&& f, Args&&... args)
 				->std::future<typename std::result_of<F(Args...)>::type>;
 		private:
-			std::mutex m_mutex;
-			std::condition_variable m_cv;
+			ThreadPool() = delete;
 			std::atomic<bool> m_terminate;
+			std::atomic<uint> m_doingTask;
+			std::mutex m_mutex;
+			std::condition_variable m_cvTask;
+			std::condition_variable m_cvFinished;
 			std::vector<std::thread> m_threads;
 			std::queue <std::function <void(void)> > m_tasks;
 		};
@@ -36,12 +40,11 @@ namespace tactical
 				);
 
 			// Emplace generic function call task in m_tasks queue
+			std::unique_lock<std::mutex> lock(m_mutex);
 			m_tasks.emplace([packagedTask] {
 				(*packagedTask)();
 			});
-
-			std::unique_lock<std::mutex> lock(m_mutex);
-			m_cv.notify_one();
+			m_cvTask.notify_one();
 			return packagedTask->get_future();
 		}
 	}

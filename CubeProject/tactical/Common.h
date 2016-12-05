@@ -17,6 +17,7 @@
 #include <cmath>
 #include <random>
 #include <thread>
+#include <mutex>
 
 
 #define GLEW_STATIC
@@ -42,5 +43,7 @@
 
 #define TACTICAL_MS_PER_UPDATE 10.0
 #define NUM_THREADS 8
+
+extern std::mutex globalMutex;
 
 #endif

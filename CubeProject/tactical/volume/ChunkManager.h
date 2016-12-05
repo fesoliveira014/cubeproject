@@ -13,7 +13,7 @@
 
 #include "../utils/ThreadPool.h"
 #include <vector>
-#include <mutex>
+
 
 namespace tactical
 {
@@ -36,12 +36,15 @@ namespace tactical
 		void FillWithPyramids();
 		void GenerateWorld();
 
+		void UpdateChunkMesh(Chunk& chunk);
+
 		void UpdateChunks(const glm::vec3& currentPos);
 
 		void Draw(std::string shaderID);
 
 		void ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end);
 		void ThreadUpdateTask(const glm::vec3& currentPos, ChunkIterator begin, ChunkIterator end);
+		
 
 		inline void SetChunkSize(int size) { m_chunkSize = size; }
 		inline int GetChunkSize() const { return m_chunkSize; }
@@ -99,7 +102,7 @@ namespace tactical
 
 		FastNoise m_fastnoise;
 
-		utils::ThreadPool *m_threadPool;
+		utils::ThreadPool m_threadPool;
 
 		// these will be moved to a terrain engine in the future. 
 		noise::module::RidgedMulti m_mountains;
@@ -109,7 +112,6 @@ namespace tactical
 		noise::module::Select m_selector;
 		noise::module::Turbulence m_final;
 		noise::utils::NoiseMap m_heightMap;
-
 	};
 }
 

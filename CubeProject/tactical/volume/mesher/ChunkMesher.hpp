@@ -24,10 +24,10 @@ namespace tactical
 			inline static void Greedy(Chunk& chunk)
 			{
 				// cleanup
-				delete chunk.GetMesh()->vao;
-				delete chunk.GetMesh()->ibo;
-				chunk.GetMesh()->vertices.clear();
-				chunk.GetMesh()->indices.clear();
+				//delete chunk.GetMesh()->vao;
+				//delete chunk.GetMesh()->ibo;				
+				//chunk.GetMesh()->vertices.clear();
+				//chunk.GetMesh()->indices.clear();
 
 				// this is the variable that will store all of the voxel data for the current plane
 				int* mask = new int[chunk.GetSize() * chunk.GetSize()];
@@ -126,12 +126,16 @@ namespace tactical
 									}
 
 									// check definition of AddQuad to see how each face is stored (Geometry.hpp)
-									render::geometry::AddQuad<render::Vertex3f3f4f>(
-										glm::vec3(x[0], x[1], x[2]),
-										glm::vec3(x[0] + du[0], x[1] + du[1], x[2] + du[2]),
-										glm::vec3(x[0] + du[0] + dv[0], x[1] + du[1] + dv[1], x[2] + du[2] + dv[2]),
-										glm::vec3(x[0] + dv[0], x[1] + dv[1], x[2] + dv[2]),
-										chunk.GetMesh()->vertices, chunk.GetMesh()->indices, c);
+									{
+										// race condition here
+										std::lock_guard<std::mutex> lock(globalMutex);
+										render::geometry::AddQuad<render::Vertex3f3f4f>(
+											glm::vec3(x[0], x[1], x[2]),
+											glm::vec3(x[0] + du[0], x[1] + du[1], x[2] + du[2]),
+											glm::vec3(x[0] + du[0] + dv[0], x[1] + du[1] + dv[1], x[2] + du[2] + dv[2]),
+											glm::vec3(x[0] + dv[0], x[1] + dv[1], x[2] + dv[2]),
+											chunk.GetMesh()->vertices, chunk.GetMesh()->indices, c);										
+									}
 
 									// cleanup for next iteration
 									for (int l = 0; l < height; ++l) {
@@ -152,6 +156,7 @@ namespace tactical
 					}
 				}
 
+				/*
 				render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
 
 				std::vector<render::VertexAttribute> attributes;
@@ -169,7 +174,8 @@ namespace tactical
 				chunk.GetMesh()->indices.clear();
 
 				chunk.Updated();
-				delete mask;
+				*/
+				delete[] mask;
 			}
 
 			inline static void MarchingCubes(Chunk& chunk)
@@ -179,10 +185,10 @@ namespace tactical
 
 			inline static void NaiveWithCulling(Chunk& chunk)
 			{
-				delete chunk.GetMesh()->vao;
-				delete chunk.GetMesh()->ibo;
-				chunk.GetMesh()->vertices.clear();
-				chunk.GetMesh()->indices.clear();
+				//delete chunk.GetMesh()->vao;
+				//delete chunk.GetMesh()->ibo;
+				//chunk.GetMesh()->vertices.clear();
+				//chunk.GetMesh()->indices.clear();
 
 
 				for (int k = 0; k < chunk.GetSize(); ++k) {
@@ -194,6 +200,8 @@ namespace tactical
 							render::geometry::Face face;
 
 							// check top face
+							// race condition here
+							std::lock_guard<std::mutex> lock(globalMutex);
 							if (type != 0) {
 								face.face = render::geometry::Face::TOP;
 								if (chunk.IsFaceVisible(pos, face)) {
@@ -259,7 +267,7 @@ namespace tactical
 					}
 				}
 
-
+				/*
 				render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
 
 				std::vector<render::VertexAttribute> attributes;
@@ -277,6 +285,7 @@ namespace tactical
 				chunk.GetMesh()->indices.clear();
 
 				chunk.Updated();
+				*/
 			}
 
 			inline static void GenerateChunkMesh(Chunk& chunk, MesherType type)

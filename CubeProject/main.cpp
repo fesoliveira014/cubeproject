@@ -1,8 +1,11 @@
 #pragma comment(lib, "glew32s.lib")
 
 #include "tactical/Engine.h"
+#include "tactical/Common.h"
 
 //#define TEST
+
+std::mutex globalMutex; // global mutex for resolving race conditions problems when using multithreads
 
 int main(int argc, char* argv[])
 {
@@ -122,7 +125,7 @@ int main(int argc, char* argv[])
                         chunkManager.SetVoxel(pos, 0);
                     }
                     else {
-                        pos += pickingResult.face;
+                        pos += pickingResult.face;						
                         chunkManager.SetVoxel(pos, 1);
                     }
                 }
