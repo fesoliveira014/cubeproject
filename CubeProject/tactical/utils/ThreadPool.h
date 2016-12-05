@@ -6,6 +6,9 @@
 #include <atomic>
 #include <future>
 
+#define DEBUGPOOL 0
+
+
 namespace tactical
 {
 	namespace utils

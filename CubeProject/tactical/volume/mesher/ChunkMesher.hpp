@@ -25,7 +25,7 @@ namespace tactical
 			{
 				// cleanup
 				//delete chunk.GetMesh()->vao;
-				//delete chunk.GetMesh()->ibo;				
+				//delete chunk.GetMesh()->ibo;
 				//chunk.GetMesh()->vertices.clear();
 				//chunk.GetMesh()->indices.clear();
 
@@ -38,7 +38,7 @@ namespace tactical
 
 				// iterates over the three axis
 				for (axis = 0; axis < 3; ++axis) {
-					int u = (axis + 1) % 3; 
+					int u = (axis + 1) % 3;
 					int v = (axis + 2) % 3;
 
 					int x[3] = { 0, 0, 0 };
@@ -47,7 +47,7 @@ namespace tactical
 					q[axis] = 1;
 
 					// Iterates through a section of the chunk cut at the current axis, defined by
-					// x[axis]. It, then, check if each face of the voxel on the current axis is 
+					// x[axis]. It, then, check if each face of the voxel on the current axis is
 					// visible, setting 1 at the mask when it is true, 0 otherwise
 					for (x[axis] = -1; x[axis] < chunk.GetSize(); ) {
 						int n = 0; // current mask index
@@ -58,23 +58,23 @@ namespace tactical
 
 								// checks if the positive face is visible
 								glm::vec3 pos = glm::vec3(x[0], x[1], x[2]);
-								int a = (0 <= x[axis] ? (chunk.IsFaceVisible(pos, face) ? chunk.GetVoxel(pos) : 0 ) : 0);
+								int a = (0 <= x[axis] ? (chunk.IsFaceVisible(pos, face) ? chunk.GetVoxel(pos) : 0) : 0);
 
 								// checks if the negative face is visible
 								face.face = (render::geometry::Face::FaceName)(axis + 3);
 								pos += glm::vec3(q[0], q[1], q[2]);
-								int b = (x[axis] <  chunk.GetSize() - 1 ? (chunk.IsFaceVisible(pos, face) ? chunk.GetVoxel(pos) : 0) : 0);
+								int b = (x[axis] < chunk.GetSize() - 1 ? (chunk.IsFaceVisible(pos, face) ? chunk.GetVoxel(pos) : 0) : 0);
 
 								// Determines if we are using front face or backface
 								if ((!!a) == (!!b))
 									mask[n] = 0;
-								else if (!!a) 
+								else if (!!a)
 									mask[n] = a;
 								else
 									mask[n] = -b;
 							}
 						}
-						
+
 						++x[axis];
 						n = 0; // current mask index
 
@@ -87,7 +87,7 @@ namespace tactical
 								int c = mask[n];
 								int width, height;
 
-								// Greedy step. 
+								// Greedy step.
 								// The algorithm tries first to find the width of the current quad. It iterates over
 								// the row until it hits a voxel whose type is different than the quad's. When this
 								// is found, we do the same for the height, getting the biggest quad of our current
@@ -134,7 +134,7 @@ namespace tactical
 											glm::vec3(x[0] + du[0], x[1] + du[1], x[2] + du[2]),
 											glm::vec3(x[0] + du[0] + dv[0], x[1] + du[1] + dv[1], x[2] + du[2] + dv[2]),
 											glm::vec3(x[0] + dv[0], x[1] + dv[1], x[2] + dv[2]),
-											chunk.GetMesh()->vertices, chunk.GetMesh()->indices, c);										
+											chunk.GetMesh()->vertices, chunk.GetMesh()->indices, c);
 									}
 
 									// cleanup for next iteration
@@ -191,7 +191,6 @@ namespace tactical
 				//delete chunk.GetMesh()->ibo;
 				//chunk.GetMesh()->vertices.clear();
 				//chunk.GetMesh()->indices.clear();
-
 
 				for (int k = 0; k < chunk.GetSize(); ++k) {
 					for (int j = 0; j < chunk.GetSize(); ++j) {
@@ -272,7 +271,6 @@ namespace tactical
 				// race condition here
 				std::lock_guard<std::mutex> lock(globalMutex);
 				render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
-
 
 				/*
 				std::vector<render::VertexAttribute> attributes;

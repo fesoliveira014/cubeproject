@@ -13,7 +13,7 @@ namespace tactical
 		m_threadPool(NUM_THREADS)
 	{
 		m_currentChunk = glm::vec3(0);
-		Initialize();	
+		Initialize();
 	}
 
 	ChunkManager::~ChunkManager()
@@ -29,15 +29,15 @@ namespace tactical
 	{
 		auto chunkDeleter = [](Chunk* chunk) {
 			delete chunk;
-		};		
-		
-		glm::vec3 key, neighKey, pos;		
+		};
+
+		glm::vec3 key, neighKey, pos;
 		for (int k = 0; k < m_worldDimensions.z; ++k) {
 			for (int j = 0; j < m_worldDimensions.y; ++j) {
 				for (int i = 0; i < m_worldDimensions.x; ++i) {
 					key.x = i; key.y = j; key.z = k;
 					pos = GridCoordsToWorldCoords(key);
-					m_chunks[key] = std::shared_ptr<Chunk> (new Chunk(pos, m_chunkSize, m_maxWorldHeight));
+					m_chunks[key] = std::shared_ptr<Chunk>(new Chunk(pos, m_chunkSize, m_maxWorldHeight));
 				}
 			}
 		}
@@ -59,7 +59,7 @@ namespace tactical
 						neighKey.y += 1;
 						m_chunks[key]->NeighborSetTop(m_chunks[neighKey]);
 					}
-					
+
 					neighKey = key;
 					if (j > 0) {
 						neighKey.y -= 1;
@@ -113,8 +113,6 @@ namespace tactical
 		m_final.SetFrequency(4.0f);
 		m_final.SetPower(0.125f);
 
-		
-
 		noise::utils::NoiseMapBuilderPlane heightMapBuilder;
 		heightMapBuilder.SetSourceModule(m_final);
 		heightMapBuilder.SetDestNoiseMap(m_heightMap);
@@ -131,14 +129,13 @@ namespace tactical
 		m_fastnoise.SetFractalType(FastNoise::FractalType::FBM);
 		m_fastnoise.SetFractalGain(0.5f);*/
 
-
 		m_meshNeedsUpdate = true;
 	}
 
 	void ChunkManager::Draw(std::string shaderID)
 	{
 		if (!m_chunks.empty()) {
-			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {				
+			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
 				m_pRenderer->Render(static_cast<std::shared_ptr<render::IRenderable3D>>((*iter).second), shaderID);
 			}
 		}
@@ -147,46 +144,43 @@ namespace tactical
 	void ChunkManager::UpdateChunks(const glm::vec3& currentPos)
 	{
 		if (!m_chunks.empty() && m_meshNeedsUpdate) {
-
 			// With threads
 
 			// Thread task blocks of mesher algorithm
-			int step = m_chunks.size() / NUM_THREADS;			
+			int step = m_chunks.size() / NUM_THREADS;
 			ChunkIterator beginIter = m_chunks.begin();
 
 			for (int i = 0; i < NUM_THREADS; ++i) {
 				ChunkIterator endIter = std::next(beginIter, step);
 				if (i == NUM_THREADS - 1)
-					endIter = m_chunks.end();				
+					endIter = m_chunks.end();
 				m_threadPool.AddTask([=] { ThreadUpdateTask(currentPos, beginIter, endIter); });
 				std::advance(beginIter, step);
 			}
 			m_threadPool.waitFinished();
 			// Render chunks that needs to be updated
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				if ((*iter).second->NeedsUpdate()) {					
+				if ((*iter).second->NeedsUpdate()) {
 					UpdateChunkMesh(*(*iter).second);
 				}
 			}
 			m_meshNeedsUpdate = false;
 
-			// Without threads			
+			// Without threads
 			/*
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
 				if ((*iter).second->NeedsUpdate()) {
 					mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
 					UpdateChunkMesh(*(*iter).second);
 				}
-					
-			}			
+			}
 			m_meshNeedsUpdate = false;
 			*/
-			
 		}
 	}
 
 	void ChunkManager::UpdateChunkMesh(Chunk& chunk)
-	{		
+	{
 		//render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
 
 		std::vector<render::VertexAttribute> attributes;
@@ -204,7 +198,6 @@ namespace tactical
 		chunk.GetMesh()->indices.clear();
 
 		chunk.Updated();
-
 	}
 
 	void ChunkManager::ThreadUpdateTask(const glm::vec3& currentPos, const ChunkIterator begin, const ChunkIterator end)
@@ -212,19 +205,17 @@ namespace tactical
 		for (auto iter = begin; iter != end; ++iter) {
 			if ((*iter).second->NeedsUpdate()) {
 				mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
-				LOG << LOGTYPE::LOG_INFO << "Updating ChunkMesh of position " + glm::to_string((*iter).second->GetPosition());
+				//LOG << LOGTYPE::LOG_INFO << "Updating ChunkMesh of position " + glm::to_string((*iter).second->GetPosition());
 			}
 		}
 	}
 
 	void ChunkManager::ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end)
-	{		
+	{
 		for (auto iter = begin; iter != end; ++iter) {
 			m_pRenderer->Render(static_cast<std::shared_ptr<render::IRenderable3D>>((*iter).second), shaderID);
 		}
 	}
-
-
 
 	void ChunkManager::FillChunks()
 	{
@@ -242,7 +233,7 @@ namespace tactical
 				GeneratePyramid(*iter->second);
 			}
 		}
-		
+
 		//for (int j = 0; j < (m_chunkSize / 2); ++j) {
 		//	for (int k = 0; k < (m_worldDimensions.z * m_chunkSize / 2); ++k) {
 		//		for (int i = 0; i < (m_worldDimensions.x * m_chunkSize / 2); ++i) {
@@ -259,7 +250,6 @@ namespace tactical
 		//		}
 		//	}
 		//}
-		
 	}
 
 	void ChunkManager::GeneratePyramid(Chunk &chunk)
@@ -274,10 +264,10 @@ namespace tactical
 						chunk.SetVoxel(i, j, k, 1);
 						chunk.SetVoxel(m_chunkSize - 1 - i, j, k, 1);
 						chunk.SetVoxel(m_chunkSize - 1 - i, j, m_chunkSize - 1 - k, 1);
-						chunk.SetVoxel(i, j, m_chunkSize - 1 - k, 1);					}
+						chunk.SetVoxel(i, j, m_chunkSize - 1 - k, 1);
+					}
 					/*if ((m_chunkSize - i >= j && k >= j)) {
 						chunk.SetVoxel(i, j, k, 1);
-						
 					}*/
 				}
 			}
@@ -285,11 +275,11 @@ namespace tactical
 	}
 
 	void ChunkManager::GenerateWorld()
-	{	
+	{
 		if (!m_chunks.empty()) {
 			//for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
 			//	for (int k = 0; k < m_chunkSize; ++k) {
-			//		
+			//
 			//		for (int i = 0; i < m_chunkSize; ++i) {
 			//			int x = (int)(*iter).second->GetPosition().x;
 			//			int y = (int)(*iter).second->GetPosition().y;
@@ -300,7 +290,6 @@ namespace tactical
 			//			noise = (noise + 1) * 0.5f;
 			//			int height = (int)(m_worldDimensions.y * noise);
 			//			height = height <= 0 ? 1 : height > m_chunkSize ? m_chunkSize : height;
-
 
 			//			for (int j = 0; j < height; ++j) {
 			//				if (j < 1)
@@ -317,35 +306,32 @@ namespace tactical
 			//	}
 			//}
 
-			
-				for (int k = 0; k < m_worldDimensions.z * m_chunkSize; ++k) {
-					for (int i = 0; i < m_worldDimensions.x * m_chunkSize; ++i) {
-						double noise = m_heightMap.GetValue(i, k);
-						noise = (noise + 1) * 0.5f;
+			for (int k = 0; k < m_worldDimensions.z * m_chunkSize; ++k) {
+				for (int i = 0; i < m_worldDimensions.x * m_chunkSize; ++i) {
+					double noise = m_heightMap.GetValue(i, k);
+					noise = (noise + 1) * 0.5f;
 
-						int height = (int)(m_worldDimensions.y * m_chunkSize * noise) - 1;
-						height = height <= 0 ? 1 : height > m_worldDimensions.y * m_chunkSize - 1 ? m_worldDimensions.y * m_chunkSize : height;
-						//height = height - height % 4 + 1;
+					int height = (int)(m_worldDimensions.y * m_chunkSize * noise) - 1;
+					height = height <= 0 ? 1 : height > m_worldDimensions.y * m_chunkSize - 1 ? m_worldDimensions.y * m_chunkSize : height;
+					//height = height - height % 4 + 1;
 
-						for (int j = 0; j < height; ++j) {
-							if (j < 1)
-								SetVoxel(glm::vec3(i, j, k), 4);
-							else if (j >= 1 && j < 16)
-								SetVoxel(glm::vec3(i, j, k), 2);
-							else if (j >= 16 && j < m_worldDimensions.y * m_chunkSize - 5)
-								SetVoxel(glm::vec3(i, j, k), 5);
-							else if (j >= m_chunkSize * m_worldDimensions.y - 5)
-								SetVoxel(glm::vec3(i, j, k), 3);
-						}
+					for (int j = 0; j < height; ++j) {
+						if (j < 1)
+							SetVoxel(glm::vec3(i, j, k), 4);
+						else if (j >= 1 && j < 16)
+							SetVoxel(glm::vec3(i, j, k), 2);
+						else if (j >= 16 && j < m_worldDimensions.y * m_chunkSize - 5)
+							SetVoxel(glm::vec3(i, j, k), 5);
+						else if (j >= m_chunkSize * m_worldDimensions.y - 5)
+							SetVoxel(glm::vec3(i, j, k), 3);
 					}
 				}
-			
+			}
 		}
 	}
 
 	void ChunkManager::SetCurrentChunk(const glm::vec3& pos)
 	{
-
 	}
 
 	math::RayCastResult ChunkManager::GetRayVoxelIntersection(math::Ray & ray, const glm::vec3& pos, float pickRadius)
@@ -353,7 +339,7 @@ namespace tactical
 		math::RayCastResult result;
 		result.hit = false;
 
-		if (!m_chunks.empty()) 
+		if (!m_chunks.empty())
 			result = math::PickVoxel(ray, m_chunks, 128, m_chunkSize);
 
 		return result;
@@ -377,7 +363,7 @@ namespace tactical
 	std::vector<int> ChunkManager::SplitMemToBounds(int mem, int parts)
 	{
 		int step = mem / parts;
-		int reminder = mem % parts;		
+		int reminder = mem % parts;
 		int length = parts + 1;
 		std::vector<int> bounds(length, 0);
 
@@ -387,14 +373,13 @@ namespace tactical
 			index += step;
 			if (i == parts)
 				index += reminder;
-			bounds[i] = index;			
+			bounds[i] = index;
 		}
 
 		return bounds;
-
 	}
 
-	glm::vec3 ChunkManager::World2Chunk(const glm::vec3& pos) 
+	glm::vec3 ChunkManager::World2Chunk(const glm::vec3& pos)
 	{
 		glm::vec3 offset(glm::vec3(glm::fmod(pos, (float)m_chunkSize)));
 		glm::vec3 position = pos - offset;
@@ -403,12 +388,12 @@ namespace tactical
 		return position;
 	};
 
-	glm::vec3 ChunkManager::World2Voxel(const glm::vec3& pos) 
+	glm::vec3 ChunkManager::World2Voxel(const glm::vec3& pos)
 	{
 		return glm::vec3(glm::fmod(pos, (float)m_chunkSize));
 	};
 
-	byte ChunkManager::GetVoxel(const glm::vec3& pos) 
+	byte ChunkManager::GetVoxel(const glm::vec3& pos)
 	{
 		// find chunk index associated with position
 		glm::vec3 chunkIndex = World2Chunk(pos);
@@ -424,7 +409,7 @@ namespace tactical
 	};
 
 	void ChunkManager::SetVoxel(const glm::vec3& pos, byte type)
-	{		
+	{
 		// find chunk index associated with position
 		glm::vec3 chunkIndex = World2Chunk(pos);
 

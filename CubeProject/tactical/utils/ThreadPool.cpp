@@ -33,17 +33,17 @@ namespace tactical
 						// outside of block scope, mutex unlocked and now do the task
 						auto id = std::this_thread::get_id();
 
-						{
+						if (DEBUGPOOL) {
 							std::stringstream ss;
 							std::unique_lock<std::mutex> lock(m_mutex);
 							ss << "Thread ID " << id << " Started Processing Task\n";
 							LOG << LOGTYPE::LOG_INFO << ss.str();
-							ss.clear();
+							ss.clear();							
 						}
 
 						task();
 
-						{
+						if (DEBUGPOOL) {
 							std::stringstream ss;
 							std::unique_lock<std::mutex> lock(m_mutex);
 							ss << "Thread ID " << id << " Finished Processing Task\n";

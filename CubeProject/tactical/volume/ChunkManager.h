@@ -14,7 +14,6 @@
 #include "../utils/ThreadPool.h"
 #include <vector>
 
-
 namespace tactical
 {
 	using namespace volume;
@@ -22,9 +21,9 @@ namespace tactical
 	class render::Shader;
 
 	using ChunkMap = std::unordered_map<glm::vec3, std::shared_ptr<Chunk>,
-			std::hash<glm::vec3>, std::equal_to<glm::vec3>> ;
+		std::hash<glm::vec3>, std::equal_to<glm::vec3>>;
 	using ChunkIterator = std::unordered_map<glm::vec3, std::shared_ptr<Chunk>,
-			std::hash<glm::vec3>, std::equal_to<glm::vec3>>::iterator;
+		std::hash<glm::vec3>, std::equal_to<glm::vec3>>::iterator;
 
 	class ChunkManager
 	{
@@ -44,12 +43,11 @@ namespace tactical
 
 		void ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end);
 		void ThreadUpdateTask(const glm::vec3& currentPos, ChunkIterator begin, ChunkIterator end);
-		
 
 		inline void SetChunkSize(int size) { m_chunkSize = size; }
 		inline int GetChunkSize() const { return m_chunkSize; }
 
-		inline std::shared_ptr<Chunk> GetChunk(const glm::vec3& pos) 
+		inline std::shared_ptr<Chunk> GetChunk(const glm::vec3& pos)
 		{
 			if (m_chunks[pos] != nullptr)
 				return m_chunks[pos];
@@ -71,17 +69,16 @@ namespace tactical
 		glm::vec3 ChunkManager::World2Voxel(const glm::vec3& pos);
 		byte ChunkManager::GetVoxel(const glm::vec3& pos);
 
-
 		void SetVoxel(const glm::vec3& pos, byte type);
 		void SetVoxel(float x, float y, float z, byte type) { SetVoxel(glm::vec3(x, y, z), 1); }
 
 	private:
 		ChunkManager();
 		void Initialize();
-		
+
 		bool IsWithinRadius(const glm::vec3& position);
 		void Draw(std::shared_ptr<Chunk> chunk, render::Shader& shader);
-		std::vector<int> SplitMemToBounds(int mem, int parts);		
+		std::vector<int> SplitMemToBounds(int mem, int parts);
 
 		glm::vec3 GridCoordsToWorldCoords(const glm::vec3& pos);
 
@@ -90,7 +87,7 @@ namespace tactical
 		ChunkMap m_chunks;
 
 		bool m_meshNeedsUpdate;
-	
+
 		int m_chunkSize;
 		int m_maxWorldHeight;
 		int m_chunkLoadingRadius; // in number of chunks, not in coordinates
@@ -104,7 +101,7 @@ namespace tactical
 
 		utils::ThreadPool m_threadPool;
 
-		// these will be moved to a terrain engine in the future. 
+		// these will be moved to a terrain engine in the future.
 		noise::module::RidgedMulti m_mountains;
 		noise::module::Billow m_baseFlat;
 		noise::module::ScaleBias m_flat;
