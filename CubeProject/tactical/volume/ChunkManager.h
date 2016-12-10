@@ -74,7 +74,7 @@ namespace tactical
 		void SetVoxel(float x, float y, float z, byte type) { SetVoxel(glm::vec3(x, y, z), 1); }
 
 	private:
-		enum ChunkUpdateType { Mesh, Render, None };
+		enum ChunkUpdateType { Mesh, None };
 
 		ChunkManager();
 		void Initialize();
