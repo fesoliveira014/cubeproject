@@ -30,7 +30,7 @@ namespace tactical
 			std::condition_variable m_cvTask;
 			std::condition_variable m_cvFinished;
 			std::vector<std::thread> m_threads;
-			std::queue <std::function <void(void)> > m_tasks;
+			std::queue<std::function <void(void)> > m_tasks;
 		};
 
 		template<class F, class... Args>

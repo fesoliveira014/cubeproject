@@ -12,6 +12,7 @@
 #include  "../render/Renderer.h"
 
 #include "../utils/ThreadPool.h"
+
 #include <vector>
 
 namespace tactical
@@ -73,6 +74,8 @@ namespace tactical
 		void SetVoxel(float x, float y, float z, byte type) { SetVoxel(glm::vec3(x, y, z), 1); }
 
 	private:
+		enum ChunkUpdateType { Mesh, Render, None };
+
 		ChunkManager();
 		void Initialize();
 
@@ -85,8 +88,9 @@ namespace tactical
 		void GeneratePyramid(Chunk &chunk);
 
 		ChunkMap m_chunks;
-
-		bool m_meshNeedsUpdate;
+		std::queue<std::shared_ptr<Chunk> > m_chunksToUpdate;
+		
+		std::atomic<ChunkUpdateType> m_chunkUpdateType;
 
 		int m_chunkSize;
 		int m_maxWorldHeight;

@@ -2,6 +2,7 @@
 #define _VOXEL_H_
 
 #include "../Common.h"
+#include <atomic>
 
 namespace tactical
 {
@@ -66,7 +67,7 @@ namespace tactical
 
 		protected:
 			uint m_capacity;
-			bool m_modified;
+			std::atomic<bool> m_modified;
 
 			VolumeData m_data;
 
