@@ -45,8 +45,9 @@ namespace tactical
 			Renderer(Camera* camera);
 			~Renderer();
 
+			void PreRender();
 			void Render(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID);
-			void RenderToQuad(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID);
+			void PostRender();
 
 			void TogglePolygonMode();
 			PolygonMode GetPolygonMode() { return m_polygonMode; }

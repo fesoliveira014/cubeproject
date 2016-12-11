@@ -110,8 +110,8 @@ namespace tactical
 			if (m_framebufferTextures["depthMap"] != nullptr) delete m_framebufferTextures["depthMap"];
 			if (m_renderBuffers["depthMap"] != nullptr) delete m_renderBuffers["depthMap"];
 
-			int height = m_eventHandler->GetWindowSizeState()->height;
-			int width = m_eventHandler->GetWindowSizeState()->width;
+			int height = 1024;//m_eventHandler->GetWindowSizeState()->height;
+			int width = 1024;// m_eventHandler->GetWindowSizeState()->width;
 
 			m_framebuffers["depthMap"] = new Framebuffer();
 			m_framebufferTextures["depthMap"] = new FramebufferTexture(GL_DEPTH_COMPONENT, width, height, GL_DEPTH_COMPONENT, GL_FLOAT);
@@ -143,13 +143,28 @@ namespace tactical
 			}
 		}
 
-		void Renderer::RenderToQuad(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID)
+		// TODO: finish
+		void Renderer::PreRender()
 		{
+			GLfloat near_plane = 1.0f, far_plane = 7.5f;
+			glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+			glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
+				  							  glm::vec3(0.0f, 0.0f, 0.0f),
+											  glm::vec3(0.0f, 1.0f, 0.0f));
+			glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+
+			m_shaders["basic_light"]->Enable();
+			m_shaders["basic_light"]->SetUniformMat4fv("lightViewProjection", lightSpaceMatrix);
+
 			m_framebuffers["depthMap"]->Bind();
-			Render(renderable, shaderID);
-			m_framebuffers["depthMap"]->Unbind();
 
 			//if (!m_quad.GetTexture()) m_quad.SetTexture(m_framebuffers["depthMap"]->)
+		}
+
+		// TODO: start
+		void Renderer::PostRender()
+		{
+
 		}
 
 		void Renderer::TogglePolygonMode()

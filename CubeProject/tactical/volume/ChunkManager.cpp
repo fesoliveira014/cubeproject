@@ -5,7 +5,7 @@ namespace tactical
 	using namespace volume;
 
 	ChunkManager::ChunkManager(render::Renderer* pRenderer, const glm::vec3& worldDimension, int seed) :
-		m_chunkSize(64),
+		m_chunkSize(32),
 		m_maxWorldHeight(256),
 		m_chunkLoadingRadius(4),
 		m_worldDimensions(worldDimension),
@@ -218,7 +218,7 @@ namespace tactical
 				//LOG << LOGTYPE::LOG_INFO << "Updating ChunkMesh of position " + glm::to_string((*iter).second->GetPosition());
 			}
 		}
-		m_chunkUpdateType = Render;
+		m_chunkUpdateType = ChunkUpdateType::None;
 	}
 
 	void ChunkManager::ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end)

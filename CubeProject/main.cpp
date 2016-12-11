@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 	tactical::render::Renderer renderer(activeCamera);
 	renderer.LinkTo(window);
 
-	tactical::ChunkManager chunkManager(&renderer, glm::vec3(4, 1, 4));
+	tactical::ChunkManager chunkManager(&renderer, glm::vec3(8, 2, 8));
 	//chunkManager.FillChunks();
 	chunkManager.GenerateWorld();
 	//chunkManager.FillWithPyramids();
