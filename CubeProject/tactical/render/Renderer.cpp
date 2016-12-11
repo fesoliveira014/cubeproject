@@ -66,10 +66,6 @@ namespace tactical
 			m_shaders["picking"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["picking"]->SetUniformMat4fv("model", glm::mat4(1.0f));
 
-			
-
-			m_framebuffers["depthMap"] = new Framebuffer();
-
 			glEnable(GL_CULL_FACE);
 			glCullFace(GL_BACK);
 			glFrontFace(GL_CCW);
@@ -90,21 +86,45 @@ namespace tactical
 				delete (*it).second;
 			}
 
+			std::unordered_map<std::string, Framebuffer*>::iterator fbit;
+			for (fbit = m_framebuffers.begin(); fbit != m_framebuffers.end(); ++fbit) {
+				delete (*fbit).second;
+			}
+
+			std::unordered_map<std::string, FramebufferTexture*>::iterator fbtit;
+			for (fbtit = m_framebufferTextures.begin(); fbtit != m_framebufferTextures.end(); ++fbtit) {
+				delete (*fbtit).second;
+			}
+
+			std::unordered_map<std::string, RenderBuffer*>::iterator rbit;
+			for (rbit = m_renderBuffers.begin(); rbit != m_renderBuffers.end(); ++rbit) {
+				delete (*rbit).second;
+			}
+
 			m_pCamera = nullptr;
 		}
 		
 		void Renderer::SetupFramebuffers()
 		{
+			if (m_framebuffers["depthMap"] != nullptr) delete m_framebuffers["depthMap"];
+			if (m_framebufferTextures["depthMap"] != nullptr) delete m_framebufferTextures["depthMap"];
+			if (m_renderBuffers["depthMap"] != nullptr) delete m_renderBuffers["depthMap"];
+
 			int height = m_eventHandler->GetWindowSizeState()->height;
 			int width = m_eventHandler->GetWindowSizeState()->width;
 
-			FramebufferTexture depthMap(GL_TEXTURE_2D, width, height, GL_DEPTH_COMPONENT, GL_FLOAT);
-			depthMap.SetParameteri(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-			depthMap.SetParameteri(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			depthMap.SetParameteri(GL_TEXTURE_WRAP_S, GL_REPEAT);
-			depthMap.SetParameteri(GL_TEXTURE_WRAP_T, GL_REPEAT);
+			m_framebuffers["depthMap"] = new Framebuffer();
+			m_framebufferTextures["depthMap"] = new FramebufferTexture(GL_DEPTH_COMPONENT, width, height, GL_DEPTH_COMPONENT, GL_FLOAT);
+			m_renderBuffers["depthMap"] = new RenderBuffer(GL_DEPTH24_STENCIL8, width, height);
 
-			m_framebuffers["depthMap"]->AttachColourbuffer(depthMap, GL_DEPTH_ATTACHMENT);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_S, GL_REPEAT);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+			m_framebuffers["depthMap"]->AttachColourbuffer(*m_framebufferTextures["depthMap"], GL_DEPTH_ATTACHMENT);
+			m_framebuffers["depthMap"]->AttachRenderBuffer(*m_renderBuffers["depthMap"], GL_DEPTH_STENCIL_ATTACHMENT);
+
 			m_framebuffers["depthMap"]->CheckStatus();
 		}
 
@@ -125,7 +145,11 @@ namespace tactical
 
 		void Renderer::RenderToQuad(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID)
 		{
+			m_framebuffers["depthMap"]->Bind();
+			Render(renderable, shaderID);
+			m_framebuffers["depthMap"]->Unbind();
 
+			//if (!m_quad.GetTexture()) m_quad.SetTexture(m_framebuffers["depthMap"]->)
 		}
 
 		void Renderer::TogglePolygonMode()
@@ -152,6 +176,7 @@ namespace tactical
 		void Renderer::LinkTo(window::Window& windowHandler)
 		{
 			m_eventHandler = windowHandler.GetEventHandler();
+			SetupFramebuffers();
 		}
 
 		

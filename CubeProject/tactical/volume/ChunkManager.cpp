@@ -5,7 +5,7 @@ namespace tactical
 	using namespace volume;
 
 	ChunkManager::ChunkManager(render::Renderer* pRenderer, const glm::vec3& worldDimension, int seed) :
-		m_chunkSize(32),
+		m_chunkSize(64),
 		m_maxWorldHeight(256),
 		m_chunkLoadingRadius(4),
 		m_worldDimensions(worldDimension),

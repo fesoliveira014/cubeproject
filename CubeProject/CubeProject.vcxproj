@@ -233,6 +233,7 @@
     <ClCompile Include="tactical\render\buffer\IndexBuffer.cpp" />
     <ClCompile Include="tactical\render\buffer\VertexArray.cpp" />
     <ClCompile Include="tactical\render\Renderer.cpp" />
+    <ClCompile Include="tactical\render\geometry\Quad.impl" />
     <ClCompile Include="tactical\render\structures\Shader.cpp" />
     <ClCompile Include="tactical\utils\ThreadPool.cpp" />
     <ClCompile Include="tactical\volume\Chunk.cpp" />
@@ -320,6 +321,7 @@
     <ClInclude Include="tactical\render\structures\Light.h" />
     <ClInclude Include="tactical\render\structures\Material.h" />
     <ClInclude Include="tactical\render\structures\Mesh.h" />
+    <ClInclude Include="tactical\render\geometry\Quad.h" />
     <ClInclude Include="tactical\render\structures\Shader.h" />
     <ClInclude Include="tactical\render\structures\Vertex.h" />
     <ClInclude Include="tactical\Types.h" />

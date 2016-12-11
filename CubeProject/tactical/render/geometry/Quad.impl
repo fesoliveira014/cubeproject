@@ -1,0 +1,63 @@
+#ifndef _QUAD_IMPL_
+#define _QUAD_IMPL_
+
+#include "Quad.h"
+
+namespace tactical
+{
+	namespace render
+	{
+		template <typename TextureType>
+		Quad<TextureType>::Quad()
+		{
+			m_mesh.vertices.clear();
+			m_mesh.indices.clear();
+
+			glm::vec3 v1 = glm::vec3(0.0f, 0.0f, 0.0f);
+			glm::vec3 v2 = glm::vec3(1.0f, 0.0f, 0.0f);
+			glm::vec3 v3 = glm::vec3(1.0f, 1.0f, 0.0f);
+			glm::vec3 v4 = glm::vec3(0.0f, 1.0f, 0.0f);
+
+			geometry::AddQuadUV<Vertex3f2f>(v1, v2, v3, v4, m_mesh.vertices, m_mesh.indices);
+
+			std::vector<VertexAttribute> attributes;
+			attributes.push_back(VertexAttribute(0, 3, GLType::FLOAT));
+			attributes.push_back(VertexAttribute(2, 2, GLType::FLOAT));
+
+			m_mesh.vao = new VertexArray();
+			m_mesh.ibo = new IndexBuffer(m_mesh.indices.data(), (GLsizei)m_mesh.indices.size());
+			m_mesh.vao->AddBuffer(new Buffer(m_mesh.vertices.data(), (GLsizei)m_mesh.vertices.size() * sizeof(Vertex3f2f), attributes));
+		}
+		
+		template <typename TextureType>
+		Quad<TextureType>::~Quad()
+		{
+			m_mesh.vertices.clear();
+			m_mesh.indices.clear();
+
+			delete m_mesh.ibo;
+			delete m_mesh.vao;
+		}
+		
+		template <typename TextureType>
+		void Quad<TextureType>::Draw(Shader& shader)
+		{
+			if (m_texture) {
+				if (!shader.IsEnabled())
+					shader.Enable();
+
+				m_mesh.vao->Bind();
+				m_mesh.ibo->Bind();
+				m_texture->Bind();
+
+				glDrawElements(GL_TRIANGLES, (GLsizei)m_mesh.ibo->GetCount(), GL_UNSIGNED_INT, 0);
+
+				m_texture->Unbind();
+				m_mesh.ibo->Unbind();
+				m_mesh.vao->Unbind();
+			}
+		}
+	}
+}
+
+#endif

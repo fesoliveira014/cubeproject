@@ -3,9 +3,9 @@
 
 #include  "../Common.h"
 
+#include "interface/IEntity3D.h"
 #include "../math/AABB.h"
 #include  "../render/structures/Vertex.h"
-#include "interface/IEntity3D.h"
 #include  "../render/geometry/Geometry.h"
 
 namespace tactical

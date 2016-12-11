@@ -25,6 +25,7 @@
 #include "../math/Ray.h"
 
 #include "geometry\Geometry.h"
+#include "geometry\Quad.h"
 
 
 namespace tactical
@@ -96,6 +97,13 @@ namespace tactical
 			std::shared_ptr<window::EventHandler> m_eventHandler;
 			std::unordered_map<std::string, Shader*> m_shaders;
 			std::unordered_map<std::string, Framebuffer*> m_framebuffers;
+			std::unordered_map<std::string, FramebufferTexture*> m_framebufferTextures;
+			std::unordered_map<std::string, RenderBuffer*> m_renderBuffers;
+
+			std::shared_ptr<FramebufferTexture> m_depthMap;
+			std::shared_ptr<RenderBuffer> m_depthRenderBuffer;
+			Quad<FramebufferTexture> m_quad;
+
 
 			int m_lightType;
 

@@ -8,7 +8,25 @@ namespace tactical
 {
 	namespace render
 	{
-		class FramebufferTexture
+		class FramebufferAttachment
+		{
+			friend class Framebuffer;
+
+		public:
+			FramebufferAttachment(GLenum internalFormat, int width, int height) {};
+			virtual ~FramebufferAttachment() {};
+
+			virtual void Bind() = 0;
+			virtual void Unbind() = 0;
+
+		protected:
+			FramebufferAttachment() {}
+
+			GLuint m_handle;
+			int m_width, m_height;
+		};
+
+		class FramebufferTexture : virtual protected FramebufferAttachment
 		{
 			friend class Framebuffer;
 
@@ -27,14 +45,13 @@ namespace tactical
 			void SetParameterfv(GLenum pname, GLfloat* param);
 			void SetParameteriv(GLenum pname, GLint* param);
 
-			GLuint GetId() { return m_texture; }
+			GLuint GetId() { return m_handle; }
 
 		private:
-			GLuint m_texture;
-			int m_width, m_height;
+			
 		};
 
-		class RenderBuffer
+		class RenderBuffer : virtual protected FramebufferAttachment
 		{
 			friend class Framebuffer;
 
@@ -48,11 +65,10 @@ namespace tactical
 
 			void SetRenderBuffer(GLenum internalFormat, int width, int height);
 
-			GLuint GetId() { return m_buffer; }
+			GLuint GetId() { return m_handle; }
 			
 		private:
-			GLuint m_buffer;
-			int m_width, m_height;
+			
 		};
 
 		class Framebuffer

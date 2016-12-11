@@ -8,6 +8,7 @@
 #define LOG_INFO(str) LOG << LOGTYPE::LOG_INFO << str
 #define LOG_WARNING(str) LOG << LOGTYPE::LOG_WARNING << str
 #define LOG_ERROR(str) LOG << LOGTYPE::LOG_ERROR << str
+#define LOG_OPENGL() logOpenGL()
 
 namespace tactical 
 {
@@ -53,6 +54,17 @@ namespace tactical
 
 			bool m_console;
 		};
+	}
+
+	static void logOpenGL()
+	{
+		GLenum errorGL = glGetError();
+		if (errorGL != GL_NO_ERROR) {
+			while (errorGL != GL_NO_ERROR) {
+				LOG << LOGTYPE::LOG_WARNING << "OpenGL error: " + std::to_string(errorGL);
+				errorGL = glGetError();
+			}
+		}
 	}
 }
 

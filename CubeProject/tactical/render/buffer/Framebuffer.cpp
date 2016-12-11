@@ -66,7 +66,8 @@ namespace tactical
 			if (!m_isBound) Bind();
 
 			buffer.Bind();
-			glFramebufferRenderbuffer(GL_FRAMEBUFFER, renderAttachment, GL_RENDERBUFFER, buffer.GetId());
+			glFramebufferRenderbuffer(GL_FRAMEBUFFER, renderAttachment, GL_RENDERBUFFER, buffer.m_handle);
+			buffer.Unbind();
 		}
 
 		void Framebuffer::Blit(int width, int height, GLenum bufferBit, GLenum filter)
@@ -87,10 +88,11 @@ namespace tactical
 		}
 
 		FramebufferTexture::FramebufferTexture()
-			: m_width(0),
-			  m_height(0)
 		{
-			glGenTextures(1, &m_texture);
+			m_width = 0;
+			m_height = 0;
+
+			glGenTextures(1, &m_handle);
 		}
 
 		FramebufferTexture::FramebufferTexture(GLenum internalFormat, int width, int height, GLenum format, GLenum type)
@@ -98,45 +100,54 @@ namespace tactical
 			m_width = width;
 			m_height = height;
 
-			glGenTextures(1, &m_texture);
-			glBindTexture(GL_TEXTURE_2D, m_texture);
+			glGenTextures(1, &m_handle);
+			glBindTexture(GL_TEXTURE_2D, m_handle);
 			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, type, NULL);
 		}
 
 		void FramebufferTexture::SetTexture(GLenum internalFormat, int width, int height, GLenum format, GLenum type)
 		{
-			glBindTexture(GL_TEXTURE_2D, m_texture);
+			glBindTexture(GL_TEXTURE_2D, m_handle);
 			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, NULL);
+			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 
 		void FramebufferTexture::SetParameterf(GLenum pname, GLfloat param)
 		{
-			glTexParameterf(m_texture, pname, param);
+			glBindTexture(GL_TEXTURE_2D, m_handle);
+			glTexParameterf(GL_TEXTURE_2D, pname, param);
+			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 		
 		void FramebufferTexture::SetParameteri(GLenum pname, GLint param)
 		{
-			glTexParameteri(m_texture, pname, param);
+			glBindTexture(GL_TEXTURE_2D, m_handle);
+			glTexParameteri(GL_TEXTURE_2D, pname, param);
+			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 
 		void FramebufferTexture::SetParameterfv(GLenum pname, GLfloat* param)
 		{
-			glTexParameterfv(m_texture, pname, param);
+			glBindTexture(GL_TEXTURE_2D, m_handle);
+			glTexParameterfv(GL_TEXTURE_2D, pname, param);
+			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 
 		void FramebufferTexture::SetParameteriv(GLenum pname, GLint* param)
 		{
-			glTexParameteriv(m_texture, pname, param);
+			glBindTexture(GL_TEXTURE_2D, m_handle);
+			glTexParameteriv(GL_TEXTURE_2D, pname, param);
+			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 
 		FramebufferTexture::~FramebufferTexture()
 		{
-			glDeleteTextures(1, &m_texture);
+			glDeleteTextures(1, &m_handle);
 		}
 
 		void FramebufferTexture::Bind()
 		{
-			glBindTexture(GL_TEXTURE_2D, m_texture);
+			glBindTexture(GL_TEXTURE_2D, m_handle);
 		}
 
 		void FramebufferTexture::Unbind()
@@ -145,10 +156,11 @@ namespace tactical
 		}
 
 		RenderBuffer::RenderBuffer() 
-			: m_width(0), 
-			  m_height(0)
 		{
-			glGenRenderbuffers(1, &m_buffer);
+			m_width = 0;
+			m_height = 0;
+
+			glGenRenderbuffers(1, &m_handle);
 		}
 
 		RenderBuffer::RenderBuffer(GLenum internalFormat, int width, int height)
@@ -156,19 +168,19 @@ namespace tactical
 			m_width = width;
 			m_height = height;
 
-			glGenRenderbuffers(1, &m_buffer);
-			glBindRenderbuffer(GL_RENDERBUFFER, m_buffer);
+			glGenRenderbuffers(1, &m_handle);
+			glBindRenderbuffer(GL_RENDERBUFFER, m_handle);
 			glRenderbufferStorage(GL_RENDERBUFFER, internalFormat , width, height);
 		}
 
 		RenderBuffer::~RenderBuffer()
 		{
-			glDeleteRenderbuffers(1, &m_buffer);
+			glDeleteRenderbuffers(1, &m_handle);
 		}
 
 		void RenderBuffer::Bind()
 		{
-			glBindRenderbuffer(GL_RENDERBUFFER, m_buffer);
+			glBindRenderbuffer(GL_RENDERBUFFER, m_handle);
 		}
 
 		void RenderBuffer::Unbind()
@@ -178,7 +190,7 @@ namespace tactical
 
 		void RenderBuffer::SetRenderBuffer(GLenum internalFormat, int width, int height)
 		{
-			glBindRenderbuffer(GL_RENDERBUFFER, m_buffer);
+			glBindRenderbuffer(GL_RENDERBUFFER, m_handle);
 			glRenderbufferStorage(GL_RENDERBUFFER, internalFormat, width, height);
 		}
 	}
