@@ -10,7 +10,8 @@ namespace tactical
 		m_chunkLoadingRadius(4),
 		m_worldDimensions(worldDimension),
 		m_pRenderer(pRenderer),
-		m_threadPool(NUM_THREADS)
+		m_threadPool(NUM_THREADS),
+		m_chunkUpdateType(None)
 	{
 		m_currentChunk = glm::vec3(0);
 		Initialize();
@@ -129,7 +130,7 @@ namespace tactical
 		m_fastnoise.SetFractalType(FastNoise::FractalType::FBM);
 		m_fastnoise.SetFractalGain(0.5f);*/
 
-		m_meshNeedsUpdate = true;
+		m_chunkUpdateType = Mesh;		
 	}
 
 	void ChunkManager::Draw(std::string shaderID)
@@ -143,7 +144,7 @@ namespace tactical
 
 	void ChunkManager::UpdateChunks(const glm::vec3& currentPos)
 	{
-		if (!m_chunks.empty() && m_meshNeedsUpdate) {
+		if (!m_chunks.empty() && m_chunkUpdateType == Mesh) {
 			// With threads
 
 			// Thread task blocks of mesher algorithm
@@ -156,15 +157,8 @@ namespace tactical
 					endIter = m_chunks.end();
 				m_threadPool.AddTask([=] { ThreadUpdateTask(currentPos, beginIter, endIter); });
 				std::advance(beginIter, step);
-			}
-			m_threadPool.waitFinished();
-			// Render chunks that needs to be updated
-			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				if ((*iter).second->NeedsUpdate()) {
-					UpdateChunkMesh(*(*iter).second);
-				}
-			}
-			m_meshNeedsUpdate = false;
+			}			
+			m_chunkUpdateType = None;
 
 			// Without threads
 			/*
@@ -174,8 +168,16 @@ namespace tactical
 					UpdateChunkMesh(*(*iter).second);
 				}
 			}
-			m_meshNeedsUpdate = false;
+			m_chunkUpdateType = None;
 			*/
+		}
+
+		// Render chunks that needs to be updated
+		std::lock_guard<std::mutex> lock(globalMutex);
+		while (!m_chunksToUpdate.empty()) {
+			auto chunkPtr = m_chunksToUpdate.front();
+			UpdateChunkMesh(*chunkPtr);
+			m_chunksToUpdate.pop();
 		}
 	}
 
@@ -204,10 +206,19 @@ namespace tactical
 	{
 		for (auto iter = begin; iter != end; ++iter) {
 			if ((*iter).second->NeedsUpdate()) {
+				// Meshing algorithm
 				mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
+
+				// Chunk to be updated (lock with mutex to make it threadsafe)
+				{
+					std::lock_guard<std::mutex> lock(globalMutex);					
+					m_chunksToUpdate.push((*iter).second);
+				}
+
 				//LOG << LOGTYPE::LOG_INFO << "Updating ChunkMesh of position " + glm::to_string((*iter).second->GetPosition());
 			}
 		}
+		m_chunkUpdateType = Render;
 	}
 
 	void ChunkManager::ThreadDrawTask(std::string shaderID, ChunkIterator begin, ChunkIterator end)
@@ -418,7 +429,7 @@ namespace tactical
 			// find voxel position on chunk coordinates
 			glm::vec3 voxelPos = World2Voxel(pos);
 			m_chunks[chunkIndex]->SetVoxel(pos, type);
-			m_meshNeedsUpdate = true;
+			m_chunkUpdateType = Mesh;			
 		}
 	};
 }
