@@ -5,7 +5,7 @@ namespace tactical
 	using namespace volume;
 
 	ChunkManager::ChunkManager(render::Renderer* pRenderer, const glm::vec3& worldDimension, int seed) :
-		m_chunkSize(32),
+		m_chunkSize(64),
 		m_maxWorldHeight(256),
 		m_chunkLoadingRadius(4),
 		m_worldDimensions(worldDimension),
@@ -207,7 +207,7 @@ namespace tactical
 		for (auto iter = begin; iter != end; ++iter) {
 			if ((*iter).second->NeedsUpdate()) {
 				// Meshing algorithm
-				mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
+				mesher::GenerateChunkMesh(*(*iter).second, mesher::NAIVE_SURFACE_NET);
 
 				// Chunk to be updated (lock with mutex to make it threadsafe)
 				{
@@ -232,7 +232,11 @@ namespace tactical
 	{
 		if (!m_chunks.empty()) {
 			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
-				(*iter).second->Fill();
+				for (int z = 0; z < m_chunkSize; ++z) {
+					for (int x = 0; x < m_chunkSize; ++x) {
+						(*iter).second->SetVoxel(x, 0, z, 1);
+					}
+				}
 			}
 		}
 	}

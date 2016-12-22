@@ -18,8 +18,151 @@ namespace tactical
 			{
 				GREEDY = 0,
 				MARCHING_CUBES,
+				NAIVE_SURFACE_NET,
 				NAIVE_WITH_CULLING
 			};
+
+			static void GenerateSurfaceNets(Chunk& chunk)
+			{
+				int dims = chunk.GetSize();
+				std::vector<glm::vec3> vertices;
+				std::vector<int> buffer(dims * dims * 2);
+
+				for (int k = 0; k < dims - 1; ++k) {
+					for (int j = 0; j < dims - 1; ++j) {
+						for (int i = 0; i < dims - 1; ++i) {
+							glm::vec3 p(i, j, k);
+
+							// get density data around current vertex
+							byte vs[8] = {
+								chunk.GetVoxel(p + glm::vec3(0, 0, 0)),
+								chunk.GetVoxel(p + glm::vec3(1, 0, 0)),
+								chunk.GetVoxel(p + glm::vec3(0, 1, 0)),
+								chunk.GetVoxel(p + glm::vec3(1, 1, 0)),
+								chunk.GetVoxel(p + glm::vec3(0, 0, 1)),
+								chunk.GetVoxel(p + glm::vec3(1, 0, 1)),
+								chunk.GetVoxel(p + glm::vec3(0, 1, 1)),
+								chunk.GetVoxel(p + glm::vec3(1, 1, 1))
+							};
+
+							// used to check whether this is a solid vertex
+							int config_n =
+								((vs[0] != 0) << 0) |
+								((vs[1] != 0) << 1) |
+								((vs[2] != 0) << 2) |
+								((vs[3] != 0) << 3) |
+								((vs[4] != 0) << 4) |
+								((vs[5] != 0) << 5) |
+								((vs[6] != 0) << 6) |
+								((vs[7] != 0) << 7);
+
+							// if the vertex configuration is 0 or 255, don't generate mesh for this vertex
+							if (config_n == 0 || config_n == 0xff)
+								continue;
+
+							std::map<int, int> m;
+							for (std::size_t i = 0; i < 8; ++i) {
+								m[vs[i]]++;
+							}
+
+							// finds the mode (the most common) of voxel types surrounding this vertex
+							byte count = 0, type = 0;
+							for (std::map<int, int>::iterator iter = m.begin(); iter != m.end(); iter++) {
+								if ((*iter).first == 0)
+									continue;
+
+								if (count < (*iter).second) {
+									count = (*iter).second;
+									type = (*iter).first;
+								}
+
+							}
+
+							glm::vec3 average(0);
+							int average_n = 0;
+							// gets the average vertex positions for each edge
+							auto do_edge = [&](byte va, byte vb, int axis, const glm::vec3& p) {
+								if ((va != 0) == (vb != 0))
+									return;
+
+								glm::vec3 v = p;
+								v[axis] += 0.5f;
+								average += v;
+								average_n++;
+							};
+
+							do_edge(vs[0], vs[1], 0, p + glm::vec3(0, 0, 0));
+							do_edge(vs[2], vs[3], 0, p + glm::vec3(0, 1, 0));
+							do_edge(vs[4], vs[5], 0, p + glm::vec3(0, 0, 1));
+							do_edge(vs[6], vs[7], 0, p + glm::vec3(0, 1, 1));
+							do_edge(vs[0], vs[2], 1, p + glm::vec3(0, 0, 0));
+							do_edge(vs[1], vs[3], 1, p + glm::vec3(1, 0, 0));
+							do_edge(vs[4], vs[6], 1, p + glm::vec3(0, 0, 1));
+							do_edge(vs[5], vs[7], 1, p + glm::vec3(1, 0, 1));
+							do_edge(vs[0], vs[4], 2, p + glm::vec3(0, 0, 0));
+							do_edge(vs[1], vs[5], 2, p + glm::vec3(1, 0, 0));
+							do_edge(vs[2], vs[6], 2, p + glm::vec3(0, 1, 0));
+							do_edge(vs[3], vs[7], 2, p + glm::vec3(1, 1, 0));
+
+							auto offset = [&](const glm::vec3& pos) {
+								int ret = pos.x + dims * pos.y + dims * dims * (int(pos.z) % 2);
+								return ret;
+							};
+
+							glm::vec3 v(average.x / average_n, average.y / average_n, average.z / average_n);
+							buffer[offset(p)] = vertices.size();
+							vertices.push_back(v);
+
+							// adds a quad to the mesh
+							auto quad = [&](byte flip, int ia, int ib, int ic, int id) {
+								if (flip)
+									std::swap(ib, id);
+
+								if (ia >= vertices.size() || ib >= vertices.size() || ic >= vertices.size() || id >= vertices.size())
+									return;
+
+								std::lock_guard<std::mutex> lock(globalMutex);
+								render::geometry::AddQuad<render::Vertex3f3f4f>(
+									vertices[ia], vertices[ib],
+									vertices[ic], vertices[id],
+									chunk.GetMesh()->vertices,
+									chunk.GetMesh()->indices,
+									type
+									);
+							};
+
+							// checks if we can add a quad and if we should flip it
+							const byte flip = vs[0] != 0;
+							if (p.y > 0 && p.z > 0 && (vs[0] == 0) != (vs[1] == 0)) {
+								quad(flip,
+									buffer[offset(glm::vec3(p.x, p.y, p.z))],
+									buffer[offset(glm::vec3(p.x, p.y, p.z - 1.0f))],
+									buffer[offset(glm::vec3(p.x, p.y - 1.0f, p.z - 1.0f))],
+									buffer[offset(glm::vec3(p.x, p.y - 1.0f, p.z))]
+									);
+							}
+							if (p.x > 0 && p.z > 0 && (vs[0] == 0) != (vs[2] == 0)) {
+								quad(flip,
+									buffer[offset(glm::vec3(p.x, p.y, p.z))],
+									buffer[offset(glm::vec3(p.x - 1.0f, p.y, p.z))],
+									buffer[offset(glm::vec3(p.x - 1.0f, p.y, p.z - 1.0f))],
+									buffer[offset(glm::vec3(p.x, p.y, p.z - 1.0f))]
+									);
+							}
+							if (p.x > 0 && p.y > 0 && (vs[0] == 0) != (vs[4] == 0)) {
+								quad(flip,
+									buffer[offset(glm::vec3(p.x, p.y, p.z))],
+									buffer[offset(glm::vec3(p.x, p.y - 1.0f, p.z))],
+									buffer[offset(glm::vec3(p.x - 1.0f, p.y - 1.0f, p.z))],
+									buffer[offset(glm::vec3(p.x - 1.0f, p.y, p.z))]
+									);
+							}
+						}
+					}
+				}
+				std::lock_guard<std::mutex> lock(globalMutex);
+				render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
+			}
 
 			inline static void Greedy(Chunk& chunk)
 			{
@@ -302,6 +445,10 @@ namespace tactical
 
 				case MARCHING_CUBES:
 					MarchingCubes(chunk);
+					break;
+
+				case NAIVE_SURFACE_NET:
+					GenerateSurfaceNets(chunk);
 					break;
 
 				case NAIVE_WITH_CULLING:
