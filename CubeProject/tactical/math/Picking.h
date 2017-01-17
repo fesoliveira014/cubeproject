@@ -1,3 +1,5 @@
+#ifndef _PICKING_H_
+#define _PICKING_H_
 #include "../Common.h"
 
 #include "Ray.h"
@@ -118,3 +120,5 @@ namespace tactical
 		}
 	}
 }
+
+#endif

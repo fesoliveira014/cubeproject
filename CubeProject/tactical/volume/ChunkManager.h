@@ -3,8 +3,6 @@
 
 #include "../Common.h"
 
-#include "Chunk.h"
-#include  "mesher\ChunkMesher.hpp"
 #include "../math/noise/noise.h"
 #include "../math/fastNoise/FastNoise.h"
 #include "../math/Picking.h"
@@ -12,6 +10,9 @@
 #include  "../render/Renderer.h"
 
 #include "../utils/ThreadPool.h"
+
+#include  "mesher\ChunkMesher.hpp"
+#include "Chunk.h"
 
 #include <vector>
 

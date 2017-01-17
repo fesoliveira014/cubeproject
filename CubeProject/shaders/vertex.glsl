@@ -15,6 +15,7 @@ out DATA
 	vec3 position;
 	vec3 normal;
 	vec4 color;
+	vec4 lightSpacePosition;
 } vs_out;
 
 void main()
@@ -22,6 +23,6 @@ void main()
 	gl_Position = projection * view * model * vec4(position, 1.0f);
 	vs_out.position = vec3(model * vec4(position, 1.0f));
 	vs_out.normal = mat3(transpose(inverse(model))) * normal;
-
 	vs_out.color = color;
+	vs_out.lightSpacePosition = lightViewProjection * vec4(vs_out.position, 1.0);
 }

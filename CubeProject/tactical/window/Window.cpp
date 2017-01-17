@@ -126,6 +126,7 @@ namespace tactical
             m_eventHandler->m_keyboardState.key_e = sf::Keyboard::isKeyPressed(sf::Keyboard::E);
             m_eventHandler->m_keyboardState.key_f = sf::Keyboard::isKeyPressed(sf::Keyboard::F);
             m_eventHandler->m_keyboardState.key_c = sf::Keyboard::isKeyPressed(sf::Keyboard::C);
+			m_eventHandler->m_keyboardState.key_k = sf::Keyboard::isKeyPressed(sf::Keyboard::K);
 
             m_eventHandler->m_keyboardState.key_enter = sf::Keyboard::isKeyPressed(sf::Keyboard::Return);
             m_eventHandler->m_keyboardState.key_esc = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);

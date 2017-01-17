@@ -228,6 +228,9 @@
     <ClCompile Include="tactical\render\geometry\Quad.impl">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tactical\volume\mesher\ChunkMesher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tactical\utils\Logger.h">

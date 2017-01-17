@@ -19,6 +19,8 @@ namespace tactical
 
 			for (int i = 0; i < 6; i++)
 				m_neighbors[i] = nullptr;
+
+			m_manager = nullptr;
 			
 			Load();
 		}
@@ -27,6 +29,8 @@ namespace tactical
 		{
 			delete m_mesh.ibo;
 			delete m_mesh.vao;
+
+			m_manager = nullptr;
 		}
 
 		void Chunk::Draw(render::Shader& shader)

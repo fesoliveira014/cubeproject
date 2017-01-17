@@ -66,11 +66,14 @@ uniform SpotLight spotLight;
 
 uniform float gamma = 2.2;
 
+uniform sampler2D shadowMap;
+
 in DATA
 {
 	vec3 position;
 	vec3 normal;
 	vec4 color;
+	vec4 lightSpacePosition;
 } fs_in;
 	
 vec3 applyFog(vec3  rgb,      // original color of the pixel
@@ -84,6 +87,22 @@ vec3 applyFog(vec3  rgb,      // original color of the pixel
     vec3 finalColor = rgb*fogAmount;
     return mix( rgb, fogColor, fogAmount );
 }  
+
+float computeDirectionalShadows(vec4 lightSpacePosition, float bias)
+{
+	// perform perspective divide
+	vec3 projCoords = lightSpacePosition.xyz / lightSpacePosition.z;
+	// Transform to [0,1] range
+	projCoords = projCoords * 0.5 + 0.5;
+    // Get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float closestDepth = texture(shadowMap, projCoords.xy).r; 
+    // Get depth of current fragment from light's perspective
+    float currentDepth = projCoords.z;
+    // Check whether current frag pos is in shadow
+    float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
+
+    return shadow;
+}
 
 vec3 computeDirectionalLight(DirectionalLight light)
 {
@@ -103,9 +122,14 @@ vec3 computeDirectionalLight(DirectionalLight light)
 	vec3 halfway_dir = normalize(light_dir + camera_dir);  
 	float spec = pow(max(dot(normal, halfway_dir), 0.0), 16);
 	vec3 specular =	light.specular * spec * vec3(light.color);
-	// todo
+	
+	float bias = max(0.05 * (1.0 - dot(normal, light_dir)), 0.005);
+	//float bias = 0.005;
+	float shadow = computeDirectionalShadows(fs_in.lightSpacePosition, bias);
 
-	return (ambient + diffuse + specular);
+	//float shadow = 0;
+
+	return (ambient + (1.0 - shadow) * (diffuse + specular));
 }
 
 vec3 computePointLight(PointLight light)
@@ -170,24 +194,6 @@ vec3 computeSpotLight(SpotLight light)
 
 void main()
 {
-	// ambient light
-	// float ambient_strength = 0.8;
-	// vec3 ambient = ambient_strength * light_color;
-
-	// // deffuse light
-	// vec3 normal = normalize(fs_in.normal);
-	// vec3 light_dir = normalize(light_pos - fs_in.position);
-	// float diff = max(dot(normal, light_dir), 0.0);
-	// vec3 diffuse = 0.5 * diff * light_color;
-
-	// // specular light
-	// float specular_strength = 0.2;
-	// vec3 camera_dir = normalize(camera_pos - fs_in.position);
-	// vec3 reflect_dir = reflect(-light_dir, normal);  
-	// float spec = pow(max(dot(camera_dir, reflect_dir), 0.0), 32);
-	// vec3 specular =	specular_strength * spec * light_color;
-	// // todo
-
 	vec3 light;
 
 	switch (light_type) {

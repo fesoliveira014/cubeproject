@@ -21,6 +21,8 @@ coodinates during mesh generation.
 
 namespace tactical
 {
+	class ChunkManager;
+
 	namespace volume
 	{
 		// Chunks are containers for volumes that are renderable.
@@ -60,6 +62,9 @@ namespace tactical
 			byte GetVoxel(const glm::vec3& position);
 			byte GetVoxel(const int x, const int y, const int z);
 
+			byte GetNeighborhoodVoxel(const glm::vec3& position);
+			byte GetNeighborhoodVoxel(const int x, const int y, const int z);
+
 			void SetSize(int size);
 			inline int GetSize() const { return m_size; }
 
@@ -92,6 +97,9 @@ namespace tactical
 			void NeighborSetFront(std::shared_ptr<Chunk> chunk)  { m_neighbors[4] = chunk; }
 			void NeighborSetBack(std::shared_ptr<Chunk> chunk)	 { m_neighbors[5] = chunk; }
 
+			void SetChunkManager(ChunkManager* chunkManager) { m_manager = chunkManager; }
+			ChunkManager* GetChunkManager() { return m_manager; }
+
 			int GetNumOfNeighbors();
 
 			bool IsFaceVisible(const glm::vec3& pos, render::geometry::Face face);
@@ -121,6 +129,7 @@ namespace tactical
 			render::Mesh<render::Vertex3f3f4f> m_mesh;
 
 			std::shared_ptr<Chunk> m_neighbors[6]; // 0 - top, 1 - bottom, 2 - left, 3 - right, 4 - front, 5 - back
+			ChunkManager * m_manager;
 		};
 	}
 }

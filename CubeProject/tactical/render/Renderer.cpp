@@ -11,9 +11,13 @@ namespace tactical
 			m_shaders["basic_light"] = new Shader("shaders/vertex.glsl", "shaders/frag.glsl", nullptr);
 			m_shaders["normal"] = new Shader("shaders/normal_vertex.glsl", "shaders/normal_frag.glsl", "shaders/normal_geom.glsl");
 			m_shaders["picking"] = new Shader("shaders/picking_vert.glsl", "shaders/picking_frag.glsl", nullptr);
+			m_shaders["depthMap"] = new Shader("shaders/depth.vert.glsl", "shaders/depth.frag.glsl", nullptr);
+			m_shaders["depthDebug"] = new Shader("shaders/depthDebugQuad.vert.glsl", "shaders/depthDebugQuad.frag.glsl", nullptr);
 			m_polygonMode = POLYGON;
 			m_renderFog = false;
 			m_lightType = 0;
+
+			m_directionalLight.position = glm::vec3(-2.0f, 4.0f, -1.0f);
 
 			m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
@@ -51,13 +55,6 @@ namespace tactical
 			m_shaders["basic_light"]->SetUniform1f("spotLight.cutOff",       m_spotLight.cutOff);
 			m_shaders["basic_light"]->SetUniform1f("spotLight.outerCutOff",  m_spotLight.outerCutOff);
 
-			m_shaders["basic_light"]->SetUniform3fv("dirLight.position", m_directionalLight.position);
-			m_shaders["basic_light"]->SetUniform4fv("dirLight.color", m_directionalLight.color);
-			m_shaders["basic_light"]->SetUniform3fv("dirLight.direction", m_directionalLight.direction);
-			m_shaders["basic_light"]->SetUniform3fv("dirLight.ambient", m_directionalLight.ambient);
-			m_shaders["basic_light"]->SetUniform3fv("dirLight.diffuse", m_directionalLight.diffuse);
-			m_shaders["basic_light"]->SetUniform3fv("dirLight.specular", m_directionalLight.specular);
-
 			m_shaders["normal"]->Enable();
 			m_shaders["normal"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["normal"]->SetUniformMat4fv("model", glm::mat4(1.0f));
@@ -65,6 +62,11 @@ namespace tactical
 			m_shaders["picking"]->Enable();
 			m_shaders["picking"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["picking"]->SetUniformMat4fv("model", glm::mat4(1.0f));
+
+			m_shaders["depthMap"]->Enable();
+			m_shaders["depthMap"]->SetUniformMat4fv("model", glm::mat4(1.0f));
+
+			SetupFramebuffers();
 
 			glEnable(GL_CULL_FACE);
 			glCullFace(GL_BACK);
@@ -108,22 +110,24 @@ namespace tactical
 		{
 			if (m_framebuffers["depthMap"] != nullptr) delete m_framebuffers["depthMap"];
 			if (m_framebufferTextures["depthMap"] != nullptr) delete m_framebufferTextures["depthMap"];
-			if (m_renderBuffers["depthMap"] != nullptr) delete m_renderBuffers["depthMap"];
+			//if (m_renderBuffers["depthMap"] != nullptr) delete m_renderBuffers["depthMap"];
 
 			int height = 1024;//m_eventHandler->GetWindowSizeState()->height;
 			int width = 1024;// m_eventHandler->GetWindowSizeState()->width;
+			glm::vec4 borderColor = glm::vec4(1.0f);
 
 			m_framebuffers["depthMap"] = new Framebuffer();
 			m_framebufferTextures["depthMap"] = new FramebufferTexture(GL_DEPTH_COMPONENT, width, height, GL_DEPTH_COMPONENT, GL_FLOAT);
-			m_renderBuffers["depthMap"] = new RenderBuffer(GL_DEPTH24_STENCIL8, width, height);
+			//m_renderBuffers["depthMap"] = new RenderBuffer(GL_DEPTH24_STENCIL8, width, height);
 
 			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_S, GL_REPEAT);
-			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_T, GL_REPEAT);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+			m_framebufferTextures["depthMap"]->SetParameterfv(GL_TEXTURE_BORDER_COLOR, glm::value_ptr(borderColor));
 
 			m_framebuffers["depthMap"]->AttachColourbuffer(*m_framebufferTextures["depthMap"], GL_DEPTH_ATTACHMENT);
-			m_framebuffers["depthMap"]->AttachRenderBuffer(*m_renderBuffers["depthMap"], GL_DEPTH_STENCIL_ATTACHMENT);
+			//m_framebuffers["depthMap"]->AttachRenderBuffer(*m_renderBuffers["depthMap"], GL_DEPTH_STENCIL_ATTACHMENT);
 
 			m_framebuffers["depthMap"]->CheckStatus();
 		}
@@ -146,17 +150,25 @@ namespace tactical
 		// TODO: finish
 		void Renderer::PreRender()
 		{
-			GLfloat near_plane = 1.0f, far_plane = 7.5f;
-			glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-			glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
-				  							  glm::vec3(0.0f, 0.0f, 0.0f),
+			GLfloat near_plane = 0.1f, far_plane = 100.0f;
+			glm::mat4 lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
+			glm::mat4 lightView = glm::lookAt(m_directionalLight.position,
+											  m_directionalLight.position + m_directionalLight.direction,
 											  glm::vec3(0.0f, 1.0f, 0.0f));
 			glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 
 			m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformMat4fv("lightViewProjection", lightSpaceMatrix);
+			m_shaders["basic_light"]->SetUniform3fv("dirLight.position", m_directionalLight.position);
+			m_shaders["basic_light"]->Disable();
 
+			m_shaders["depthMap"]->Enable();
+			m_shaders["depthMap"]->SetUniformMat4fv("lightViewProjection", lightSpaceMatrix);
+
+			glViewport(0, 0, m_framebufferTextures["depthMap"]->GetWidth(), m_framebufferTextures["depthMap"]->GetHeight());
 			m_framebuffers["depthMap"]->Bind();
+
+			glClear(GL_DEPTH_BUFFER_BIT);
 
 			//if (!m_quad.GetTexture()) m_quad.SetTexture(m_framebuffers["depthMap"]->)
 		}
@@ -164,7 +176,9 @@ namespace tactical
 		// TODO: start
 		void Renderer::PostRender()
 		{
-
+			m_framebuffers["depthMap"]->Unbind();
+			glViewport(0, 0, m_eventHandler->GetWindowSizeState()->width, m_eventHandler->GetWindowSizeState()->height);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
 
 		void Renderer::TogglePolygonMode()
@@ -175,7 +189,7 @@ namespace tactical
 				m_polygonMode = POLYGON;
 		}
 
-		void Renderer::Update()
+		void Renderer::Update(float deltaTime)
 		{
 			GLenum errorGL = glGetError();
 			if (errorGL != GL_NO_ERROR) {
@@ -186,6 +200,8 @@ namespace tactical
 			}
 
 			m_frustum.Update(m_pCamera->GetProjectionMatrix(), m_pCamera->GetViewMatrix());
+
+			m_directionalLight.position.z = glm::cos(deltaTime) * 65.0f;
 		}
 
 		void Renderer::LinkTo(window::Window& windowHandler)
@@ -245,6 +261,11 @@ namespace tactical
 			SetSpotLightDirection(direction);
 		}
 
+		void Renderer::SetActiveTexture(GLTexture slot)
+		{
+			glActiveTexture((GLenum)slot);
+		}
+
 		void Renderer::ToggleFog()
 		{
 			m_renderFog = !m_renderFog;
@@ -253,6 +274,22 @@ namespace tactical
 			m_shaders["basic_light"]->SetUniformBool("fog_enabled", m_renderFog);
 		}
 
+		Shader* Renderer::GetShader(std::string shaderID) 
+		{ 
+			if (!(m_shaders.find(shaderID) == m_shaders.end()))
+				return m_shaders[shaderID];
+			else
+				return nullptr; // TODO: add error catching
+		}
+		
+		FramebufferTexture* Renderer::GetFramebufferTexture(std::string fbID) 
+		{ 
+			if (!(m_framebufferTextures.find(fbID) == m_framebufferTextures.end()))
+				return m_framebufferTextures[fbID];
+			else
+				return nullptr; // TODO: add error catching
+		}
 
+		
 	}
 }

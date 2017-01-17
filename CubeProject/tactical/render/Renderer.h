@@ -71,18 +71,22 @@ namespace tactical
 			void ToggleFog();
 
 			void SelectLightType(int type);
+			int GetLightType() { return m_lightType; }
+
 			void SetPointLightPosition(const glm::vec3& position);
-			
 			void SetSpotLightPosition(const glm::vec3& position);
 			void SetSpotLightDirection(const glm::vec3& direction);
 			void SetSpotLightPositionAndDirection(const glm::vec3& position, const glm::vec3& direction);
 
-			void Update();
+			void SetActiveTexture(GLTexture slot);
+
+			void Update(float deltaTime);
 
 			void EnableShader(std::string shaderID) { m_shaders[shaderID]->Enable(); }
 			void DisableShader(std::string shaderID) { m_shaders[shaderID]->Disable(); }
 
-			Shader* GetShader(std::string shaderID) { return m_shaders[shaderID]; }
+			Shader* GetShader(std::string shaderID);
+			FramebufferTexture* GetFramebufferTexture(std::string fbID);
 
 			void LinkTo(window::Window& windowHandler);
 

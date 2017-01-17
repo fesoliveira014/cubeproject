@@ -25,13 +25,12 @@ namespace tactical
 
 			void Draw(Shader& shader);
 
-			std::shared_ptr<TextureType> GetTexture() { return m_texture; }
-			void SetTexture(std::shared_ptr<TextureType> texture) { m_texture = texture; }
-			void SetTexture(TextureType* texture) { m_texture = std::shared_ptr<TextureType>(texture); }
+			TextureType * GetTexture() { return m_texture; }
+			void SetTexture(TextureType* texture) { m_texture = texture; LOG_INFO("TextureID: " + std::to_string(m_texture->GetId())); }
 
 		protected:
 			Mesh<Vertex3f2f> m_mesh;
-			std::shared_ptr<TextureType> m_texture;
+			TextureType* m_texture;
 		};
 	}
 }

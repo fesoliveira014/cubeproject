@@ -47,6 +47,9 @@ namespace tactical
 
 			GLuint GetId() { return m_handle; }
 
+			int GetWidth() { return m_width; }
+			int GetHeight() { return m_height; }
+
 		private:
 			
 		};

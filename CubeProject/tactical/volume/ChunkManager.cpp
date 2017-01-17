@@ -55,6 +55,8 @@ namespace tactical
 					m_chunks[key]->NeighborSetFront(nullptr);
 					m_chunks[key]->NeighborSetBack(nullptr);
 
+					m_chunks[key]->SetChunkManager(this);
+
 					neighKey = key;
 					if (j < m_worldDimensions.y - 1) {
 						neighKey.y += 1;
@@ -207,7 +209,7 @@ namespace tactical
 		for (auto iter = begin; iter != end; ++iter) {
 			if ((*iter).second->NeedsUpdate()) {
 				// Meshing algorithm
-				mesher::GenerateChunkMesh(*(*iter).second, mesher::NAIVE_SURFACE_NET);
+				mesher::Mesher::GenerateChunkMesh(*(*iter).second, mesher::GREEDY);
 
 				// Chunk to be updated (lock with mutex to make it threadsafe)
 				{

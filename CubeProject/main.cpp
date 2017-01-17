@@ -35,10 +35,10 @@ int main(int argc, char* argv[])
 	tactical::render::Renderer renderer(activeCamera);
 	renderer.LinkTo(window);
 
-	tactical::ChunkManager chunkManager(&renderer, glm::vec3(8, 2, 8));
+	tactical::ChunkManager chunkManager(&renderer, glm::vec3(2, 1, 2));
 	//chunkManager.FillChunks();
-	chunkManager.GenerateWorld();
-	//chunkManager.FillWithPyramids();
+	//chunkManager.GenerateWorld();
+	chunkManager.FillWithPyramids();
 
 	LOG_INFO("Initializing systems...");
 
@@ -68,6 +68,10 @@ int main(int argc, char* argv[])
 	deltaClock.restart();
 
 	bool cameraChanged = false;
+	bool drawDebugQuad = false;
+
+	tactical::render::Quad<tactical::render::FramebufferTexture> debugQuad;
+	debugQuad.SetTexture(renderer.GetFramebufferTexture("depthMap"));
 
 	while (window.IsOpen() == true) {
 		if (window.GetEventHandler()->GetKeyEvent()->key_pressed) {
@@ -94,6 +98,9 @@ int main(int argc, char* argv[])
 
 			if (window.GetEventHandler()->GetKeyboardState()->key_f)
 				renderer.ToggleFog();
+
+			if (window.GetEventHandler()->GetKeyboardState()->key_k)
+				drawDebugQuad = !drawDebugQuad;
 		}
 
 		window.Clear();
@@ -106,7 +113,7 @@ int main(int argc, char* argv[])
 
 		chunkManager.UpdateChunks(activeCamera->GetPosition());
 		if (cameraChanged) renderer.SetCamera(activeCamera), cameraChanged = false;
-		renderer.Update();
+		renderer.Update(deltaTime);
 
 		tactical::math::Ray pickingRay = activeCamera->CastPickingRay(activeCamera->GetPosition(),
 			glm::vec2(window.GetEventHandler()->GetMouseState()->mouse_x,
@@ -133,11 +140,24 @@ int main(int argc, char* argv[])
 			}
 		}
 
+		if (renderer.GetLightType() == 0) {
+			renderer.PreRender();
+			renderer.GetShader("depthMap")->Enable();
+			chunkManager.Draw("depthMap");
+			renderer.PostRender();
+		}
+
 		renderer.GetShader("basic_light")->Enable();
 
 		renderer.GetShader("basic_light")->SetUniformMat4fv("view", activeCamera->GetViewMatrix());
 		renderer.GetShader("basic_light")->SetUniformMat4fv("projection", activeCamera->GetProjectionMatrix());
 		renderer.GetShader("basic_light")->SetUniform3fv("camera_pos", activeCamera->GetPosition());
+
+		if (renderer.GetLightType() == 0) {
+			renderer.SetActiveTexture(tactical::GLTexture::TEXTURE0);
+			renderer.GetFramebufferTexture("depthMap")->Bind();
+		}
+
 		chunkManager.Draw("basic_light");
 
 		renderer.GetShader("picking")->Enable();
@@ -164,6 +184,12 @@ int main(int argc, char* argv[])
 			renderer.GetShader("normal")->SetUniformMat4fv("view", activeCamera->GetViewMatrix());
 			renderer.GetShader("normal")->SetUniformMat4fv("projection", activeCamera->GetProjectionMatrix());
 			chunkManager.Draw("normal");
+		}
+
+		if (drawDebugQuad) {
+			renderer.GetShader("depthDebug")->Enable();
+			renderer.SetActiveTexture(tactical::GLTexture::TEXTURE0);
+			debugQuad.Draw(*renderer.GetShader("depthDebug"));
 		}
 
 		framerate++;

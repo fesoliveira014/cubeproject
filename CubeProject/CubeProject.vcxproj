@@ -238,6 +238,7 @@
     <ClCompile Include="tactical\utils\ThreadPool.cpp" />
     <ClCompile Include="tactical\volume\Chunk.cpp" />
     <ClCompile Include="tactical\volume\ChunkManager.cpp" />
+    <ClCompile Include="tactical\volume\mesher\ChunkMesher.cpp" />
     <ClCompile Include="tactical\volume\Voxel.cpp" />
     <ClCompile Include="tactical\window\EventHandler.cpp" />
     <ClCompile Include="tactical\utils\Logger.cpp" />
