@@ -17,7 +17,8 @@ namespace tactical
 			m_renderFog = false;
 			m_lightType = 0;
 
-			m_directionalLight.position = glm::vec3(-2.0f, 4.0f, -1.0f);
+			m_directionalLight.position = glm::vec3(-32.0f, 20.0f, -31.0f);
+			m_directionalLight.direction = glm::vec3(64.0f, 0.0f, 64.0f) - m_directionalLight.position ;
 
 			m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
@@ -151,11 +152,13 @@ namespace tactical
 		void Renderer::PreRender()
 		{
 			GLfloat near_plane = 0.1f, far_plane = 100.0f;
-			glm::mat4 lightProjection = glm::ortho(-100.0f, 100.0f, -100.0f, 100.0f, near_plane, far_plane);
+			glm::mat4 lightProjection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, near_plane, far_plane);
 			glm::mat4 lightView = glm::lookAt(m_directionalLight.position,
-											  m_directionalLight.position + m_directionalLight.direction,
+											  glm::vec3 (64.0f, 0.0f, 64.0f),
 											  glm::vec3(0.0f, 1.0f, 0.0f));
 			glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+			
+			m_framebuffers["depthMap"]->Bind();
 
 			m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformMat4fv("lightViewProjection", lightSpaceMatrix);
@@ -165,10 +168,10 @@ namespace tactical
 			m_shaders["depthMap"]->Enable();
 			m_shaders["depthMap"]->SetUniformMat4fv("lightViewProjection", lightSpaceMatrix);
 
+			glCullFace(GL_FRONT);
 			glViewport(0, 0, m_framebufferTextures["depthMap"]->GetWidth(), m_framebufferTextures["depthMap"]->GetHeight());
-			m_framebuffers["depthMap"]->Bind();
-
 			glClear(GL_DEPTH_BUFFER_BIT);
+
 
 			//if (!m_quad.GetTexture()) m_quad.SetTexture(m_framebuffers["depthMap"]->)
 		}
@@ -177,6 +180,8 @@ namespace tactical
 		void Renderer::PostRender()
 		{
 			m_framebuffers["depthMap"]->Unbind();
+
+			glCullFace(GL_BACK);
 			glViewport(0, 0, m_eventHandler->GetWindowSizeState()->width, m_eventHandler->GetWindowSizeState()->height);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}

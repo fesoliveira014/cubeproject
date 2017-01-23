@@ -55,9 +55,12 @@ int main(int argc, char* argv[])
 	tactical::render::DrawableLine greenAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(-1.0f, 20.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 	tactical::render::DrawableLine blueAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(20.0f, -1.0f, -1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
+	tactical::render::DrawableLine lightViewRay(glm::vec3(-32.0f, 20.0f, -31.0f), glm::vec3(64.0f, 0.0f, 64.0f), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+
 	lines.push_back(redAxis); // z axis
 	lines.push_back(greenAxis); // y axis
 	lines.push_back(blueAxis); // x axis
+	lines.push_back(lightViewRay);
 
 	sf::Clock clock;
 	clock.restart();
@@ -108,8 +111,8 @@ int main(int argc, char* argv[])
 		float deltaTime = deltaClock.restart().asSeconds(); // Get time elapsed since last camera update
 
 		// Pass dt as argument to adjust velocity so that the speed isn't FPS-based
-		fpsCamera.Update(deltaTime);
-		isoCamera.Update(deltaTime);
+		activeCamera->Update(deltaTime);
+		
 
 		chunkManager.UpdateChunks(activeCamera->GetPosition());
 		if (cameraChanged) renderer.SetCamera(activeCamera), cameraChanged = false;
