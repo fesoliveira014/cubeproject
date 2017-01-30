@@ -151,11 +151,55 @@ namespace tactical
 		// TODO: finish
 		void Renderer::PreRender()
 		{
-			GLfloat near_plane = 0.1f, far_plane = 100.0f;
-			glm::mat4 lightProjection = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, near_plane, far_plane);
-			glm::mat4 lightView = glm::lookAt(m_directionalLight.position,
-											  glm::vec3 (64.0f, 0.0f, 64.0f),
+
+			glm::mat4 invCamera = glm::inverse(m_pCamera->GetViewMatrix());
+			glm::vec4 cornerFrustum[8];
+			float sidesOrtho[6];
+			
+			float aspectRatio = m_eventHandler->GetWindowSizeState()->aspectRatio;
+			float fovy = 45.0f;
+			float fovx = fovy / aspectRatio;
+			float tanFovy = glm::tan(glm::radians(fovy));
+			float tanFovx = glm::tan(glm::radians(fovx));
+
+			glm::mat4 lightView = glm::lookAt(m_pCamera->GetPosition(),
+											  m_pCamera->GetPosition() - m_directionalLight.position,
 											  glm::vec3(0.0f, 1.0f, 0.0f));
+
+			float near_plane = -256.0f, far_plane = 256.0f;
+
+			GLfloat xn = 0, xf = tanFovx;
+			GLfloat yn = 0, yf = tanFovy;
+
+			cornerFrustum[0] = glm::vec4{ xn, yn, 0, 1.0f };
+			cornerFrustum[1] = glm::vec4{ -xn, yn, 0, 1.0f };
+			cornerFrustum[2] = glm::vec4{ xn, -yn, 0, 1.0f };
+			cornerFrustum[3] = glm::vec4{ -xn, -yn, 0, 1.0f };
+
+			cornerFrustum[4] = glm::vec4{ xf, yf, 16.0f, 1.0f };
+			cornerFrustum[5] = glm::vec4{ -xf, yf, 16.0f, 1.0f };
+			cornerFrustum[6] = glm::vec4{ xf, -yf, 16.0f, 1.0f };
+			cornerFrustum[7] = glm::vec4{ -xf, -yf, 16.0f, 1.0f };
+
+			for (int i = 0; i < 6; ++i)
+				sidesOrtho[i] = std::numeric_limits<float>::max();
+
+			for (int i = 0; i < 8; ++i) {
+				cornerFrustum[i] = invCamera * cornerFrustum[i];
+				cornerFrustum[i] = lightView * cornerFrustum[i];
+
+				sidesOrtho[0] = std::min(sidesOrtho[0], cornerFrustum[i].x);
+				sidesOrtho[1] = std::max(sidesOrtho[1], cornerFrustum[i].x);
+				sidesOrtho[2] = std::min(sidesOrtho[2], cornerFrustum[i].y);
+				sidesOrtho[3] = std::max(sidesOrtho[3], cornerFrustum[i].y);
+				sidesOrtho[4] = std::min(sidesOrtho[4], cornerFrustum[i].z);
+				sidesOrtho[5] = std::max(sidesOrtho[5], cornerFrustum[i].z);
+			}
+
+			glm::mat4 lightProjection = glm::ortho(-sidesOrtho[0], -sidesOrtho[1], 
+												   -sidesOrtho[2], -sidesOrtho[3], 
+												    near_plane, far_plane);
+			
 			glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 			
 			m_framebuffers["depthMap"]->Bind();
@@ -171,6 +215,7 @@ namespace tactical
 			glCullFace(GL_FRONT);
 			glViewport(0, 0, m_framebufferTextures["depthMap"]->GetWidth(), m_framebufferTextures["depthMap"]->GetHeight());
 			glClear(GL_DEPTH_BUFFER_BIT);
+			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 
 			//if (!m_quad.GetTexture()) m_quad.SetTexture(m_framebuffers["depthMap"]->)
@@ -181,6 +226,7 @@ namespace tactical
 		{
 			m_framebuffers["depthMap"]->Unbind();
 
+			glClearColor(135.0f / 255.0f, 206.0f / 255.0f, 250.0f / 255.0f, 1.0f);
 			glCullFace(GL_BACK);
 			glViewport(0, 0, m_eventHandler->GetWindowSizeState()->width, m_eventHandler->GetWindowSizeState()->height);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
