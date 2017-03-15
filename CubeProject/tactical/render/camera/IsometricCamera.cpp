@@ -124,5 +124,20 @@ namespace tactical
             m_delta = glm::vec2(m_initialMousePosition.x - mousePos.x, mousePos.y - m_initialMousePosition.y);
             m_initialMousePosition = mousePos;
         }
+
+		math::Ray IsometricCamera::CastPickingRay(const glm::vec2& mouse, const glm::vec2& viewport)
+		{
+			// Screen space to Clip space
+			float x = (2.0f * mouse.x) / viewport.x - 1.0f;
+			float y = 1.0f - (2.0f * mouse.y) / viewport.y;
+
+			glm::mat4 inverse = glm::inverse(m_projection * m_view);
+
+			glm::vec3 origin = glm::vec3(inverse * glm::vec4(x, y, 0, 1));
+			glm::vec3 end = glm::vec3(inverse * glm::vec4(x, y, -1, 1));
+
+
+			return math::Ray(origin, end-origin);
+		}
     }
 }

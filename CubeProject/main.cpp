@@ -118,7 +118,7 @@ int main(int argc, char* argv[])
 		if (cameraChanged) renderer.SetCamera(activeCamera), cameraChanged = false;
 		renderer.Update(deltaTime);
 
-		tactical::math::Ray pickingRay = activeCamera->CastPickingRay(activeCamera->GetPosition(),
+		tactical::math::Ray pickingRay = activeCamera->CastPickingRay(
 			glm::vec2(window.GetEventHandler()->GetMouseState()->mouse_x,
 				window.GetEventHandler()->GetMouseState()->mouse_y),
 			glm::vec2(window.GetEventHandler()->GetWindowSizeState()->width,

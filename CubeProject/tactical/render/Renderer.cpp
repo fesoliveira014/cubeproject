@@ -66,8 +66,10 @@ namespace tactical
 
 			m_shaders["depthMap"]->Enable();
 			m_shaders["depthMap"]->SetUniformMat4fv("model", glm::mat4(1.0f));
+//			m_shaders["depthMap"]->SetUniform1i("depthMap", (GLint)0);
+			
 
-			SetupFramebuffers();
+			//SetupFramebuffers();
 
 			glEnable(GL_CULL_FACE);
 			glCullFace(GL_BACK);
@@ -118,14 +120,14 @@ namespace tactical
 			glm::vec4 borderColor = glm::vec4(1.0f);
 
 			m_framebuffers["depthMap"] = new Framebuffer();
-			m_framebufferTextures["depthMap"] = new FramebufferTexture(GL_DEPTH_COMPONENT, width, height, GL_DEPTH_COMPONENT, GL_FLOAT);
+			m_framebufferTextures["depthMap"] = new FramebufferTexture(GL_DEPTH_COMPONENT, width, height, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE);
 			//m_renderBuffers["depthMap"] = new RenderBuffer(GL_DEPTH24_STENCIL8, width, height);
 
 			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-			m_framebufferTextures["depthMap"]->SetParameterfv(GL_TEXTURE_BORDER_COLOR, glm::value_ptr(borderColor));
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP);
+			//m_framebufferTextures["depthMap"]->SetParameterfv(GL_TEXTURE_BORDER_COLOR, glm::value_ptr(borderColor));
 
 			m_framebuffers["depthMap"]->AttachColourbuffer(*m_framebufferTextures["depthMap"], GL_DEPTH_ATTACHMENT);
 			//m_framebuffers["depthMap"]->AttachRenderBuffer(*m_renderBuffers["depthMap"], GL_DEPTH_STENCIL_ATTACHMENT);
@@ -181,8 +183,10 @@ namespace tactical
 			cornerFrustum[6] = glm::vec4{ xf, -yf, 16.0f, 1.0f };
 			cornerFrustum[7] = glm::vec4{ -xf, -yf, 16.0f, 1.0f };
 
-			for (int i = 0; i < 6; ++i)
+			for (int i = 0; i < 6; i += 2) {
 				sidesOrtho[i] = std::numeric_limits<float>::max();
+				sidesOrtho[i+1] = -std::numeric_limits<float>::max();
+			}
 
 			for (int i = 0; i < 8; ++i) {
 				cornerFrustum[i] = invCamera * cornerFrustum[i];

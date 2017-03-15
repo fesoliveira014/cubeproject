@@ -12,6 +12,8 @@ namespace tactical
 
 			void Update(float deltaTime) override;
 
+			math::Ray CastPickingRay(const glm::vec2& mouse, const glm::vec2& viewport) override;
+
 		private:
 			//void MousePan(const glm::vec2& delta);
 			void MouseRotate(const glm::vec2& delta);
