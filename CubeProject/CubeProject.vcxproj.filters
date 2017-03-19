@@ -506,6 +506,9 @@
     <ClInclude Include="tactical\render\geometry\Quad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tactical\entity\Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.glsl" />

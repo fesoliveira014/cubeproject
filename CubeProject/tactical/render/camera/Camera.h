@@ -14,6 +14,12 @@ namespace tactical
         class Camera
         {
         public:
+			enum ActiveCamera
+			{
+				FPS,
+				ISOMETRIC
+			};
+
             enum class CameraState
             {
                 STILL = 0,
@@ -56,6 +62,7 @@ namespace tactical
             inline const glm::vec3 GetRightDirection() const { return m_right; }
             inline const glm::vec3 GetForwardDirection() const { return m_forward; }
             inline const glm::vec3 GetTarget() const { return m_target; }
+			inline const ActiveCamera GetActiveCamera() { return m_activeCamera; }
 
             void LinkTo(window::Window& windowHandler);
 
@@ -78,6 +85,7 @@ namespace tactical
 
             CameraState m_cameraState;
             MoveState m_moveState;
+			ActiveCamera m_activeCamera;
 
             std::shared_ptr<window::EventHandler> m_eventHandler;
         };

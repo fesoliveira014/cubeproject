@@ -55,12 +55,11 @@ int main(int argc, char* argv[])
 	tactical::render::DrawableLine greenAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(-1.0f, 20.0f, -1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 	tactical::render::DrawableLine blueAxis(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(20.0f, -1.0f, -1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
-	tactical::render::DrawableLine lightViewRay(glm::vec3(-32.0f, 20.0f, -31.0f), glm::vec3(64.0f, 0.0f, 64.0f), glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+	tactical::render::DrawableLine pickRay(glm::vec3(0), glm::vec3(0), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 
 	lines.push_back(redAxis); // z axis
 	lines.push_back(greenAxis); // y axis
 	lines.push_back(blueAxis); // x axis
-	lines.push_back(lightViewRay);
 
 	sf::Clock clock;
 	clock.restart();
@@ -143,6 +142,8 @@ int main(int argc, char* argv[])
 			}
 		}
 
+		
+
 		if (renderer.GetLightType() == 0) {
 			renderer.PreRender();
 			renderer.GetShader("depthMap")->Enable();
@@ -169,6 +170,12 @@ int main(int argc, char* argv[])
 
 		for (auto line : lines)
 			line.Draw(*renderer.GetShader("picking"));
+
+		if (activeCamera->GetActiveCamera() == tactical::render::Camera::ActiveCamera::ISOMETRIC) {
+			pickRay.Set(pickingRay.GetOrigin(), pickingRay.GetOrigin() + pickingRay.GetDirection() * 50.0f);
+		}
+
+		pickRay.Draw(*renderer.GetShader("picking"));
 
 		if (pickingResult.hit) {
 			pickingBox.SetPosition(pickingResult.pos);

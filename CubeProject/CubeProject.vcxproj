@@ -247,6 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tactical\entity\Prism.h" />
+    <ClInclude Include="tactical\entity\Sphere.h" />
     <ClInclude Include="tactical\IApp.h" />
     <ClInclude Include="tactical\Common.h" />
     <ClInclude Include="tactical\Engine.h" />

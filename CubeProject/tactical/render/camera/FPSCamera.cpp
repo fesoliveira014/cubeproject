@@ -12,6 +12,7 @@ namespace tactical
             m_rotationSpeed = 0.005f;
 
             m_distance = glm::distance(m_position, m_target);
+			m_activeCamera = FPS;
         }
 
         FPSCamera::~FPSCamera()

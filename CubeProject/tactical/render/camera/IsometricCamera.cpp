@@ -8,6 +8,7 @@ namespace tactical
             : Camera(projection, position, target)
         {
             Initialize();
+			m_activeCamera = ISOMETRIC;
         }
 
         IsometricCamera::~IsometricCamera()
@@ -50,8 +51,8 @@ namespace tactical
 
         void IsometricCamera::Move(float speed)
         {
-            if (m_moveState.up) Lift(speed);
-            if (m_moveState.down) Lift(-speed);
+            if (m_moveState.up) m_translation += glm::vec3(m_up.x * speed, 0, m_up.z * speed);
+            if (m_moveState.down) m_translation -= glm::vec3(m_up.x * speed, 0, m_up.z * speed);
             if (m_moveState.left) Strafe(-speed);
             if (m_moveState.right) Strafe(speed);
 
@@ -92,10 +93,11 @@ namespace tactical
             float aspectRatio = m_eventHandler->GetWindowSizeState()->aspectRatio;
             m_projection = glm::ortho(
                 -aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
-                aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
+                 aspectRatio * (ISOMETRIC_WIDTH / 2) * m_zoom,
                 -(ISOMETRIC_HEIGHT / 2) * m_zoom,
-                (ISOMETRIC_HEIGHT / 2) * m_zoom,
-                -ISOMETRIC_DISTANCE / 2, ISOMETRIC_DISTANCE / 2);
+                 (ISOMETRIC_HEIGHT / 2) * m_zoom,
+                -ISOMETRIC_DISTANCE / 2, 
+				 ISOMETRIC_DISTANCE / 2);
         }
 
         void IsometricCamera::UpdateStates()
@@ -133,11 +135,11 @@ namespace tactical
 
 			glm::mat4 inverse = glm::inverse(m_projection * m_view);
 
-			glm::vec3 origin = glm::vec3(inverse * glm::vec4(x, y, 0, 1));
-			glm::vec3 end = glm::vec3(inverse * glm::vec4(x, y, -1, 1));
+			glm::vec3 origin = glm::vec3(inverse * glm::vec4(x, y, 0, -1));
+			glm::vec3 end = glm::vec3(inverse * glm::vec4(x, y, 1, 0));
+			glm::vec3 direction = glm::normalize(end - origin);
 
-
-			return math::Ray(origin, end-origin);
+			return math::Ray(origin, end);
 		}
     }
 }
