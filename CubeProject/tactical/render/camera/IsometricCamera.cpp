@@ -135,8 +135,8 @@ namespace tactical
 
 			glm::mat4 inverse = glm::inverse(m_projection * m_view);
 
-			glm::vec3 origin = glm::vec3(inverse * glm::vec4(x, y, 0, -1));
-			glm::vec3 end = glm::vec3(inverse * glm::vec4(x, y, 1, 0));
+			glm::vec3 origin = glm::vec3(inverse * glm::vec4(x, y, -0.5, -1));
+			glm::vec3 end = glm::vec3(inverse * glm::vec4(0, 0, 1, 0));
 			glm::vec3 direction = glm::normalize(end - origin);
 
 			return math::Ray(origin, end);
