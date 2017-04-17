@@ -125,7 +125,8 @@ int main(int argc, char* argv[])
 
 		testPrism.RotateY(testPrism.GetAngle() + deltaTime);
 
-		tactical::math::RayCastResult pickingResult = chunkManager.GetRayVoxelIntersection(pickingRay, activeCamera->GetPosition(), 50.0f);
+		float distance = activeCamera->GetActiveCamera() == tactical::render::Camera::ISOMETRIC ? 256 : 128;
+		tactical::math::RayCastResult pickingResult = chunkManager.GetRayVoxelIntersection(pickingRay, activeCamera->GetPosition(), distance);
 
 		if (window.GetEventHandler()->GetMouseEvent()->mouse_button_pressed) {
 			if (window.GetEventHandler()->GetMouseState()->mouse_button_left) {
@@ -172,7 +173,7 @@ int main(int argc, char* argv[])
 			line.Draw(*renderer.GetShader("picking"));
 
 		if (activeCamera->GetActiveCamera() == tactical::render::Camera::ActiveCamera::ISOMETRIC) {
-			pickRay.Set(pickingRay.GetOrigin(), pickingRay.GetOrigin() + pickingRay.GetDirection() * 50.0f);
+			pickRay.Set(pickingRay.GetOrigin(), pickingRay.GetOrigin() + pickingRay.GetDirection() * 100.0f);
 		}
 
 		pickRay.Draw(*renderer.GetShader("picking"));
@@ -208,6 +209,7 @@ int main(int argc, char* argv[])
 				window.GetEventHandler()->GetWindowSizeState()->height)) +
 				" FPS: " + std::to_string(framerate));
 
+			LOG_INFO("Picking result: o(" + glm::to_string(pickingRay.GetOrigin()) + "), e(" + glm::to_string(pickingRay.GetOrigin() + pickingRay.GetDirection() * 100.0f) + ")");
 			if (pickingResult.hit) {
 				LOG_INFO("Picking position: " + glm::to_string(pickingBox.GetPosition()));
 				LOG_INFO("Prism position: " + glm::to_string(testPrism.GetPosition()));

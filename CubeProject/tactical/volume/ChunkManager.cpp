@@ -351,13 +351,13 @@ namespace tactical
 	{
 	}
 
-	math::RayCastResult ChunkManager::GetRayVoxelIntersection(math::Ray & ray, const glm::vec3& pos, float pickRadius)
+	math::RayCastResult ChunkManager::GetRayVoxelIntersection(math::Ray & ray, const glm::vec3& pos, int pickRadius)
 	{
 		math::RayCastResult result;
 		result.hit = false;
 
 		if (!m_chunks.empty())
-			result = math::PickVoxel(ray, m_chunks, 128, m_chunkSize);
+			result = math::PickVoxel(ray, m_chunks, pickRadius, m_chunkSize);
 
 		return result;
 	}

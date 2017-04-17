@@ -129,17 +129,19 @@ namespace tactical
 
 		math::Ray IsometricCamera::CastPickingRay(const glm::vec2& mouse, const glm::vec2& viewport)
 		{
-			// Screen space to Clip space
 			float x = (2.0f * mouse.x) / viewport.x - 1.0f;
-			float y = 1.0f - (2.0f * mouse.y) / viewport.y;
+			float y = 1.0f - (2.0f * mouse.y) / viewport.y;	
 
-			glm::mat4 inverse = glm::inverse(m_projection * m_view);
+			glm::vec3 p;
 
-			glm::vec3 origin = glm::vec3(inverse * glm::vec4(x, y, -0.5, -1));
-			glm::vec3 end = glm::vec3(inverse * glm::vec4(0, 0, 1, 0));
-			glm::vec3 direction = glm::normalize(end - origin);
+			p = glm::vec3(mouse.x, viewport.y - mouse.y, 0);
+			glm::vec3 origin = glm::unProject(p, m_view, m_projection, glm::vec4(0,0,viewport));
 
-			return math::Ray(origin, end);
+			p = glm::vec3(mouse.x, viewport.y - mouse.y, 1);
+			glm::vec3 direction = glm::unProject(p, m_view, m_projection, glm::vec4(0, 0, viewport));
+			direction = glm::normalize(direction - origin);
+
+			return math::Ray(origin, direction);
 		}
     }
 }
