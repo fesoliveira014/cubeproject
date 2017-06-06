@@ -26,7 +26,7 @@ namespace tactical
 			void Draw(Shader& shader);
 
 			TextureType * GetTexture() { return m_texture; }
-			void SetTexture(TextureType* texture) { m_texture = texture; LOG_INFO("TextureID: " + std::to_string(m_texture->GetId())); }
+			void SetTexture(TextureType* texture) { m_texture = texture; }
 
 		protected:
 			Mesh<Vertex3f2f> m_mesh;

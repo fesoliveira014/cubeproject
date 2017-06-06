@@ -84,6 +84,9 @@ namespace tactical
 				return false;
 			}
 			Unbind();
+
+			LOG_INFO("Framebuffer OK");
+
 			return true;
 		}
 
@@ -101,6 +104,7 @@ namespace tactical
 			m_height = height;
 
 			glGenTextures(1, &m_handle);
+			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, m_handle);
 			glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, m_width, m_height, 0, format, type, NULL);
 		}

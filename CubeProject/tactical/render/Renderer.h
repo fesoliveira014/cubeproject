@@ -79,6 +79,8 @@ namespace tactical
 			void SetSpotLightPositionAndDirection(const glm::vec3& position, const glm::vec3& direction);
 
 			void SetActiveTexture(GLTexture slot);
+			void BindTexture(std::string handle);
+			void ReleaseTexture(std::string handle);
 
 			void Update(float deltaTime);
 

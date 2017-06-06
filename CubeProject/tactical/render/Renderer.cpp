@@ -66,7 +66,12 @@ namespace tactical
 
 			m_shaders["depthMap"]->Enable();
 			m_shaders["depthMap"]->SetUniformMat4fv("model", glm::mat4(1.0f));
-//			m_shaders["depthMap"]->SetUniform1i("depthMap", (GLint)0);
+			//m_shaders["depthMap"]->SetUniform1i("depthMap", (GLint)0);
+
+			m_shaders["depthDebug"]->Enable();
+			m_shaders["depthDebug"]->SetUniform1i("depthMap", (GLint)0);
+			//m_shaders["depthDebug"]->SetUniform1f("near_plane", (GLfloat)1.0f);
+			//m_shaders["depthDebug"]->SetUniform1f("far_plane", (GLfloat)1.0f);
 			
 
 			//SetupFramebuffers();
@@ -120,15 +125,15 @@ namespace tactical
 			glm::vec4 borderColor = glm::vec4(1.0f);
 
 			m_framebuffers["depthMap"] = new Framebuffer();
-			m_framebufferTextures["depthMap"] = new FramebufferTexture(GL_DEPTH_COMPONENT, width, height, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE);
+			m_framebufferTextures["depthMap"] = new FramebufferTexture(GL_DEPTH_COMPONENT, width, height, GL_DEPTH_COMPONENT, GL_FLOAT);
 			//m_renderBuffers["depthMap"] = new RenderBuffer(GL_DEPTH24_STENCIL8, width, height);
 
 			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP);
-			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP);
-			//m_framebufferTextures["depthMap"]->SetParameterfv(GL_TEXTURE_BORDER_COLOR, glm::value_ptr(borderColor));
-
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_S, GL_REPEAT);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_T, GL_REPEAT);
+			m_framebufferTextures["depthMap"]->SetParameterfv(GL_TEXTURE_BORDER_COLOR, glm::value_ptr(borderColor));
+			
 			m_framebuffers["depthMap"]->AttachColourbuffer(*m_framebufferTextures["depthMap"], GL_DEPTH_ATTACHMENT);
 			//m_framebuffers["depthMap"]->AttachRenderBuffer(*m_renderBuffers["depthMap"], GL_DEPTH_STENCIL_ATTACHMENT);
 
@@ -153,9 +158,13 @@ namespace tactical
 		// TODO: finish
 		void Renderer::PreRender()
 		{
-
 			glm::mat4 invCamera = glm::inverse(m_pCamera->GetViewMatrix());
-			glm::vec4 cornerFrustum[8];
+
+			glm::mat4 lightView = glm::lookAt(
+				m_pCamera->GetPosition() + glm::normalize(m_directionalLight.position - m_pCamera->GetPosition()) * (1024.0f / 2.0f),
+											  m_pCamera->GetPosition(),
+											  glm::vec3(0.0f, 1.0f, 0.0f));
+			/*glm::vec4 cornerFrustum[8];
 			float sidesOrtho[6];
 			
 			float aspectRatio = m_eventHandler->GetWindowSizeState()->aspectRatio;
@@ -164,9 +173,6 @@ namespace tactical
 			float tanFovy = glm::tan(glm::radians(fovy));
 			float tanFovx = glm::tan(glm::radians(fovx));
 
-			glm::mat4 lightView = glm::lookAt(m_pCamera->GetPosition(),
-											  m_pCamera->GetPosition() - m_directionalLight.position,
-											  glm::vec3(0.0f, 1.0f, 0.0f));
 
 			float near_plane = -256.0f, far_plane = 256.0f;
 
@@ -202,16 +208,20 @@ namespace tactical
 
 			glm::mat4 lightProjection = glm::ortho(-sidesOrtho[0], -sidesOrtho[1], 
 												   -sidesOrtho[2], -sidesOrtho[3], 
-												    near_plane, far_plane);
-			
+												    near_plane, far_plane);*/
+
+			lightView = glm::rotate(glm::mat4(1.0f), m_pCamera->GetYaw(), glm::vec3(0.0f, 0.0f, 1.0f)) * lightView;
+
+			float dimOrtho = 64.0f;
+			glm::mat4 lightProjection = glm::ortho(-dimOrtho, dimOrtho, -dimOrtho, dimOrtho, 1.0f, 1024.0f);
 			glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 			
-			m_framebuffers["depthMap"]->Bind();
-
 			m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformMat4fv("lightViewProjection", lightSpaceMatrix);
 			m_shaders["basic_light"]->SetUniform3fv("dirLight.position", m_directionalLight.position);
 			m_shaders["basic_light"]->Disable();
+
+			m_framebuffers["depthMap"]->Bind();
 
 			m_shaders["depthMap"]->Enable();
 			m_shaders["depthMap"]->SetUniformMat4fv("lightViewProjection", lightSpaceMatrix);
@@ -221,19 +231,21 @@ namespace tactical
 			glClear(GL_DEPTH_BUFFER_BIT);
 			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-
-			//if (!m_quad.GetTexture()) m_quad.SetTexture(m_framebuffers["depthMap"]->)
+			SetActiveTexture(tactical::GLTexture::TEXTURE0);
+			m_framebuffers["depthMap"]->Bind();
 		}
 
 		// TODO: start
 		void Renderer::PostRender()
 		{
 			m_framebuffers["depthMap"]->Unbind();
+			m_shaders["depthMap"]->Disable();
 
 			glClearColor(135.0f / 255.0f, 206.0f / 255.0f, 250.0f / 255.0f, 1.0f);
 			glCullFace(GL_BACK);
 			glViewport(0, 0, m_eventHandler->GetWindowSizeState()->width, m_eventHandler->GetWindowSizeState()->height);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		}
 
 		void Renderer::TogglePolygonMode()
@@ -319,6 +331,20 @@ namespace tactical
 		void Renderer::SetActiveTexture(GLTexture slot)
 		{
 			glActiveTexture((GLenum)slot);
+		}
+
+		void Renderer::BindTexture(std::string handle)
+		{
+			if (m_framebufferTextures.find(handle) != m_framebufferTextures.end()) {
+				m_framebufferTextures[handle]->Bind();
+			}
+		}
+
+		void Renderer::ReleaseTexture(std::string handle)
+		{
+			if (m_framebufferTextures.find(handle) != m_framebufferTextures.end()) {
+				m_framebufferTextures[handle]->Unbind();
+			}
 		}
 
 		void Renderer::ToggleFog()

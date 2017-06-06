@@ -143,11 +143,8 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		
-
 		if (renderer.GetLightType() == 0) {
 			renderer.PreRender();
-			renderer.GetShader("depthMap")->Enable();
 			chunkManager.Draw("depthMap");
 			renderer.PostRender();
 		}
@@ -157,12 +154,7 @@ int main(int argc, char* argv[])
 		renderer.GetShader("basic_light")->SetUniformMat4fv("view", activeCamera->GetViewMatrix());
 		renderer.GetShader("basic_light")->SetUniformMat4fv("projection", activeCamera->GetProjectionMatrix());
 		renderer.GetShader("basic_light")->SetUniform3fv("camera_pos", activeCamera->GetPosition());
-
-		if (renderer.GetLightType() == 0) {
-			renderer.SetActiveTexture(tactical::GLTexture::TEXTURE0);
-			renderer.GetFramebufferTexture("depthMap")->Bind();
-		}
-
+		
 		chunkManager.Draw("basic_light");
 
 		renderer.GetShader("picking")->Enable();
@@ -209,10 +201,9 @@ int main(int argc, char* argv[])
 				window.GetEventHandler()->GetWindowSizeState()->height)) +
 				" FPS: " + std::to_string(framerate));
 
-			LOG_INFO("Picking result: o(" + glm::to_string(pickingRay.GetOrigin()) + "), e(" + glm::to_string(pickingRay.GetOrigin() + pickingRay.GetDirection() * 100.0f) + ")");
 			if (pickingResult.hit) {
 				LOG_INFO("Picking position: " + glm::to_string(pickingBox.GetPosition()));
-				LOG_INFO("Prism position: " + glm::to_string(testPrism.GetPosition()));
+				//LOG_INFO("Prism position: " + glm::to_string(testPrism.GetPosition()));
 			}
 
 			clock.restart();

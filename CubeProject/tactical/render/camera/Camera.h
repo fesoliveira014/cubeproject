@@ -62,6 +62,10 @@ namespace tactical
             inline const glm::vec3 GetRightDirection() const { return m_right; }
             inline const glm::vec3 GetForwardDirection() const { return m_forward; }
             inline const glm::vec3 GetTarget() const { return m_target; }
+
+			inline const float GetYaw() const { return m_yaw; }
+			inline const float GetPitch() const { return m_pitch; }
+			
 			inline const ActiveCamera GetActiveCamera() { return m_activeCamera; }
 
             void LinkTo(window::Window& windowHandler);
