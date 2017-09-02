@@ -52,6 +52,8 @@ namespace tactical
 
             if (m_yaw > 360.0f) { m_yaw -= 360.0f; }
             else if (m_yaw < -360.0f) { m_yaw += 360.0f; }
+
+			m_rotationQuat = glm::quat(glm::vec3(m_pitch, m_yaw, 0.0f));
         }
 
         void Camera::LinkTo(window::Window& windowHandler)

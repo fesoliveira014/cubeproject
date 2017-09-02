@@ -39,6 +39,13 @@ namespace tactical
 			POLYGON
 		};
 
+		enum RenderPass
+		{
+			TERRAIN = 0,
+			SHADOW,
+			POSTPROCESS
+		};
+
 		class Renderer
 		{
 		public:
@@ -111,7 +118,6 @@ namespace tactical
 			std::shared_ptr<RenderBuffer> m_depthRenderBuffer;
 			Quad<FramebufferTexture> m_quad;
 
-
 			int m_lightType;
 
 			DirectionalLight m_directionalLight;
@@ -119,6 +125,7 @@ namespace tactical
 			SpotLight m_spotLight;
 
 			PolygonMode m_polygonMode;
+			RenderPass m_renderPass;
 			bool m_showNormals;
 			bool m_renderFog;
 			math::Frustum m_frustum;

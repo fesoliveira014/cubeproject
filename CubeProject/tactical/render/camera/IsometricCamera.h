@@ -8,7 +8,7 @@ namespace tactical
     {
         constexpr static float ISOMETRIC_WIDTH = 64.0f;
         constexpr static float ISOMETRIC_HEIGHT = 64.0f;
-        constexpr static float ISOMETRIC_DISTANCE = 128.0f; // this has to be a function of the world height (maybe 2 * worldHeight?)
+        constexpr static float ISOMETRIC_DISTANCE = 256.0f; // this has to be a function of the world height (maybe 2 * worldHeight?)
 
         class IsometricCamera : public Camera
         {

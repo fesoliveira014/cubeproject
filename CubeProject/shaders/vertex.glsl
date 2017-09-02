@@ -24,5 +24,5 @@ void main()
 	vs_out.position = vec3(model * vec4(position, 1.0f));
 	vs_out.normal = mat3(transpose(inverse(model))) * normal;
 	vs_out.color = color;
-	vs_out.lightSpacePosition = lightViewProjection * vec4(vs_out.position, 1.0);
+	vs_out.lightSpacePosition = lightViewProjection * model * vec4(vs_out.position, 1.0);
 }

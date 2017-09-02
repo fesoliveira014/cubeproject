@@ -17,8 +17,8 @@ namespace tactical
 			m_renderFog = false;
 			m_lightType = 0;
 
-			m_directionalLight.position = glm::vec3(-32.0f, 20.0f, -31.0f);
-			m_directionalLight.direction = glm::vec3(64.0f, 0.0f, 64.0f) - m_directionalLight.position ;
+			m_directionalLight.position = glm::vec3(-16.0f, 64.0f, -16.0f);
+			m_directionalLight.direction = glm::normalize(glm::vec3(0.0f, 0.0f, 0.0f) - m_directionalLight.position);
 
 			m_shaders["basic_light"]->Enable();
 			m_shaders["basic_light"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
@@ -56,6 +56,8 @@ namespace tactical
 			m_shaders["basic_light"]->SetUniform1f("spotLight.cutOff",       m_spotLight.cutOff);
 			m_shaders["basic_light"]->SetUniform1f("spotLight.outerCutOff",  m_spotLight.outerCutOff);
 
+			m_shaders["basic_light"]->SetUniform1i("shadowMap", 0);
+
 			m_shaders["normal"]->Enable();
 			m_shaders["normal"]->SetUniformMat4fv("projection", m_pCamera->GetProjectionMatrix());
 			m_shaders["normal"]->SetUniformMat4fv("model", glm::mat4(1.0f));
@@ -69,11 +71,11 @@ namespace tactical
 			//m_shaders["depthMap"]->SetUniform1i("depthMap", (GLint)0);
 
 			m_shaders["depthDebug"]->Enable();
-			m_shaders["depthDebug"]->SetUniform1i("depthMap", (GLint)0);
+			m_shaders["depthDebug"]->SetUniform1i("depthMap", (GLint)1);
 			//m_shaders["depthDebug"]->SetUniform1f("near_plane", (GLfloat)1.0f);
 			//m_shaders["depthDebug"]->SetUniform1f("far_plane", (GLfloat)1.0f);
 			
-
+			m_renderPass = RenderPass::TERRAIN;
 			//SetupFramebuffers();
 
 			glEnable(GL_CULL_FACE);
@@ -118,24 +120,21 @@ namespace tactical
 		{
 			if (m_framebuffers["depthMap"] != nullptr) delete m_framebuffers["depthMap"];
 			if (m_framebufferTextures["depthMap"] != nullptr) delete m_framebufferTextures["depthMap"];
-			//if (m_renderBuffers["depthMap"] != nullptr) delete m_renderBuffers["depthMap"];
 
-			int height = 1024;//m_eventHandler->GetWindowSizeState()->height;
-			int width = 1024;// m_eventHandler->GetWindowSizeState()->width;
+			int height = 8192;//m_eventHandler->GetWindowSizeState()->height;
+			int width = 8192;// m_eventHandler->GetWindowSizeState()->width;
 			glm::vec4 borderColor = glm::vec4(1.0f);
 
 			m_framebuffers["depthMap"] = new Framebuffer();
 			m_framebufferTextures["depthMap"] = new FramebufferTexture(GL_DEPTH_COMPONENT, width, height, GL_DEPTH_COMPONENT, GL_FLOAT);
-			//m_renderBuffers["depthMap"] = new RenderBuffer(GL_DEPTH24_STENCIL8, width, height);
 
 			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_S, GL_REPEAT);
-			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_T, GL_REPEAT);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+			m_framebufferTextures["depthMap"]->SetParameteri(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 			m_framebufferTextures["depthMap"]->SetParameterfv(GL_TEXTURE_BORDER_COLOR, glm::value_ptr(borderColor));
 			
 			m_framebuffers["depthMap"]->AttachColourbuffer(*m_framebufferTextures["depthMap"], GL_DEPTH_ATTACHMENT);
-			//m_framebuffers["depthMap"]->AttachRenderBuffer(*m_renderBuffers["depthMap"], GL_DEPTH_STENCIL_ATTACHMENT);
 
 			m_framebuffers["depthMap"]->CheckStatus();
 		}
@@ -147,7 +146,7 @@ namespace tactical
 			else
 				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-			if (renderable->GetBoundingBox().Contains(m_pCamera->GetPosition()) || m_frustum.Contains(renderable->GetBoundingBox())) {
+			if (renderable->GetBoundingBox().Contains(m_pCamera->GetPosition()) || (m_renderPass == RenderPass::SHADOW || m_frustum.Contains(renderable->GetBoundingBox()))) {
 				if (!(m_shaders.find(shaderID) == m_shaders.end()))
 					renderable->Draw(*m_shaders[shaderID]);
 				else
@@ -160,59 +159,22 @@ namespace tactical
 		{
 			glm::mat4 invCamera = glm::inverse(m_pCamera->GetViewMatrix());
 
+			float lightPosDegree = 170.0f * glm::pi<float>() / 180.0f;
+
+			m_directionalLight.position = m_pCamera->GetPosition() + glm::vec3(
+				glm::cos(lightPosDegree) * 1000.0f, 
+				glm::sin(lightPosDegree) * 1000.0f,
+				glm::sin(lightPosDegree + 90) * 1000.0f / 2.0f);
+
 			glm::mat4 lightView = glm::lookAt(
-				m_pCamera->GetPosition() + glm::normalize(m_directionalLight.position - m_pCamera->GetPosition()) * (1024.0f / 2.0f),
+				m_pCamera->GetPosition() + 
+				glm::normalize(m_directionalLight.position - m_pCamera->GetPosition()) * (1024.0f / 2.0f),
 											  m_pCamera->GetPosition(),
 											  glm::vec3(0.0f, 1.0f, 0.0f));
-			/*glm::vec4 cornerFrustum[8];
-			float sidesOrtho[6];
+
+			lightView = glm::rotate(glm::mat4(1.0f), glm::radians(m_pCamera->GetYaw()), glm::vec3(0.0f, 0.0f, 1.0f)) * lightView;
 			
-			float aspectRatio = m_eventHandler->GetWindowSizeState()->aspectRatio;
-			float fovy = 45.0f;
-			float fovx = fovy / aspectRatio;
-			float tanFovy = glm::tan(glm::radians(fovy));
-			float tanFovx = glm::tan(glm::radians(fovx));
-
-
-			float near_plane = -256.0f, far_plane = 256.0f;
-
-			GLfloat xn = 0, xf = tanFovx;
-			GLfloat yn = 0, yf = tanFovy;
-
-			cornerFrustum[0] = glm::vec4{ xn, yn, 0, 1.0f };
-			cornerFrustum[1] = glm::vec4{ -xn, yn, 0, 1.0f };
-			cornerFrustum[2] = glm::vec4{ xn, -yn, 0, 1.0f };
-			cornerFrustum[3] = glm::vec4{ -xn, -yn, 0, 1.0f };
-
-			cornerFrustum[4] = glm::vec4{ xf, yf, 16.0f, 1.0f };
-			cornerFrustum[5] = glm::vec4{ -xf, yf, 16.0f, 1.0f };
-			cornerFrustum[6] = glm::vec4{ xf, -yf, 16.0f, 1.0f };
-			cornerFrustum[7] = glm::vec4{ -xf, -yf, 16.0f, 1.0f };
-
-			for (int i = 0; i < 6; i += 2) {
-				sidesOrtho[i] = std::numeric_limits<float>::max();
-				sidesOrtho[i+1] = -std::numeric_limits<float>::max();
-			}
-
-			for (int i = 0; i < 8; ++i) {
-				cornerFrustum[i] = invCamera * cornerFrustum[i];
-				cornerFrustum[i] = lightView * cornerFrustum[i];
-
-				sidesOrtho[0] = std::min(sidesOrtho[0], cornerFrustum[i].x);
-				sidesOrtho[1] = std::max(sidesOrtho[1], cornerFrustum[i].x);
-				sidesOrtho[2] = std::min(sidesOrtho[2], cornerFrustum[i].y);
-				sidesOrtho[3] = std::max(sidesOrtho[3], cornerFrustum[i].y);
-				sidesOrtho[4] = std::min(sidesOrtho[4], cornerFrustum[i].z);
-				sidesOrtho[5] = std::max(sidesOrtho[5], cornerFrustum[i].z);
-			}
-
-			glm::mat4 lightProjection = glm::ortho(-sidesOrtho[0], -sidesOrtho[1], 
-												   -sidesOrtho[2], -sidesOrtho[3], 
-												    near_plane, far_plane);*/
-
-			lightView = glm::rotate(glm::mat4(1.0f), m_pCamera->GetYaw(), glm::vec3(0.0f, 0.0f, 1.0f)) * lightView;
-
-			float dimOrtho = 64.0f;
+			float dimOrtho = 128.0f;
 			glm::mat4 lightProjection = glm::ortho(-dimOrtho, dimOrtho, -dimOrtho, dimOrtho, 1.0f, 1024.0f);
 			glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 			
@@ -226,13 +188,14 @@ namespace tactical
 			m_shaders["depthMap"]->Enable();
 			m_shaders["depthMap"]->SetUniformMat4fv("lightViewProjection", lightSpaceMatrix);
 
-			glCullFace(GL_FRONT);
-			glViewport(0, 0, m_framebufferTextures["depthMap"]->GetWidth(), m_framebufferTextures["depthMap"]->GetHeight());
-			glClear(GL_DEPTH_BUFFER_BIT);
-			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+			m_renderPass = RenderPass::SHADOW;
 
+			glViewport(0, 0, m_framebufferTextures["depthMap"]->GetWidth(), m_framebufferTextures["depthMap"]->GetHeight());
 			SetActiveTexture(tactical::GLTexture::TEXTURE0);
 			m_framebuffers["depthMap"]->Bind();
+			glClear(GL_DEPTH_BUFFER_BIT);
+			glCullFace(GL_FRONT);
+			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		}
 
 		// TODO: start
@@ -245,6 +208,8 @@ namespace tactical
 			glCullFace(GL_BACK);
 			glViewport(0, 0, m_eventHandler->GetWindowSizeState()->width, m_eventHandler->GetWindowSizeState()->height);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			m_renderPass = RenderPass::TERRAIN;
 
 		}
 
@@ -267,8 +232,6 @@ namespace tactical
 			}
 
 			m_frustum.Update(m_pCamera->GetProjectionMatrix(), m_pCamera->GetViewMatrix());
-
-			m_directionalLight.position.z = glm::cos(deltaTime) * 65.0f;
 		}
 
 		void Renderer::LinkTo(window::Window& windowHandler)

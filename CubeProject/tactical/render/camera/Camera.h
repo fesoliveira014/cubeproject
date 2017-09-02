@@ -63,8 +63,8 @@ namespace tactical
             inline const glm::vec3 GetForwardDirection() const { return m_forward; }
             inline const glm::vec3 GetTarget() const { return m_target; }
 
-			inline const float GetYaw() const { return m_yaw; }
-			inline const float GetPitch() const { return m_pitch; }
+			inline const float GetPitch() const { return m_pitch; } // x-axis
+			inline const float GetYaw() const { return m_yaw; } // y-axis
 			
 			inline const ActiveCamera GetActiveCamera() { return m_activeCamera; }
 
@@ -84,6 +84,8 @@ namespace tactical
 
             glm::mat4 m_projection;
             glm::mat4 m_view;
+
+			glm::quat m_rotationQuat;
 
             float m_yaw, m_pitch;
 

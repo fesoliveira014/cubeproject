@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 	tactical::render::Renderer renderer(activeCamera);
 	renderer.LinkTo(window);
 
-	tactical::ChunkManager chunkManager(&renderer, glm::vec3(2, 1, 2));
+	tactical::ChunkManager chunkManager(&renderer, glm::vec3(8, 1, 8));
 	//chunkManager.FillChunks();
 	//chunkManager.GenerateWorld();
 	chunkManager.FillWithPyramids();
@@ -191,8 +191,11 @@ int main(int argc, char* argv[])
 
 		if (drawDebugQuad) {
 			renderer.GetShader("depthDebug")->Enable();
-			renderer.SetActiveTexture(tactical::GLTexture::TEXTURE0);
+			renderer.SetActiveTexture(tactical::GLTexture::TEXTURE1);
 			debugQuad.Draw(*renderer.GetShader("depthDebug"));
+			renderer.GetShader("depthDebug")->Disable();
+			renderer.SetActiveTexture(tactical::GLTexture::TEXTURE0);
+
 		}
 
 		framerate++;
@@ -203,7 +206,6 @@ int main(int argc, char* argv[])
 
 			if (pickingResult.hit) {
 				LOG_INFO("Picking position: " + glm::to_string(pickingBox.GetPosition()));
-				//LOG_INFO("Prism position: " + glm::to_string(testPrism.GetPosition()));
 			}
 
 			clock.restart();
