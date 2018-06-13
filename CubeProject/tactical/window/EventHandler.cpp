@@ -25,10 +25,11 @@ namespace tactical
 			m_keyboardState.key_f = false;
 			m_keyboardState.key_c = false;
 
-			m_keyboardState.key_enter = false;
-			m_keyboardState.key_esc   = false;
-			m_keyboardState.key_shift = false;
-			m_keyboardState.key_space = false;
+			m_keyboardState.key_enter	  = false;
+			m_keyboardState.key_esc		  = false;
+			m_keyboardState.key_shift	  = false;
+			m_keyboardState.key_space	  = false;
+			m_keyboardState.key_backspace = false;
 		}
 
 		EventHandler::~EventHandler()

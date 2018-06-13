@@ -86,12 +86,45 @@ vec3 applyFog(vec3  rgb,      // original color of the pixel
     vec3 fogColor   = vec3(0.5,0.6,0.7); // bluish
     vec3 finalColor = rgb*fogAmount;
     return mix( rgb, fogColor, fogAmount );
-}  
+}
+
+float lambert(vec3 surfaceNormal, vec3 lightDirNormal){
+	return max(0.0, dot(surfaceNormal, lightDirNormal));
+}
+
+float linstep(float low, float high, float v)
+{
+	return clamp((v-low)/(high-low), 0.0, 1.0);
+}
+
+bool inRange(float val)
+{
+	return val >= 0.0 && val <= 1.0;
+}
+
+float chebyshevUpperBound(vec4 lightSpacePosition, float compare)
+{
+	vec3 proj_coord = lightSpacePosition.xyz / lightSpacePosition.w;
+	proj_coord = proj_coord * 0.5 + 0.5;
+
+	if (!inRange(proj_coord.z) || !inRange(proj_coord.y) || !inRange(proj_coord.x))
+		return 1.0;
+	
+	//float dist = proj_coord.z;
+
+	vec2 moments = texture2D(shadowMap, proj_coord.xy).rg;
+
+	float p = smoothstep(compare - 0.02, compare, moments.x);
+	float variance = max(moments.y - moments.x * moments.x, -0.001);
+	float d = compare - moments.x;
+	float p_max = linstep(0.2, 1.0, variance / (variance + d * d));
+	return clamp(max(p, p_max), 0.0, 1.0);
+}
 
 float computeDirectionalShadows(vec4 lightSpacePosition, float bias)
 {
 	vec3 proj_coord = lightSpacePosition.xyz / lightSpacePosition.w;
-	proj_coord = proj_coord * 0.5 + 0.5;
+	proj_coord = proj_coord * 0.5 + vec3(0.5);
 
 	if( proj_coord.z > 1.0 ) {
 		return 0.0;
@@ -112,7 +145,6 @@ float computeDirectionalShadows(vec4 lightSpacePosition, float bias)
 	}
 
 	return shadow / 9.0;
-
 }
 
 vec3 computeDirectionalLight(DirectionalLight light)
@@ -133,11 +165,8 @@ vec3 computeDirectionalLight(DirectionalLight light)
 	float spec = pow(max(dot(normal, halfway_dir), 0.0), 16);
 	vec3 specular =	light.specular * spec * vec3(light.color);
 	
-	float bias = max(0.000005f * (1.0 - dot(normal, light_dir)), 0.0000005f);
-	//float bias = 0.005;
+	float bias = max(0.0005f * (1.0 - dot(normal, light_dir)), 0.00005f);
 	float shadow = computeDirectionalShadows(fs_in.lightSpacePosition, bias);
-
-	//float shadow = 0;
 
 	return (ambient + (1.0 - shadow) * (diffuse + specular));
 }
@@ -162,7 +191,7 @@ vec3 computePointLight(PointLight light)
 	float dist = length(light.position - fs_in.position);
 	float attenuation = 1.0 / (light.constant + light.linear * dist + light.quadratic * (dist * dist));
 
-	ambient  *= attenuation;
+	//ambient  *= attenuation;
 	diffuse  *= attenuation;
 	specular *= attenuation;
 
@@ -195,7 +224,7 @@ vec3 computeSpotLight(SpotLight light)
 	float dist = length(light.position - fs_in.position);
 	float attenuation = 1.0 / (light.constant + light.linear * dist + light.quadratic * (dist * dist));
 
-	ambient  *= attenuation;
+	//ambient  *= attenuation;
 	diffuse  *= attenuation;
 	specular *= attenuation;
 
@@ -218,8 +247,6 @@ void main()
 			light = computeSpotLight(spotLight);
 			break;
 	}
-
-	// light = ambient + diffuse + specular;
 
 	vec3 lightResult = light * vec3(fs_in.color);
 

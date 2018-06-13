@@ -250,23 +250,6 @@ namespace tactical
 				GeneratePyramid(*iter->second);
 			}
 		}
-
-		//for (int j = 0; j < (m_chunkSize / 2); ++j) {
-		//	for (int k = 0; k < (m_worldDimensions.z * m_chunkSize / 2); ++k) {
-		//		for (int i = 0; i < (m_worldDimensions.x * m_chunkSize / 2); ++i) {
-		//			if ((i >= j && k >= j)) {
-		//				SetVoxel(i, j, k, 1);
-		//				SetVoxel(m_chunkSize * (i+1) - 1 - i, j, k, 1);
-		//				SetVoxel(m_chunkSize  * (i + 1) - 1 - i, j, m_chunkSize * (k + 1) - 1 - k, 1);
-		//				SetVoxel(i, j, m_chunkSize * (k + 1) - 1 - k, 1);
-		//			}
-		//			/*if ((m_chunkSize - i >= j && k >= j)) {
-		//			chunk.SetVoxel(i, j, k, 1);
-
-		//			}*/
-		//		}
-		//	}
-		//}
 	}
 
 	void ChunkManager::GeneratePyramid(Chunk &chunk)
@@ -283,13 +266,35 @@ namespace tactical
 						chunk.SetVoxel(m_chunkSize - 1 - i, j, m_chunkSize - 1 - k, 1);
 						chunk.SetVoxel(i, j, m_chunkSize - 1 - k, 1);
 					}
-					/*if ((m_chunkSize - i >= j && k >= j)) {
-						chunk.SetVoxel(i, j, k, 1);
-					}*/
 				}
 			}
 		}
 	}
+
+	void ChunkManager::FillWithPlanes(int thickness)
+	{
+		if (!m_chunks.empty()) {
+			for (ChunkIterator iter = m_chunks.begin(); iter != m_chunks.end(); ++iter) {
+				GeneratePlane(thickness, *iter->second);
+			}
+		}
+	}
+
+	void ChunkManager::GeneratePlane(int thickness, Chunk &chunk)
+	{
+		if (chunk.GetPosition().y >= m_chunkSize)
+			return;
+
+		for (int j = 0; j < 5; ++j) {
+			for (int k = 0; k < m_chunkSize; ++k) {
+				for (int i = 0; i < m_chunkSize; ++i) {
+					if (j % 4 == 0)
+						chunk.SetVoxel(i, j, k, 1);
+				}
+			}
+		}
+	}
+
 
 	void ChunkManager::GenerateWorld()
 	{

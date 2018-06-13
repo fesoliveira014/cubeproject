@@ -42,20 +42,17 @@ namespace tactical
 		template <typename TextureType>
 		void Quad<TextureType>::Draw(Shader& shader)
 		{
-			if (m_texture) {
-				if (!shader.IsEnabled())
-					shader.Enable();
+			 
+			m_mesh.vao->Bind();
+			m_mesh.ibo->Bind();
+			if (m_texture) m_texture->Bind();
 
-				m_mesh.vao->Bind();
-				m_mesh.ibo->Bind();
-				m_texture->Bind();
+			glDrawElements(GL_TRIANGLES, (GLsizei)m_mesh.ibo->GetCount(), GL_UNSIGNED_INT, 0);
 
-				glDrawElements(GL_TRIANGLES, (GLsizei)m_mesh.ibo->GetCount(), GL_UNSIGNED_INT, 0);
-
-				m_texture->Unbind();
-				m_mesh.ibo->Unbind();
-				m_mesh.vao->Unbind();
-			}
+			if (m_texture) m_texture->Unbind();
+			m_mesh.ibo->Unbind();
+			m_mesh.vao->Unbind();
+			
 		}
 	}
 }

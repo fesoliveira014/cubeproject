@@ -162,9 +162,7 @@ namespace tactical
 				}
 
 				// TODO: treat seams
-
-
-
+				
 				std::lock_guard<std::mutex> lock(globalMutex);
 				render::geometry::CalculateNormals<render::Vertex3f3f4f>(chunk.GetMesh()->vertices, chunk.GetMesh()->indices);
 			}

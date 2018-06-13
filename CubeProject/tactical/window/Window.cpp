@@ -132,6 +132,7 @@ namespace tactical
             m_eventHandler->m_keyboardState.key_esc = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
             m_eventHandler->m_keyboardState.key_shift = sf::Keyboard::isKeyPressed(sf::Keyboard::LShift);
             m_eventHandler->m_keyboardState.key_space = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+			m_eventHandler->m_keyboardState.key_backspace = sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace);
         }
 
         void Window::UpdateMouse()

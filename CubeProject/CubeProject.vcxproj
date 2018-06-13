@@ -235,6 +235,7 @@
     <ClCompile Include="tactical\render\buffer\VertexArray.cpp" />
     <ClCompile Include="tactical\render\Renderer.cpp" />
     <ClCompile Include="tactical\render\geometry\Quad.impl" />
+    <ClCompile Include="tactical\render\structures\Filter.cpp" />
     <ClCompile Include="tactical\render\structures\Shader.cpp" />
     <ClCompile Include="tactical\utils\ThreadPool.cpp" />
     <ClCompile Include="tactical\volume\Chunk.cpp" />
@@ -313,6 +314,7 @@
     <ClInclude Include="tactical\render\camera\FPSCamera.h" />
     <ClInclude Include="tactical\render\camera\IsometricCamera.h" />
     <ClInclude Include="tactical\entity\DrawableBox.h" />
+    <ClInclude Include="tactical\render\structures\Filter.h" />
     <ClInclude Include="tactical\render\geometry\DrawableLine.h" />
     <ClInclude Include="tactical\render\geometry\Geometry.h" />
     <ClInclude Include="tactical\render\IRenderable2D.h" />

@@ -231,6 +231,9 @@
     <ClCompile Include="tactical\volume\mesher\ChunkMesher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tactical\render\structures\Filter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tactical\utils\Logger.h">
@@ -507,6 +510,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tactical\entity\Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tactical\render\structures\Filter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

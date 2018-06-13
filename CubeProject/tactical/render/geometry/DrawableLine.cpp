@@ -42,8 +42,6 @@ namespace tactical
 
 			m_mesh.vao->Bind();
 			m_mesh.ibo->Bind();
-			if (!shader.IsEnabled())
-				shader.Enable();
 
 			shader.SetUniformMat4fv("model", model);
 			shader.SetUniformBool("useColor", true);

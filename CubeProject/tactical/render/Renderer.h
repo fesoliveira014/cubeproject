@@ -19,6 +19,7 @@
 #include "structures\Vertex.h"
 #include "structures\Mesh.h"
 #include "structures\Light.h"
+#include "structures\Filter.h"
 
 #include "../math/AABB.h"
 #include "../math/Frustum.h"
@@ -52,9 +53,10 @@ namespace tactical
 			Renderer(Camera* camera);
 			~Renderer();
 
-			void PreRender();
+			void ShadowPassStart();
+			void ShadowPassEnd();
+
 			void Render(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID);
-			void PostRender();
 
 			void TogglePolygonMode();
 			PolygonMode GetPolygonMode() { return m_polygonMode; }
@@ -78,7 +80,7 @@ namespace tactical
 			void ToggleFog();
 
 			void SelectLightType(int type);
-			int GetLightType() { return m_lightType; }
+			int  GetLightType() { return m_lightType; }
 
 			void SetPointLightPosition(const glm::vec3& position);
 			void SetSpotLightPosition(const glm::vec3& position);
@@ -91,8 +93,10 @@ namespace tactical
 
 			void Update(float deltaTime);
 
-			void EnableShader(std::string shaderID) { m_shaders[shaderID]->Enable(); }
-			void DisableShader(std::string shaderID) { m_shaders[shaderID]->Disable(); }
+			void EnableShader(std::string shaderID);
+			void DisableShader(std::string shaderID);
+			bool IsShaderEnabled(std::string shaderID) { return !(m_currentShader.compare(shaderID)) ? true : false; }
+			void ReloadShaders();
 
 			Shader* GetShader(std::string shaderID);
 			FramebufferTexture* GetFramebufferTexture(std::string fbID);
@@ -105,7 +109,7 @@ namespace tactical
 			Renderer();
 			
 			void SetupFramebuffers();
-
+			
 		private:
 			Camera* m_pCamera;
 			std::shared_ptr<window::EventHandler> m_eventHandler;
@@ -119,6 +123,7 @@ namespace tactical
 			Quad<FramebufferTexture> m_quad;
 
 			int m_lightType;
+			int m_shadowMapWidth, m_shadowMapHeight;
 
 			DirectionalLight m_directionalLight;
 			PointLight m_pointLight;
@@ -129,6 +134,7 @@ namespace tactical
 			bool m_showNormals;
 			bool m_renderFog;
 			math::Frustum m_frustum;
+			std::string m_currentShader;
 		};
 	}
 }

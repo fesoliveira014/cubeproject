@@ -36,6 +36,7 @@ namespace tactical
 		void FillChunks();
 		void FillWithPyramids();
 		void GenerateWorld();
+		void FillWithPlanes(int thinkness);
 
 		void UpdateChunkMesh(Chunk& chunk);
 
@@ -87,6 +88,8 @@ namespace tactical
 		glm::vec3 GridCoordsToWorldCoords(const glm::vec3& pos);
 
 		void GeneratePyramid(Chunk &chunk);
+		void GeneratePlane(int thinkness, Chunk &chunk);
+
 
 		ChunkMap m_chunks;
 		std::queue<std::shared_ptr<Chunk> > m_chunksToUpdate;

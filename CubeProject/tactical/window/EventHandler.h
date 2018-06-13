@@ -35,6 +35,7 @@ namespace tactical
 			bool key_enter;
 			bool key_space;
 			bool key_shift;
+			bool key_backspace;
 		};
 
 		struct KeyEvent {
