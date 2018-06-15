@@ -53,7 +53,7 @@ namespace tactical
 			Renderer(Camera* camera);
 			~Renderer();
 
-			void ShadowPassStart();
+			void ShadowPassStart(float deltaTime);
 			void ShadowPassEnd();
 
 			void Render(std::shared_ptr<IRenderable3D>& renderable, std::string shaderID);
@@ -124,6 +124,7 @@ namespace tactical
 
 			int m_lightType;
 			int m_shadowMapWidth, m_shadowMapHeight;
+			float m_lightStep;
 
 			DirectionalLight m_directionalLight;
 			PointLight m_pointLight;

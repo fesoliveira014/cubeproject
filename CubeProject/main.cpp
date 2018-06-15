@@ -69,6 +69,7 @@ int main(int argc, char* argv[])
 	// Deltatime
 	sf::Clock deltaClock; // Clock to get time between current frame and last frame
 	deltaClock.restart();
+	int lightAngle = 0;
 
 	bool cameraChanged = false;
 	bool drawDebugQuad = false;
@@ -149,7 +150,7 @@ int main(int argc, char* argv[])
 		}
 
 		if (renderer.GetLightType() == 0) {
-			renderer.ShadowPassStart();
+			renderer.ShadowPassStart(deltaTime);
 			chunkManager.Draw("depthMap");
 			if (pickingResult.hit) {
 				testPrism.Draw(*renderer.GetShader("depthMap"));
@@ -208,6 +209,8 @@ int main(int argc, char* argv[])
 
 		framerate++;
 		if (clock.getElapsedTime().asMilliseconds() > 999) {
+			lightAngle += 1;
+			if (lightAngle / 360 > 0) lightAngle = 0;
 			window.SetTitle("Viewport: " + glm::to_string(glm::ivec2(window.GetEventHandler()->GetWindowSizeState()->width,
 				window.GetEventHandler()->GetWindowSizeState()->height)) +
 				" FPS: " + std::to_string(framerate));

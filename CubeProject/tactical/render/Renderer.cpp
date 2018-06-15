@@ -15,6 +15,8 @@ namespace tactical
 			m_directionalLight.position = glm::vec3(-16.0f, 32.0f, -16.0f);
 			m_directionalLight.direction = glm::normalize(-m_directionalLight.position);
 
+			m_lightStep = 0.0f;
+
 			ReloadShaders();
 
 			m_renderPass = RenderPass::TERRAIN;
@@ -97,19 +99,22 @@ namespace tactical
 		}
 
 		// TODO: finish
-		void Renderer::ShadowPassStart()
+		void Renderer::ShadowPassStart(float deltaTime)
 		{
 			//glm::mat4 invCamera = glm::inverse(m_pCamera->GetViewMatrix());
 
-			std::chrono::system_clock::time_point tp = std::chrono::system_clock::now();
-			std::chrono::system_clock::duration duration = tp.time_since_epoch();
 
-			float lightPosDegree = (170.0f * glm::pi<float>() / 180.0f) * duration.count() * std::chrono::system_clock::period::num / std::chrono::system_clock::period::den;
+			
+			m_lightStep += deltaTime * 1;
 
-			m_directionalLight.position = m_pCamera->GetPosition() + glm::vec3(
+			if (m_lightStep / 360.f >= 1.0f) m_lightStep = 0.0f;
+
+			float lightPosDegree = (m_lightStep * glm::pi<float>() / 180.0f);
+
+			m_directionalLight.position = glm::vec3(
 				glm::cos(lightPosDegree), 
 				glm::sin(lightPosDegree),
-				glm::sin(lightPosDegree + 90) / 2.0f);
+				glm::sin(lightPosDegree + RADIANS(90)) / 2.0f);
 
 			glm::vec3 position = m_pCamera->GetPosition(); //m_directionalLight.position;
 			glm::vec3 light_dir = m_directionalLight.direction;
@@ -118,14 +123,14 @@ namespace tactical
 
 			glm::mat4 lightView = glm::lookAt(//position, target, 
 				m_pCamera->GetPosition() + 
-				glm::normalize(m_directionalLight.position - m_pCamera->GetPosition()) * (1024.0f / 2.0f),
+				glm::normalize(m_directionalLight.position) * (2048.0f / 2.0f),
 											  m_pCamera->GetPosition(),
 											  glm::vec3(0.0f, 1.0f, 0.0f));
 
 			lightView = glm::rotate(glm::mat4(1.0f), glm::radians(m_pCamera->GetYaw()), glm::vec3(0.0f, 0.0f, 1.0f)) * lightView;
 			
-			float dimOrtho = 256.0f;
-			glm::mat4 lightProjection = glm::ortho(-dimOrtho, dimOrtho, -dimOrtho, dimOrtho, 1.0f, 1024.0f);
+			float dimOrtho = 512.0f;
+			glm::mat4 lightProjection = glm::ortho(-dimOrtho, dimOrtho, -dimOrtho, dimOrtho, 1.0f, 2048.0f);
 			glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 			
 			EnableShader("basic_light");
